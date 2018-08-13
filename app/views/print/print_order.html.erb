@@ -1,0 +1,679 @@
+<div style="text-align:right;padding:20px;background-color:black" onclick="pr()"><button>Print</button></div>
+<div class="box-a4-print" style="background-color:gray !important;padding-top:100px;padding-bottom:100px;";>
+  <div class="a4-print">
+    <style>
+
+      .a4-print{
+        width:21cm;
+        height:auto;
+        background-color: white;
+        margin: 0 auto;
+        padding: 1cm;
+        padding-top: 1.2cm;
+        line-height: 1.2;
+        font-size: 15px;
+      }
+      .text-center{
+        text-align: center;
+      }
+      .text-right{
+        text-align: right;
+      }
+      .text-title h3{
+        line-height: 0.5 !important;
+        font-weight:normal;
+        font-size: 1.5em !important;
+      }
+      .tab{
+        margin-left: 20px;
+      }
+      .line{
+        border-bottom: 0.06cm dotted;padding-left: 20px;
+      }
+      .bold{
+        /*font-weight: bold;*/
+      }
+      .row{
+        height:50px;
+      }
+      .row2{
+        height:25px;
+      }
+      .label{
+        width: auto;
+        padding-left: 7px;
+        padding-right: 7px;
+      }
+      .pull-left{
+        float: left;
+      }
+      .box{
+        border: 2px solid;width:13px;height:13px;box-shadow: 2px 2px 2px black;
+      }
+      .box2{
+        border: 2px solid;width:10px;height:10px;box-shadow: 1px 1px 1px black;
+      }
+      .staff-title{
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .sub-head-title{
+        font-size:11px;
+        line-height: 1.4;
+      }
+
+      /*td{border:1px solid;}*/
+
+      #rectangle{
+        width:30px;
+        height:30px;
+      }
+
+      @media print {
+        @page  {
+          size:A4;
+          margin: 0;
+        }
+
+
+
+      }
+
+
+        table td {
+          border: 1px solid;
+
+        }
+        table{
+          border-collapse: collapse;
+          width: 100%;
+
+        }
+        div{
+          width: 100%;
+        }
+    </style>
+
+    <h3 class="text-center" style="margin-top: -15px;"><strong>คำสั่งผลิต : บริษัท คณารักษ์ การ์เม้นท์ จำกัด</strong></h3>
+
+    <table style="width:100%" border="1px;" align="center">
+      <tr>
+        <td width="12%" style="text-align:center;vertical-align:center;">ลูกค้า</td>
+        <td width="26%"><strong style="padding:10px;"><%= @order.first_name %></strong></td>
+        <td width="12%" style="text-align:center;vertical-align:center;">พนง.ขาย</td>
+        <td width="18%"><strong style="padding:10px;"></strong></td>
+        <td width="12%" style="text-align:center;vertical-align:center;">เลขที่</td>
+        <td width="20%"><strong style="padding:10px;">PD-1510-1924</strong></td>
+      </tr>
+      <tr>
+        <td width="10%" style="text-align:center;vertical-align:center;">ผู้ติดต่อ</td>
+        <td width="28%"><strong style="padding:10px;"></strong></td>
+        <td colspan="2" rowspan="3" width="30%" style="text-align:left;">ประทับตรา</td>
+        <td width="10%" style="text-align:center;vertical-align:center;"><strong>วันที่สั่งผลิต</strong></td>
+        <td width="22%" style="text-align:center;"><strong style="padding:10px;"><%= DateTime.now.strftime("%d / %m / %Y") %></strong></td>
+      </tr>
+      <tr>
+        <td rowspan="2" width="10%" style="text-align:center;vertical-align:center;">หมายเหตุ</td>
+        <td width="28%"><strong style="padding:0px;"></strong></td>
+        <td width="10%" style="text-align:center;vertical-align:center;"><strong>กำหนดส่ง</strong></td>
+        <td width="22%" style="text-align:center;"><strong style="padding:10px;">ด่วน</strong></td>
+      </tr>
+      <tr>
+        <td width="26%"></td>
+        <td width="12%" style="text-align:center;vertical-align:center;">อนุมัติโดย</td>
+        <td width="20%"></td>
+      </tr>
+      <tr>
+        <td width="26%" colspan="4"></td>
+        <td width="12%" style="text-align:center;vertical-align:center;">จัดทำโดย</td>
+        <td width="20%" style="text-align:center;"><strong style="padding:10px;"></strong></td>
+      </tr>
+    </table>
+    <table style="width:100%;border: 0px; !important;margin-top: 10px;">
+      <tr>
+        <td width="49%" style="border: none">
+          <table style="width:100%;height:6.5cm;" border="1">
+            <tr>
+              <td width="14%" style="text-align:center">แบบ</td>
+              <td colspan="2" style="text-align:center" width="22%"><strong>หญิง</strong></td>
+              <td style="text-align:center" width="22%">ทรง</td>
+              <td style="text-align:center" width="22%"><strong>เข้ารูป</strong></td>
+              <td style="text-align:center" width="20%"></td>
+            </tr>
+            <tr>
+              <td style="text-align:center" width="14%">Size</td>
+              <td style="text-align:center" width="11%">อก</td>
+              <td style="text-align:center" width="11%">ยาว</td>
+              <td style="text-align:center" width="22%">จำนวนสั่ง</td>
+              <td style="text-align:center" width="22%">จำนวนตัด</td>
+              <td style="text-align:center" width="20%">สาป</td>
+            </tr>
+            <% @size_female.each do |female| %>
+                <tr>
+                  <td style="text-align:center" width="14%"><%= female[:name] %></td>
+                  <td style="text-align:center" width="11%"><%= female[:breast] %></td>
+                  <td style="text-align:center" width="11%"><%= female[:long] %></td>
+                  <td style="text-align:center" width="22%"><%= female[:amount] %></td>
+                  <td style="text-align:center" width="22%"></td>
+                  <td style="text-align:center" width="20%"></td>
+                  <!--<td rowspan="2" style="text-align:center" width="20%">ล้อมกรอบ</td>-->
+                </tr>
+            <% end %>
+            <tr>
+              <td style="text-align:center" width="14%"></td>
+              <td style="text-align:center" width="11%"></td>
+              <td style="text-align:center" width="11%"></td>
+              <td style="text-align:center" width="22%"></td>
+              <td style="text-align:center" width="22%"></td>
+              <td style="text-align:center" width="20%">รวม</td>
+            </tr>
+            <tr>
+              <td style="text-align:center" width="14%"></td>
+              <td style="text-align:center" width="11%"></td>
+              <td style="text-align:center" width="11%"></td>
+              <td style="text-align:center" width="22%"></td>
+              <td style="text-align:center" width="22%"></td>
+              <td style="text-align:center" width="20%"><%= @total_amount_female %></td>
+            </tr>
+          </table>
+        </td>
+        <td width="2%" style="border: none"></td>
+        <td width="49%" style="border: none">
+          <table style="width:100%;height:6.5cm;" border="1">
+          <tr>
+            <td width="14%" style="text-align:center">แบบ</td>
+            <td colspan="2" style="text-align:center" width="22%"><strong>ชาย</strong></td>
+            <td style="text-align:center" width="22%">ทรง</td>
+            <td style="text-align:center" width="22%"><strong>ตรง</strong></td>
+            <td style="text-align:center" width="20%"></td>
+          </tr>
+          <tr>
+            <td style="text-align:center" width="14%">Size</td>
+            <td style="text-align:center" width="11%">อก</td>
+            <td style="text-align:center" width="11%">ยาว</td>
+            <td style="text-align:center" width="22%">จำนวนสั่ง</td>
+            <td style="text-align:center" width="22%">จำนวนตัด</td>
+            <td style="text-align:center" width="20%">สาป</td>
+          </tr>
+            <% @size_male.each do |male| %>
+                <tr>
+                  <td style="text-align:center" width="14%"><%= male[:name] %></td>
+                  <td style="text-align:center" width="11%"><%= male[:breast] %></td>
+                  <td style="text-align:center" width="11%"><%= male[:long] %></td>
+                  <td style="text-align:center" width="22%"><%= male[:amount] %></td>
+                  <td style="text-align:center" width="22%"></td>
+                  <td style="text-align:center" width="20%"></td>
+                  <!--<td rowspan="2" style="text-align:center" width="20%">ล้อมกรอบ</td>-->
+                </tr>
+            <% end %>
+          <tr>
+            <td style="text-align:center" width="14%"></td>
+            <td style="text-align:center" width="11%"></td>
+            <td style="text-align:center" width="11%"></td>
+            <td style="text-align:center" width="22%"></td>
+            <td style="text-align:center" width="22%"></td>
+            <td style="text-align:center" width="20%">รวม</td>
+          </tr>
+          <tr>
+            <td style="text-align:center" width="14%"></td>
+            <td style="text-align:center" width="11%"></td>
+            <td style="text-align:center" width="11%"></td>
+            <td style="text-align:center" width="22%"></td>
+            <td style="text-align:center" width="22%"></td>
+            <td style="text-align:center" width="20%"><%= @total_amount_male %></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table>
+
+    <table style="width:90%;margin-top: 10px;" border="1">
+      <tr>
+        <td height="30" style="text-align:center;height:22px;">ประเภทงาน</td>
+        <td style="text-align:center;height:22px;">เสื้อโปโล</td>
+        <td style="text-align:center;">ระดับคุณภาพ</td>
+        <td style="text-align:center;">งานเน้นคุณภาพ</td>
+        <td style="text-align:center;">รวม</td>
+        <td style="text-align:center;"><%= @total_amount %></td>
+        <td style="text-align:center;">ตัว</td>
+      </tr>
+    </table>
+
+    <table style="width:100%;margin-top: 10px;" border="1">
+      <tr>
+        <td style="width:5%;text-align:center;vertical-align: middle;" rowspan="3">ผ้า</td>
+        <td style="width:47%;text-align:center">เส้นใย - เบอร์ด้าย - ลายผ้า - หน้าผ้า - ความหนา</td>
+        <td style="width:47%;text-align:center">สีผ้า - เบอร์สี - ผู้จำหน่าย</td>
+      </tr>
+      <tr>
+        <td height="22" style="text-align:center"><%= @texture[0][:name] %></td>
+        <td style="text-align:center"><%= @texture[0][:name] %></td>
+      </tr>
+      <tr>
+        <td height="22" style="text-align:center"></td>
+        <td style="text-align:center"></td>
+      </tr>
+    </table>
+
+    <table width="100%" style="height:auto;margin-top: 10px;">
+      <tr>
+        <td style="border: none;" width="55%">
+          <table style="width:100%;height: 100px;" border="1">
+            <tr>
+              <td height=30; width="10%" style="text-align:center;vertical-align: middle;">แขน</td>
+              <td width="40%" style="text-align:center;vertical-align: middle;">ตัดต่อผ้า</td>
+              <td width="10%" style="text-align:center;vertical-align: middle;">ชาย</td>
+              <td colspan="2" with="40%" style="text-align:center;vertical-align: middle;">ผ่าเสมอ</td>
+            </tr>
+            <tr>
+              <td width="10%" style="text-align:center;vertical-align: middle;">คิ้ว</td>
+              <td width="40%" style="text-align:center;vertical-align: middle;"></td>
+              <td width="10%" style="text-align:center;vertical-align: middle;">ป้าย</td>
+              <td colspan="2" with="40%" style="text-align:center;vertical-align: middle;"></td>
+            </tr>
+            <tr>
+              <td width="10%" style="text-align:center;vertical-align: middle;">กระดุม</td>
+              <td width="40%" style="text-align:center;vertical-align: middle;"></td>
+              <td width="10%" style="text-align:center;vertical-align: middle;">จำนวน</td>
+              <td width="20%" style="text-align:center;vertical-align: middle;"></td>
+              <td width="20%" style="text-align:center;vertical-align: middle;"></td>
+            </tr>
+          </table>
+        </td>
+        <td style="border: none;" width="2.5%"></td>
+        <td style="border: none" width="20%">
+          <table style="width:100%;height: 100px" border="1">
+            <tr>
+              <td height="30" style="text-align:center;vertical-align:middle">#ใบสั่งปก</td>
+              <td style="text-align:center;vertical-align: middle">xxxx-xx</td>
+            </tr>
+            <tr>
+              <td height="30" colspan="2" style="text-align:center;vertical-align: middle;"></td>
+            </tr>
+            <tr>
+              <td height="30" colspan="2" style="text-align:center;vertical-align: middle;"></td>
+            </tr>
+          </table>
+        </td>
+        <td style="border: none;" width="2.5%"></td>
+        <td style="border: none" width="20%">
+          <table style="width:100%;height:100px;" border="1">
+            <tr>
+              <td style="text-align:center;vertical-align: middle;">ตำแหน่งปัก/พิมพ์</td>
+              <td style="text-align:center;vertical-align: middle;">โดย</td>
+            </tr>
+            <tr>
+              <td height="30" style="text-align:center;vertical-align: middle;">ปักอกขวา</td>
+              <td style="text-align:center;vertical-align: middle;"></td>
+            </tr>
+            <tr>
+              <td height="30" style="text-align:center;vertical-align: middle;">ปักหลัง</td>
+              <td style="text-align:center;vertical-align: middle;"></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%;margin-top: 10px">
+      <tr>
+        <td width="30%" style="border:none">
+          <table style="width:100%">
+            <tr>
+              <td colspan="3" height="120px;" align="center">
+                <% @logo.each do |logo| %>
+                    <% if logo[:name] == 'logo_front_r' %>
+                        <%= image_tag(logo[:img_path],style:"width:150px;max-height:100px") %>
+                    <% end %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td width="40%" style="text-align: center;border-right: none;">
+                <% @logo.each do |logo| %>
+                    <% if logo[:name] == 'logo_front_r' %>
+                        กว้าง <%= logo[:width] %> ซ.ม
+                    <% end %>
+                <% end %>
+              </td>
+              <td width="40%" style="text-align: center;border-left:none;border-right: none;">
+                <% @logo.each do |logo| %>
+                    <% if logo[:name] == 'logo_front_r' %>
+                        สูง <%= logo[:height] %> ซ.ม
+                    <% end %>
+                <% end %>
+              </td>
+              <td style="text-align: center;border-left: none;">
+                <% @logo.each do |logo| %>
+                    <% if logo[:name] == 'logo_front_r' %>
+                        <%= logo[:color_number] %> สี
+                    <% end %>
+                <% end %>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td width="2%" style="border:none"></td>
+        <td width="30%" style="border:none">
+          <table style="width:100%">
+            <tr>
+              <td colspan="3" height="120px;">
+              </td>
+            </tr>
+            <tr>
+              <Td width="40%" style="text-align: center;border-right: none;">กว้าง x ซ.ม</td>
+              <Td width="40%" style="text-align: center;border-left:none;border-right: none;">สูง x ซ.ม </td>
+              <Td style="text-align: center;border-left: none;">x สี</td>
+            </tr>
+          </table>
+        </td>
+        <td width="2%" style="border:none"></td>
+        <td style="border:none">
+          <table style="width:100%">
+            <tr>
+              <td colspan="3" height="120px;" style="padding:20px">
+                <%= @texture[0][:name] %>
+                <%= image_tag(@texture[0][:img] ,style:"width:100px;height:100px") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>f
+    </table>
+
+    <table style="width: 100%;margin-top: 10px;">
+      <tr>
+        <td style="width: 48%;border: none;">
+          <table width="100%" height="350px;">
+            <tr>
+              <td style="padding:20px" align="center">
+                <%= image_tag( @order.stuff_img.url(),style:"width:300px") %>
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td style="width: 2%;border: none;"></td>
+        <td style="width: 48%;border: none;">
+          <table width="100%" height="350px;">
+            <tr>
+              <td></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <div style="padding-top:50px;">
+      <h3 class="text-center"><strong>ใบสั่งปก : บริษัท คณารักษ์ การ์เม้นท์ จำกัด</strong></h3>
+    </div>
+
+    <table style="width: 100%;margin-top: 10px;">
+      <tr>
+        <td style="width: 38%;border: none;">
+          <table style="width:100%;height:20px" border="1">
+            <tr>
+              <td height="25" width="20%" style="text-align:center;vertical-align: middle;"><span>ถึงคุณ</span></td>
+              <td height="25" width="30%"></td>
+              <td height="25" width="20%" style="text-align:center;vertical-align: middle;"><span>มือถือ</span></td>
+              <td height="25" width="30%"></td>
+            </tr>
+          </table>
+
+          <table style="width:100%;height:25px;margin-top:10px;" border="1">
+            <tr>
+              <td height="25" width="20%" style="text-align:center;vertical-align: middle;"><span>บริษัท</span></td>
+              <td height="25" width="80%" style="text-align:center;vertical-align: middle;"><span></span></td>
+            </tr>
+          </table>
+        </td>
+        <td style="width: 3%;border: none;"></td>
+        <td style="width: 38%;border: none;">
+          <table style="width:100%;height:25px" border="1">
+            <tr>
+              <td height="25" width="20%" style="text-align:center;vertical-align: middle;"><span>จาก</span></td>
+              <td height="25" width="30%"></td>
+              <td height="25" width="20%" style="text-align:center;vertical-align: middle;"><span>มือถือ</span></td>
+              <td height="25" width="30%"></td>
+            </tr>
+          </table>
+          <table style="width:100%;height:25px;margin-top:10px;" border="1">
+            <tr>
+              <td height="25" width="20%" style="text-align:center;vertical-align: middle;"><span>โทร</span></td>
+              <td height="25" width="30%" style="text-align:center;vertical-align: middle;"><span>xx-xxx-xxxx</span></td>
+              <td height="25" width="20%" style="text-align:center;vertical-align: middle;"><span>แฟกซ์</span></td>
+              <td height="25" width="30%" style="text-align:center;vertical-align: middle;"><span>xx-xxx-xxxx</span></td>
+            </tr>
+          </table>
+        </td>
+        <td style="width: 3%;border: none;"></td>
+        <td style="width: 28%;border: none;">
+          <table style="width:100%;height:25px" border="1">
+            <tr>
+              <td height="25" width="30%" style="text-align:center;vertical-align: middle;"><span>เลขที่</span></td>
+              <td height="25" width="70%" style="text-align:center;vertical-align: middle;"><span><strong></strong></span></td>
+            </tr>
+          </table>
+          <table style="width:100%;height:25px;margin-top:10px" border="1">
+            <tr>
+              <td height="25" width="30%" style="text-align:center;vertical-align: middle;"><span>วันที่</span></td>
+              <td height="25" width="70%" style="text-align:center;vertical-align: middle;"><span><strong><%= DateTime.now.strftime('%d / %m / %y') %></strong></span></td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <table style="margin-top: 10px;width: 90%">
+      <tr>
+        <td style="border: none;width: 50%">
+          <div id="rectangle" style="border:2px solid black;float:left;margin-top:10px;"></div>
+          <div style="float:left;text-align:center;width:2.6cm;height:30px;margin-top:10px;">
+            <span style="font-size:20px;">สั่งปก</span>
+          </div>
+          <div id="rectangle" style="border:2px solid black;float:left;margin-top:10px;"></div>
+          <div style="float:left;text-align:center;width:4cm;height:30px;margin-top:10px;">
+            <span style="font-size:20px;">ขอตัวอย่างปก</span>
+          </div>
+        </td>
+        <td style="border: none;width: 40%">
+          <table style="width:100%;margin-top:10px;" border="1">
+            <tr>
+              <td height="30" width="20%" style="text-align:center;vertical-align: middle;"><span>งาน</span></td>
+              <td height="30" width="80%" style="text-align:center;vertical-align: middle;">
+              <span style="font-size:16px;">
+                <strong></strong>
+              </span>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%;height: 200px;margin-top: 10px;" align="center">
+      <tr>
+        <td height="200px" style="
+            border-left: none;
+            border-top: none;
+            border-bottom: none;
+        ">
+          &nbsp;
+        </td>
+
+        </td>
+        <td height="200px" width="80%">
+
+        </td>
+        <td height="200px" style="
+            border-right: none;
+            border-top: none;
+            border-bottom: none;
+        ">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%;margin-top: 10px;" align="center">
+      <tr>
+        <td style="border: none"></td>
+        </td>
+        <td width="80%" style="border:none;">
+          <table style="width:100%;margin-top:20px;" border="0px;">
+            <tr>
+              <td style="text-align:left;border: none;">1</td>
+              <td width="14%" style="text-align:center;;border: none;">x</td>
+              <td style="text-align:center;;border: none;">ขนาด</td>
+              <td width="14%" style="text-align:center;;border: none;">xx/x</td>
+              <td style="text-align:center;;border: none;">x</td>
+              <td width="14%" style="text-align:center;;border: none;">xx</td>
+              <td style="text-align:center;;border: none;">จำนวน</td>
+              <td width="14%" style="text-align:center;border: none;">xx/x</td>
+              <td style="text-align:right;;border: none;">โหล</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;border: none;">2</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">ขนาด</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">x</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">จำนวน</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:right;border: none;">โหล</td>
+            </tr>
+          </table>
+        </td>
+        <td style="border: none"></td>
+      </tr>
+    </table>
+
+
+    <table style="width: 100%;height: 200px;margin-top: 10px;" align="center">
+      <tr>
+        <td height="200px" style="
+        border-left: none;
+            border-top: none;
+            border-bottom: none;
+        ">
+          &nbsp;
+        </td>
+
+        </td>
+        <td height="200px" width="80%">
+
+        </td>
+        <td height="200px" style="
+        border-right: none;
+            border-top: none;
+            border-bottom: none;
+        ">
+          &nbsp;
+        </td>
+      </tr>
+    </table>
+
+    <table style="width: 100%;margin-top: 10px;" align="center">
+      <tr>
+        <td style="border: none"></td>
+        </td>
+        <td width="80%" style="border:none;">
+          <table style="width:100%;margin-top:20px;" border="0px;">
+            <tr>
+              <td style="text-align:left;border: none;">1</td>
+              <td width="14%" style="text-align:center;border: none;"></td>
+              <td style="text-align:center;;border: none;">ขนาด</td>
+              <td width="14%" style="text-align:center;border: none;"></td>
+              <td style="text-align:center;;border: none;">x</td>
+              <td width="14%" style="text-align:center;border: none;"></td>
+              <td style="text-align:center;;border: none;">จำนวน</td>
+              <td width="14%" style="text-align:center;border: none;"></td>
+              <td style="text-align:right;;border: none;">โหล</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;border: none;">2</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">ขนาด</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">x</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">จำนวน</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:right;border: none;">โหล</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;border: none;">3</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">ขนาด</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">x</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">จำนวน</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:right;border: none;">โหล</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;border: none;">4</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">ขนาด</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">x</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">จำนวน</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:right;border: none;">โหล</td>
+            </tr>
+            <tr>
+              <td style="text-align:left;border: none;">5</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">ขนาด</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">x</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:center;border: none;">จำนวน</td>
+              <td style="text-align:center;border: none;"></td>
+              <td style="text-align:right;border: none;">โหล</td>
+            </tr>
+            ธนศักดิ์   </table>
+        </td>
+        <td style="border: none"></td>
+      </tr>
+    </table>
+
+    <table style="width:100%;margin-top:30px;">
+      <Tr>
+        <td style="width: 30%">
+          <div style="float:left;border:0px solid red;padding-top:0px;width:100%;height:2.5cm;">
+            <div style="width:100%;text-align:center;margin-top:5px;"><span style="font-size:14px;">จัดเตรียมโดย</span></div>
+            <div style="width:100%;height:30px;text-align:center;margin-top:10px;"><span style="font-size:20px;"></span></div>
+            <div style="width:100%;text-align:center;margin-top:5px;"><span style="font-size:14px;"> <%= DateTime.now.strftime('%d / %m /%y') %></span></div>
+          </div>
+        </td>
+        <td style="border: none;">
+          <div style="float:left;border:0px solid red;padding-top:0px;width:100%;height:2.5cm;">
+            <h1 style="margin-top:40px;padding:3px;width: 100%;text-align: center;"> !! รบกวนขอด่วนครับ !!</h1>
+          </div>
+        </td>
+        <td style="width: 30%">
+          <div style="float:left;border:0px solid red;padding-top:0px;width:100%;height:2.5cm;">
+            <div style="width:100%;text-align:center;margin-top:5px;"><span style="font-size:14px;">อนุมัติโดย</span></div>
+            <div style="width:100%;height:30px;text-align:center;margin-top:10px;"><span style="font-size:20px;"></span></div>
+            <div style="width:100%;text-align:center;margin-top:5px;"><span style="font-size:14px;">..../..../....</span></div>
+          </div>
+        </td>
+      </Tr>
+    </table>
+
+    </div>
+
+    <script>
+      function pr(){
+        var divToPrint= $('.box-a4-print').html()
+        var newWin=window.open('','Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html> <body onload="window.print()">' +  divToPrint +'</body></html>');
+        newWin.document.close();
+        setTimeout(function(){newWin.close();},10);
+      }
+    </script>
+
+</div>

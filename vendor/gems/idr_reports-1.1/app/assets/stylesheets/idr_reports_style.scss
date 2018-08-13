@@ -1,0 +1,76 @@
+@import "A4.scss";
+@import "fonts.scss";
+@import "helpers.scss";
+
+.idr-reports {
+  background-color: gray;
+  //font-family: 'THSarabunNew';
+  font-size:13px !important;
+}
+* {
+  font-size:13px !important;
+}
+.original-page{
+  font-family: 'Times New Roman';
+  @extend .A4;
+}
+.toolbar{
+  height:60px;
+  background-color: black;
+  position: relative;
+  margin-bottom: 30px;
+}
+.inner-toolbar{
+  width:100%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+.title{
+  color: white;
+  font-size:1.2em;
+  float:left;
+  padding-left:30px;
+}
+.cmd-btn{
+  padding-right:30px;
+}
+.btn-print{
+  padding: 7px 20px 7px 20px;
+  float: right;
+  margin-left: 10px;
+  background: white;
+  border-radius:5px;
+}
+.page{
+  padding-top: 5px;
+  padding-bottom: 5px
+}
+.page-size{
+    @extend .original-page;
+}
+.inner-page{
+  padding:20px
+}
+@media print{
+  @page {
+       size:A4;
+       margin: 0;
+  }
+  .toolbar{
+    display: none;
+  }
+  .page{
+    background-color: white;
+    padding: 0px !important;
+  }
+  .page-size{
+    margin: 0px auto ;
+  }
+  .footer-page{
+    page-break-after: always;
+  }
+}

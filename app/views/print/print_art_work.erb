@@ -1,0 +1,97 @@
+<!-- style to render -->
+<style>
+  .a4-print{
+    width:21cm;
+    height:29.3cm;
+    background-color: white;
+    margin: 0 auto;
+    padding: 1cm;
+    padding-top: 1.2cm;
+    line-height: 1.2;
+    font-size: 15px;
+    margin-bottom: 30px;
+
+  }
+  .text-title h3{
+    line-height: 0.5 !important;
+    font-weight:normal;
+    font-size: 1.5em !important;
+  }
+
+  /*td{border:1px solid;}*/
+  td{padding-top: 10px;padding-bottom: 10px;    vertical-align: top;white-space: nowrap;}
+
+  table{
+    vertical-align: top;
+    width: 100%;
+    font-size: 16px;
+    margin-bottom: 0px;
+
+  }
+  @media print {
+    @page  {
+      size:A4;
+      margin: 0;
+    }
+
+  }
+  .art_work_preview{
+    margin-top: 50px;
+  }
+</style>
+
+
+<div style="text-align:right;padding:20px;background-color:black" onclick="pr()"><button type="button" class="btn btn-success btn-lg btn-block">Print Art Work</button></div>
+<!-- box to render print   -->
+<div class="box-a4-print" style="background-color:gray !important;padding-top:100px;padding-bottom:100px;";>
+  <div class="a4-print" align="center">
+    <%= image_tag "print/hi_res_ipolo_logo.png" ,style:"width:150px"%>
+    <div class="art_work_preview">
+      <canvas width="1600" height="800" name="tmp_canvas" id="tmp_canvas" class="canvas_size_custom" style="width: 100%;display: none;"></canvas>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+
+  function pr(){
+    var divToPrint= $('.box-a4-print').html()
+    var newWin=window.open('','Print-Window');
+    newWin.document.open();
+    newWin.document.write('<html> <body onload="window.print()">' +  divToPrint +'</body></html>');
+    newWin.document.close();
+    setTimeout(function(){newWin.close();},500);
+  }
+
+  $(document).ready(function(){
+
+    var canvas_tmp = document.getElementById("tmp_canvas");
+    var tmpContext = canvas_tmp.getContext('2d');
+
+    var logoImg = new Image;
+    logoImg.onload = function() {
+
+      tmpContext.clearRect(0, 0, canvas_tmp.width, canvas_tmp.height);
+      tmpContext.drawImage(logoImg,0,0,1600,800);
+
+      var art_work = new Image;
+      art_work.onload = function() {
+        tmpContext.drawImage(art_work,0,0,1600,800);
+
+        var image = new Image();
+        image.onload = function() {
+          $(".art_work_preview").append("<img src='"+image.src+"' style='width: 100%'>");
+        }
+        image.src = canvas_tmp.toDataURL("image/png");
+
+      }
+      art_work.src = "<%= asset_path 'print/water_mask' %>" ;
+
+    }
+    logoImg.src = "<%= params[:img_base_64] %>";
+
+  });
+
+</script>

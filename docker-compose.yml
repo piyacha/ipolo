@@ -1,0 +1,63 @@
+version: '2'
+services:
+  web:
+    # build: .
+    image: 'ideractive/ipolo:latest'
+    # command: bash -c ''bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb''
+    command: 'bundle exec puma -C config/puma.rb'
+    # command: 'bundle exec rails s -p 3000 -b ''0.0.0.0'''
+    working_dir: /app
+    environment:
+      SECRET_KEY_BASE: aa89a3fe86780a087166420560f0951ef777ed2450922b05139a70b04143e59d4ab5623c16b1859464e76c0d736093767ba7433484d2759452851aeaa154dfbe
+      PORT: 8080
+      # DATABASE_URL: 'mongodb:27017'
+    volumes:
+      - .:/app
+    ports:
+      # - '8080:8080'
+      - '${RAILS_PORT}:8080'
+    # links:
+    #   - mongodb
+    restart: always
+
+  webdev:
+    # build: .
+    # command: bash -c ''bundle exec rake assets:precompile && bundle exec puma -C config/puma.rb''
+    # command: 'bundle exec puma -C config/puma.rb'
+    image: 'ideractive/ipolo:latest'
+    command: 'bundle exec rails s -p 3000 -b ''0.0.0.0'''
+    working_dir: /app
+    environment:
+      SECRET_KEY_BASE: aa89a3fe86780a087166420560f0951ef777ed2450922b05139a70b04143e59d4ab5623c16b1859464e76c0d736093767ba7433484d2759452851aeaa154dfbe
+      PORT: 3000
+      # DATABASE_URL: 'mongodb:27017'
+    volumes:
+      - .:/app
+    ports:
+      # - '8080:8080'
+      - '${RAILS_PORT}:3000'
+    # links:
+    #   - mongodb
+    restart: always
+
+  shell:
+    # build: .
+    image: 'ideractive/ipolo:latest'
+    command: bash
+    working_dir: /app
+    environment:
+      SECRET_KEY_BASE: aa89a3fe86780a087166420560f0951ef777ed2450922b05139a70b04143e59d4ab5623c16b1859464e76c0d736093767ba7433484d2759452851aeaa154dfbe
+      PORT: 8080
+      # DATABASE_URL: 'mongodb:27017'
+    volumes:
+      - .:/app
+    ports:
+      - '${RAILS_PORT}:8080'
+    # links:
+    #   - mongodb
+    volumes:
+      - '.:/app'
+  # mongodb:
+  #   image: mongo
+    # volumes:
+    #   - ./mongodb:/data/db

@@ -1,0 +1,13 @@
+class AdminUser < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  belongs_to :group_role
+
+  devise :database_authenticatable, 
+         :recoverable, :rememberable, :trackable, :validatable
+
+  def self.enable_access_control
+    true
+  end
+
+end

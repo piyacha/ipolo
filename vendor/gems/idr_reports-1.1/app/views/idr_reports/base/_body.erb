@@ -1,0 +1,18 @@
+
+<% if @enable_header == true %>
+  <%= render "idr_reports/base/header" %>
+<% end %>
+
+  <div class="page">
+    <% @varible.each do |obj| %>
+      <div class="page-size">
+        <%= render @patial_name, :obj => obj  %>
+      </div>
+      <!-- footer-page use for cut page -->
+      <div class="footer-page"></div>
+    <%end%>
+  </div>
+
+<% if @enable_header == true %>
+  <%= render "idr_reports/base/footer" %>
+<% end %>

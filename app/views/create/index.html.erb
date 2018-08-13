@@ -1,0 +1,315 @@
+<!-----------  ColorBar  ------------->
+<div class="create-color-bar" id="create-color-bar">
+    <div class="row">
+        <!------------- Stuff Textures ------------->
+        <div class="col-xs-12">
+            <div class="pull-left" style="vertical-align: middle;font-size:1.4em;padding-left: 20px;">เนื้อผ้า</div>
+            <div class="pull-left" style="vertical-align: middle;padding-left: 6px;" id="create-guide-1">
+                <div id="texture-picker"></div>
+            </div>
+            <!------------- Stuff colors ------------->
+            <div id="color-picker-render-label" class="pull-left" style="display: none; vertical-align: middle; font-size:1.4em;padding-left: 20px">สี</div>
+            <!------------- Start DropDown ------------->
+            <div class="pull-left color-picker-render" id="color-picker-render-1" style="display: none;">
+                <button type="button" class="btn btn-default dropdown-toggle btn-color-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    &nbsp;
+                </button>
+                <div class="dropdown-menu custom-dropdown-menu" id="color-picker">
+                    <div class="dropdown-divider"></div>
+                </div>
+            </div>
+            <!------------- End Dropdown ------------->
+            <!------------- Start DropDown ------------->
+            <div class="pull-left color-picker-render" id="color-picker-render-2" style="display: none;">
+                <button type="button" class="btn btn-default dropdown-toggle btn-color-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    &nbsp;
+                </button>
+                <div class="dropdown-menu custom-dropdown-menu" id="color-picker-2">
+                    <div class="dropdown-divider"></div>
+                </div>
+            </div>
+
+            <!------------- End Dropdown ------------->
+            <div class="pull-left color-picker-render" id="color-picker-render-3" style="display: none;">
+                <button type="button" class="btn btn-default dropdown-toggle btn-color-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    &nbsp;
+                </button>
+                <div class="dropdown-menu custom-dropdown-menu" id="color-picker-3">
+                    <div class="dropdown-divider"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pull-right">
+            <div class="create-admin-user">
+                <% if current_admin_user %>
+                <span class="glyphicon glyphicon-user" style="margin-right: 5px;"></span><%= current_admin_user.username %>
+                <input type="text" id="current_admin_user_email" value="<%= current_admin_user.email %>" style="display: none;">
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overlay"></div>
+
+<div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    เลือกแบบเสื้อ
+                </a>
+            </li>
+            <% @stuffType.each do |type| %>
+                <%if type.stuff_type_img %>
+                <li class="create_li_menu" onclick="checkNav('<%= type.name %>','<%= type.id %>')">
+                    <div class='stuff-inline stuff-type-left'>
+                        <div class="stuff-type-left-img stuff-type-icon-left" style="background-image:url(<%= type.stuff_type_img.url(:thumb);%>);background-size: contain;background-repeat: no-repeat;"></div>
+                        <div class="cursor-arrow" value="<%= type.id %>"></div>
+                    </div>
+                    <div class='stuff-inline stuff-pick-right stuff-intersection-right' value="<%= type.id %>">
+                        <div class="stuff-type-left-img stuff-pick-invert-color stuff-type-right-img stuff-type-icon-right" value="<%= type.id %>"></div>
+                    </div>
+                </li>
+                <% end %>
+            <% end %>
+        </ul>
+
+    </div>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <div class="container-fluid">
+
+            <div class="create-plus-icon">
+                <%= image_tag("create/plus_icon.png", width: '30px', height: '30px') %>
+            </div>
+            <div class="create-cancel-icon" style="display: none;">
+                <%= image_tag("create/cancel_icon.png", width: '20px', height: '20px') %>
+            </div>
+
+            <!-----------  SideBar  ------------->
+            <div id="subSlideBar" class="sidenav">
+                <div id="subBarMenu"></div>
+            </div>
+            <div class="workspace row">
+                <div class="col-lg-12 create-canvas-panel" align="center">
+
+                    <div id="loading_gif" style="display: none;">
+                        <svg width='100px' height='100px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-balls">
+                            <rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect>
+                            <g transform="rotate(0 50 50)">
+                                <circle r="5" cx="30" cy="50">
+                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"/>
+                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#c5523f;#f2b736"/>
+                                </circle>
+                            </g>
+                            <g transform="rotate(72 50 50)">
+                                <circle r="5" cx="30" cy="50">
+                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"/>
+                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#f2b736;#499255"/>
+                                </circle>
+                            </g>
+                            <g transform="rotate(144 50 50)">
+                                <circle r="5" cx="30" cy="50">
+                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"/>
+                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#499255;#1875e5"/>
+                                </circle>
+                            </g>
+                            <g transform="rotate(216 50 50)">
+                                <circle r="5" cx="30" cy="50">
+                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"/>
+                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#1875e5;#c5523f"/>
+                                </circle>
+                            </g>
+                            <g transform="rotate(288 50 50)">
+                                <circle r="5" cx="30" cy="50">
+                                    <animateTransform attributeName="transform" type="translate" begin="0s" repeatCount="indefinite" dur="1s" values="0 0;13.819660112501051 -19.02113032590307" keyTimes="0;1"/>
+                                    <animate attributeName="fill" dur="1s" begin="0s" repeatCount="indefinite" keyTimes="0;1" values="#c5523f;#f2b736"/>
+                                </circle>
+                            </g>
+                        </svg>
+                    </div>
+
+                    <canvas width="1600" height="800" name="order_canvas" id="order_canvas" class="canvas_size_custom" data-water-mask="<%= asset_path 'print/water_mask.png' %>"></canvas><br>
+
+                    <canvas width="1600" height="800" name="tmp_canvas" id="tmp_canvas" class="canvas_size_custom" style="display: none;"></canvas>
+                    <!--<a target="_blank" href="/print_art_work">-->
+                    <!--<button type="button" data-toggle="modal" id="print_art_work"> ปริ้นตัวอย่าง </button>-->
+                    <!--</a>-->
+
+                </div>
+            </div>
+
+            <form action="/print_art_work" id="form_print" method="post" target="_blank">
+                <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+                <input id="img_base_64" name="img_base_64" type="text" style="display: none;"/>
+
+                <input class="btn btn-default btn-lg btn_order" name="commit" type="submit" value="Print Artwork"/>
+                <a href="#" class="btn btn-default btn-lg btn_order make_order" align="center" id="make_order">
+                    MAKE ORDER ( GET QUOTATION )
+                </a>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<div class="stuff_preview_right">
+
+    <div class="stuff_preview_right_header texture_preview_header">
+        <div class="row">
+            <div style="display: inline-block;" class="stuff_texture_preview_img" id="stuff_texture_preview_img"></div>
+            <div style="display: inline-block;">เนื้อผ้า</div>
+            <div style="display: inline-block;" class="stuff_texture_preview_name" id="stuff_texture_preview_name"></div>
+            <div class="create-extened-tab-icon">
+                &#43;
+            </div>
+        </div>
+    </div>
+    <div class="stuff_texture_preview" id="stuff_texture_preview" style="display: none;">
+        <div class="calculate_price_padding">
+            <div class="calculate_header">
+                <div id="stuff_texture_preview_desc"></div>
+                <div class="hr"></div>
+            </div>
+            <div class="calculate_body">
+                <!-- texture flexible -->
+                <div class="col-xs-6" style="padding: 0px">
+                    ความยืดหยุ่น
+                </div>
+                <div class="col-xs-6" style="padding: 0px">
+                    <fieldset class="rating">
+                        <input type="radio" id="flexible_star5" name="flexible_rating" value="5" checked disabled="disabled"/>
+                        <label class="full" for="flexible_star5" title="Awesome - 5 stars"></label>
+                        <input type="radio" id="flexible_star4half" name="flexible_rating" value="4 and a half" disabled="disabled"/>
+                        <label class="half" for="flexible_star4half" title="Pretty good - 4.5 stars"></label>
+                        <input type="radio" id="flexible_star4" name="flexible_rating" value="4" disabled="disabled"/>
+                        <label class="full" for="flexible_star4" title="Pretty good - 4 stars"></label>
+                        <input type="radio" id="flexible_star3half" name="flexible_rating" value="3 and a half" disabled="disabled"/>
+                        <label class="half" for="flexible_star3half" title="Meh - 3.5 stars"></label>
+                        <input type="radio" id="flexible_star3" name="flexible_rating" value="3" disabled="disabled"/>
+                        <label class="full" for="flexible_star3" title="Meh - 3 stars"></label>
+                        <input type="radio" id="flexible_star2half" name="flexible_rating" value="2 and a half" disabled="disabled"/>
+                        <label class="half" for="flexible_star2half" title="Kinda bad - 2.5 stars"></label>
+                        <input type="radio" id="flexible_star2" name="flexible_rating" value="2" disabled="disabled"/>
+                        <label class="full" for="flexible_star2" title="Kinda bad - 2 stars"></label>
+                        <input type="radio" id="flexible_star1half" name="flexible_rating" value="1 and a half" disabled="disabled"/>
+                        <label class="half" for="flexible_star1half" title="Meh - 1.5 stars"></label>
+                        <input type="radio" id="flexible_star1" name="flexible_rating" value="1" disabled="disabled"/>
+                        <label class="full" for="flexible_star1" title="Sucks big time - 1 star"></label>
+                        <input type="radio" id="flexible_starhalf" name="flexible_rating" value="half" disabled="disabled"/>
+                        <label class="half" for="flexible_starhalf" title="Sucks big time - 0.5 stars"></label>
+                    </fieldset>
+                </div>
+
+                <!-- texture thick -->
+                <div class="col-xs-6" style="padding: 0px">
+                    ความหนา
+                </div>
+                <div class="col-xs-6" style="padding: 0px">
+                    <fieldset class="rating">
+                        <input type="radio" id="thick_star5" name="thick_rating" value="5" checked disabled="disabled"/>
+                        <label class="full" for="thick_star5" title="Awesome - 5 stars"></label>
+                        <input type="radio" id="thick_star4half" name="thick_rating" value="4 and a half" disabled="disabled"/>
+                        <label class="half" for="thick_star4half" title="Pretty good - 4.5 stars"></label>
+                        <input type="radio" id="thick_star4" name="thick_rating" value="4" disabled="disabled"/>
+                        <label class="full" for="thick_star4" title="Pretty good - 4 stars"></label>
+                        <input type="radio" id="thick_star3half" name="thick_rating" value="3 and a half" disabled="disabled"/>
+                        <label class="half" for="thick_star3half" title="Meh - 3.5 stars"></label>
+                        <input type="radio" id="thick_star3" name="thick_rating" value="3" disabled="disabled"/>
+                        <label class="full" for="thick_star3" title="Meh - 3 stars"></label>
+                        <input type="radio" id="thick_star2half" name="thick_rating" value="2 and a half" disabled="disabled"/>
+                        <label class="half" for="thick_star2half" title="Kinda bad - 2.5 stars"></label>
+                        <input type="radio" id="thick_star2" name="thick_rating" value="2" disabled="disabled"/>
+                        <label class="full" for="thick_star2" title="Kinda bad - 2 stars"></label>
+                        <input type="radio" id="thick_star1half" name="thick_rating" value="1 and a half" disabled="disabled"/>
+                        <label class="half" for="thick_star1half" title="Meh - 1.5 stars"></label>
+                        <input type="radio" id="thick_star1" name="thick_rating" value="1" disabled="disabled"/>
+                        <label class="full" for="thick_star1" title="Sucks big time - 1 star"></label>
+                        <input type="radio" id="thick_starhalf" name="thick_rating" value="half" disabled="disabled"/>
+                        <label class="half" for="thick_starhalf" title="Sucks big time - 0.5 stars"></label>
+                    </fieldset>
+                </div>
+
+                <!-- texture velvety -->
+                <div class="col-xs-6" style="padding: 0px">
+                    ความนุ่ม
+                </div>
+                <div class="col-xs-6" style="padding: 0px">
+                    <fieldset class="rating">
+                        <input type="radio" id="velvety_star5" name="velvety_star5" value="5" checked disabled="disabled"/>
+                        <label class="full" for="velvety_star5" title="Awesome - 5 stars"></label>
+                        <input type="radio" id="velvety_star4half" name="velvety_star5" value="4 and a half" disabled="disabled"/>
+                        <label class="half" for="velvety_star4half" title="Pretty good - 4.5 stars"></label>
+                        <input type="radio" id="velvety_star4" name="velvety_star5" value="4" disabled="disabled"/>
+                        <label class="full" for="velvety_star4" title="Pretty good - 4 stars"></label>
+                        <input type="radio" id="velvety_star3half" name="velvety_star5" value="3 and a half" disabled="disabled"/>
+                        <label class="half" for="velvety_star3half" title="Meh - 3.5 stars"></label>
+                        <input type="radio" id="velvety_star3" name="velvety_star5" value="3" disabled="disabled"/>
+                        <label class="full" for="velvety_star3" title="Meh - 3 stars"></label>
+                        <input type="radio" id="velvety_star2half" name="velvety_star5" value="2 and a half" disabled="disabled"/>
+                        <label class="half" for="velvety_star2half" title="Kinda bad - 2.5 stars"></label>
+                        <input type="radio" id="velvety_star2" name="velvety_star5" value="2" disabled="disabled"/>
+                        <label class="full" for="velvety_star2" title="Kinda bad - 2 stars"></label>
+                        <input type="radio" id="velvety_star1half" name="velvety_star5" value="1 and a half" disabled="disabled"/>
+                        <label class="half" for="velvety_star1half" title="Meh - 1.5 stars"></label>
+                        <input type="radio" id="velvety_star1" name="velvety_star5" value="1" disabled="disabled"/>
+                        <label class="full" for="velvety_star1" title="Sucks big time - 1 star"></label>
+                        <input type="radio" id="velvety_starhalf" name="velvety_star5" value="half" disabled="disabled"/>
+                        <label class="half" for="velvety_starhalf" title="Sucks big time - 0.5 stars"></label>
+                    </fieldset>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!--<div class="stuff_preview_right_header price_preview_header">-->
+    <!--<div style="display: inline-block">ราคาประมาณ</div>-->
+    <!--<div style="display: inline-block;width:130px;text-align: right;font-size:30px;"> &#43; </div>-->
+    <!--</div>-->
+    <!--<div class="stuff_calculate_price" id="stuff_calculate_price" style="display: none;">-->
+    <!--<div class="calculate_price_padding">-->
+    <!--<div class="calculate_header" align="center">-->
+    <!--<h4>ราคาประมาณ (ต่อหนึ่งตัว)</h4>-->
+    <!--<div class="hr" style="margin-bottom: 10px;margin-top: 10px"></div>-->
+    <!--</div>-->
+    <!--<div class="row" style="margin-bottom: 10px">-->
+    <!--<div class="col-xs-6" style="padding-left: 30px">SIZE (ชาย)</div>-->
+    <!--<div class="col-xs-6" style="padding-right: 30px" align="right">ราคา (บาท)</div>-->
+    <!--</div>-->
+
+    <!--<div class="calculate_list" id="calculate_list_male"></div>-->
+
+    <!--<div class="hr" style="margin-bottom: 10px;margin-top: 10px"></div>-->
+    <!--<div class="row" style="margin-bottom: 10px">-->
+    <!--<div class="col-xs-6" style="padding-left: 30px">SIZE (หญิง)</div>-->
+    <!--<div class="col-xs-6" style="padding-right: 30px" align="right">ราคา (บาท)</div>-->
+    <!--</div>-->
+
+    <!--<div class="calculate_list" id="calculate_list_female"></div>-->
+
+    <!--<div class="calculate_footer" align="center" style="margin-top: 10px">-->
+    <!--<div class="hr" style="margin-bottom: 10px;margin-top: 10px"></div>-->
+    <!--<div id="stuff_type_promotion" style="display: none;">-->
+    <!--<button type="button" class="btn btn-default" data-toggle="modal" id="stuff_type_promotion_btn"> รายละเอียด </button>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+</div>
+
+<%= render "create/modal" %>
+
+<%= javascript_include_tag "create_stuff.js" %>
+<%= javascript_include_tag "create_guide.js" %>

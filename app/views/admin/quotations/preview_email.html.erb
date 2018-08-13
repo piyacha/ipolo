@@ -1,0 +1,393 @@
+<%= stylesheet_link_tag 'idr_reports_style',type:'text/css' , media:'all'%>
+<%= stylesheet_link_tag 'ipolo-order',type:'text/css' , media:'all'%>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div style="width: 100%;padding-bottom: 40px" align="center">
+  <button type="button" value="<%= params[:id] %>" class="btn btn-primary quotation_send_email"><span class="glyphicon glyphicon-envelope" style="margin-right:10px"></span>Send Email</button>
+</div>
+<div class="section2">
+  <div class="_text-center"><h2 class="report-title">บริษัท คณารักษ์ การ์เม้นท์ จำกัด <br> KANARUG GARMENT CO.,LTD</h2></div>
+  <div class="line-image"></div>
+  <div>
+    <span class="address-text" >
+      เลขที่ 5 ซ.เอกชัย 89/1 ถ.เอกชัย แขวงบางบอน เขตบางบอกน กรุงเทพ 10150 เลขประจำตัวผู้เสียภาษี  0-1055-47061-02-5
+    </span>
+    <br>
+    <span class="address-text">
+      โทร. 0-2894-5445-7 แฟกซ์. 0-2894-5448 Website : www.ipolo.co.th Email : info@ipolo.co.th
+    </span>
+  </div>
+  <div class="_text-center"><h2 class="report-title">ใบเสนอราคา / ใบยืนยันการสั่งซื้อ</h2></div>
+</div>
+<div class='section3'>
+  <div class="border-table">
+    <table class="first-detail">
+      <tr class="first-column">
+        <td>ผู้สั่งซื้อ</td>
+        <td>
+          <% if @quotation[:company_name] %>
+              <%= @quotation[:company_name] %>
+          <% else %>
+              <% if @quotation[:first_name] %>
+                  <%= @quotation[:first_name] %>
+              <% end %>
+          <% end %>
+        </td>
+        <td>เลขที่</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>ที่อยู่</td>
+        <td>
+          <% if @quotation[:address] %>
+              <%= @quotation[:address] %>
+          <% end %>
+        </td>
+        <td>พนักงานขาย</td>
+        <td>
+          <% if @quotation[:admin_username] %>
+              <% if @quotation[:admin_username] != "anonymous" %>
+                  <%= @quotation[:admin_username] %>
+              <% else %>
+                  บริษัท
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>วันที่เสนอราคา</td>
+        <td>
+          <% if @quotation[:updated_at] %>
+              <%= @quotation[:updated_at] %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+    <table class="second-detail">
+      <tr>
+        <td>โทร</td>
+        <td>
+          <% if @quotation[:tel] %>
+              <%= @quotation[:tel] %>
+          <% end %>
+        </td>
+        <td>เงื่อนไขการชำระเงิน</td>
+        <td>
+          <% if @quotation[:credit_name] %>
+              <%= @quotation[:credit_name] %>
+          <% end %>
+          <% if @quotation[:pledge_name] %>
+              <%= @quotation[:pledge_name] %>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td>แฟกซ์</td>
+        <td>
+          <% if @quotation[:fax] %>
+              <%= @quotation[:fax] %>
+          <% end %>
+        </td>
+        <td>ระยะเวลาการส่งสินค้า</td>
+        <td>ขึ้นกับตัวงานและจำนวนจะมีพนังงานแจ้งอีกครั้ง</td>
+      </tr>
+      <tr>
+        <td>ผู้ติดต่อ</td>
+        <td>
+          <% if @quotation[:first_name] %>
+              <%= @quotation[:first_name] %>
+          <% end %>
+        </td>
+        <td>อีเมล์</td>
+        <td>
+          <% if @quotation[:email] %>
+              <%= @quotation[:email] %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="section4">
+  <table class="item-box">
+    <tr >
+      <td style="width:1.7cm !important;">เลขที่</td>
+      <td style="width:8.5cm !important;">รายละเอียด</td>
+      <td style="width:2.0cm !important;">จำนวน</td>
+      <td style="width:1.7cm !important;">หน่วย</td>
+      <td style="width:2.3cm;">ราคา/หน่วย</td>
+      <td style="width: 3cm;">จำนวนเงิน</td>
+    </tr>
+    <% if @quotation[:stuff_details] %>
+        <% @quotation[:stuff_details].each_with_index do |stuff,index| %>
+
+            <% if stuff[:stuff_type_name] %>
+                <% if stuff[:stuff_type_name] == 'TYPE' %>
+                    <tr>
+                      <td style="text-align: center;">
+                        <%= index+1 %>
+                      </td>
+                      <td> แบบเสื้อตามแบบ
+                        <% if stuff[:desc] %>
+                            <%= stuff[:desc] %>
+                        <% end %>
+                      </td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td> - เนื้อผ้า
+                        <% if stuff[:texture_name]%>
+                            <%= stuff[:texture_name] %>
+                        <% end %>
+                      </td>
+                      <td style="text-align: center;">
+                        <% if @quotation[:total_amount]%>
+                            <%= @quotation[:total_amount] %>
+                        <% end %>
+                      <td style="text-align: center;">ตัว</td>
+                      <td style="text-align: center;">
+                        <% if @quotation[:total] and @quotation[:total_amount] %>
+                            <%= number_with_precision((@quotation[:total]/@quotation[:total_amount]).ceil, precision: 0, delimiter: ',') %>
+                        <% end %>
+                      </td>
+                      <td style="text-align: right;">
+                        <% if @quotation[:total]%>
+                            <%= number_with_precision(@quotation[:total].ceil, precision: 0, delimiter: ',') %>
+                        <% end %>
+                      </td>
+                    </tr>
+                <% else %>
+                    <tr>
+                      <td></td>
+                      <td> -
+                        <% if stuff[:desc] %>
+                            <%= stuff[:desc] %>
+                        <% end %></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                <% end %>
+            <% end %>
+
+        <% end %>
+    <% end %>
+
+
+
+    <% if @quotation[:estimate_cost] %>
+        <tr>
+          <td></td>
+          <td>
+
+            <% @check_male = false %>
+            <% JSON.parse(@quotation[:estimate_cost]).each do |size|%>
+                <% if size['size'].split('_')[1] == 'male' && size['amount'] != '' %>
+                    <% @check_male = true %>
+                    <% break %>
+                <% end %>
+            <% end %>
+
+            <% @check_female = false %>
+            <% JSON.parse(@quotation[:estimate_cost]).each do |size|%>
+                <% if size['size'].split('_')[1] == 'female' && size['amount'] != '' %>
+                    <% @check_female = true %>
+                    <% break %>
+                <% end %>
+            <% end %>
+
+            <table>
+              <tr>
+                <% if @check_male %>
+                    <td>
+                      ชาย
+                    </td>
+                <% end %>
+                <% if @check_female %>
+                    <td>
+                      หญิง
+                    </td>
+                <% end %>
+              </tr>
+              <tr>
+
+                <% if @check_male %>
+                    <td>
+                      <div style="width: 50% !important;display: inline-block;float: left !important;">
+                        <b>ขนาด</b>
+                      </div>
+                      <div style="width: 50% !important;display: inline-block;float: left !important;">
+                        <b>จำนวน</b>
+                      </div>
+                      <% JSON.parse(@quotation[:estimate_cost]).each do |size|%>
+                          <% if size['size'].split('_')[1] == 'male' && size['amount'] != '' %>
+                              <div style="width: 50% !important;display: inline-block;float: left !important;">
+                                <%= size['size'].split('_')[0] %>
+                              </div>
+                              <div style="width: 50% !important;display: inline-block;float: left !important;">
+                                <%= size['amount'] %>
+                              </div>
+                          <% end %>
+                      <% end %>
+                    </td>
+                <% end %>
+
+
+                <% if @check_female %>
+                    <td>
+                      <div style="width: 50% !important;display: inline-block;float: left !important;">
+                        <b>ขนาด</b>
+                      </div>
+                      <div style="width: 50% !important;display: inline-block;float: left !important;">
+                        <b>จำนวน</b>
+                      </div>
+                      <% JSON.parse(@quotation[:estimate_cost]).each do |size|%>
+                          <% if size['size'].split('_')[1] == 'female' && size['amount'] != '' %>
+                              <div style="width: 50% !important;display: inline-block;float: left !important;">
+                                <%= size['size'].split('_')[0] %>
+                              </div>
+                              <div style="width: 50% !important;display: inline-block;float: left !important;">
+                                <%= size['amount'] %>
+                              </div>
+                          <% end %>
+                      <% end %>
+                    </td>
+                <% end %>
+              </tr>
+            </table>
+
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+    <% end %>
+
+    <tr>
+      <td></td>
+      <td>
+
+        <% if @quotation[:stuff_image]  %>
+          <div style='display:inline-block;width:45%;'>
+            <img src="<%= @quotation[:stuff_image]  %>" style="width: 100%">
+          </div>
+        <% end %>
+        <div style='display:inline-block;width:45%;'>
+          <ul clss='logo_details'>
+            <% if @quotation[:stuff_picker] %>
+                <% stuff_picker = JSON.parse(@quotation[:stuff_picker]) %>
+                <%  all_stuff_logo = Stuff.where(stuff_type:StuffType.where({name:'LOGO'}).first);%>
+                <% all_stuff_logo.each do |logo|%>
+                  <% stuff_picker.each do |picker|%>
+                    <% if picker["stuff_type_name"]=="LOGO"%>
+                            <% if picker[logo.name]%>
+                                <%  tmp_logo = StuffLogo.find(picker[logo.name]['img_id']) %>
+                                <% type = "" %>
+                                <% if  tmp_logo.logo_type == "screen"%>
+                                    <% type = "สกรีน"%>
+                                <% else%>
+                                    <% type = "ปัก"%>
+                                <% end%>
+                                <li class='logo_details'><%= "#{type} #{logo.desc} #{tmp_logo.color_number} สี ขนาด:#{tmp_logo.logo_width} ซม. x #{tmp_logo.logo_height} ซม." %></li>
+                            <% end %>
+                        <% end %>
+                    <% end %>
+                <% end %>
+            <% end %>
+          </ul>
+        </div>
+
+      </td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+
+
+    <tr class="footer-item">
+      <td rowspan="3" colspan="2"><p>ราคานี้จะปรับเปลี่ยนกรณี Size ที่สรุปเฉลี่ยเกินกว่า Size L </p><p> ห้ามหักภาษี ณ ที่จ่าย 3% </p><p> กำหนดยืนราคา 15 วัน นับจากวันที่เสนอราคา</p></td>
+      <td colspan="3">ยอดรวมมูลค่าสินค้า (ไม่รวมภาษี)</td>
+      <td >
+        <div style="float: right" >
+          <% if @quotation[:total] %>
+              <%= number_with_precision(@quotation[:total], precision: 2, delimiter: ',') %>
+          <% end %>
+        </div>
+
+      </td>
+    </tr>
+    <tr class="footer-item">
+      <td colspan="3">ภาษีมูลค่าเพิ่ม 7%</td>
+      <td >
+        <div style="float: right" >
+          <% if @quotation[:total_vat] %>
+              <%= number_with_precision(@quotation[:total_vat], precision: 2, delimiter: ',') %>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+    <tr class="footer-item">
+      <td colspan="3">ยอดรวมภาษีมูลค่าเพิ่ม</td>
+      <td >
+        <div style="float: right" >
+          <% if @quotation[:total_vat] and @quotation[:total]%>
+              <%= number_with_precision((@quotation[:total_vat] + @quotation[:total]), precision: 2, delimiter: ',') %>
+          <% end %>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+<div class="section5">
+  <table class="confirm-box">
+    <tr class="confirm-box-1">
+      <td rowspan="2">
+        <p class="_text-line">กรณีชำระสินค้าโดยการโอนเงิน</p>
+        <p>ชื่อบัญชี : บริษัท คณารักษ์ การ์เม้นท์ จำกัด</p>
+        <p>ธนาคาร กสิกรไทย บัญชี : กระแสรายวัน</p>
+        <p>หมายเลขบัญชี: 055-1-10061-8 สาขา : บางบอน</p>
+        <p>ธนาคารกรุงไทย บัญชี  : กระแสรายวัน </p>
+        <p> หมายเลขบัญชี: 075-6-02592-3 สาขา: บางบอน</p>
+        <p>กรุณาแฟ็กซ์หลักฐานการโอนเงินมาที่ 0-2894-5448</p>
+        <p>พร้อมระบุชื่อสินค้า,ชื่อผู้โอน และเบอร์ติดต่อกลับ</p>
+        <p class="_text-line">กรณีชำระสินค้าโดยการตีเช็ค</p>
+        <p>สั่งจ่ายในนาม บริษัท คณารักษ์ การ์เม้นท์ จำกัด</p>
+      </td>
+      <td style="height:2.5cm;">
+        <div style="height:2.1cm;">กรุณาเช็นสั่งซื้อ พร้อมประทับตรา</div><br>
+        <span style="">ผู้มีอำนาจในการสั่งซื้อ / ผู้สั่งซื้อ</span>
+      </td>
+    </tr>
+    <tr>
+
+      <td class="_text-center _verticel-bottom" style="height:2.5cm;">
+        <% if @base_url %>
+            <img src="<%=  @base_url +  asset_path('print/por_sign.png')  %>" style="width: 100%">
+        <% end %>
+        บริษัท คณารักษ์ การ์เม้นท์ จำกัด
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<div class="modal fade" id="quotaion_loading_email" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body" align="center">
+        <%= image_tag("print/email_loading.gif", width: '200px',height:'200px') %>
+      </div>
+    </div>
+  </div>
+</div>
