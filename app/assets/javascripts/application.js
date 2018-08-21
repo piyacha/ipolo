@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap-tour/bootstrap-tour.js
+//= require fullpage.js
 //= require_tree .
 //= stub "create_stuff"
 //= stub "create_guide"

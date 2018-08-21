@@ -12,6 +12,7 @@
  *
  *= require bootstrap-tour/bootstrap-tour.css
  *= require balloon.css
+ *= require fullpage.css
  *= require_self
  *= require_tree .
  */
@@ -220,5 +221,5 @@
 
 body {
   font-family: "ThaiSansNeue";
-  font-size: 18px !important;
+  font-size: 18px;
 }
