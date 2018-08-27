@@ -1,0 +1,280 @@
+.A4, .original-page, .page-size {
+  width: 21cm;
+  height: 29.5cm;
+  background-color: white;
+  margin: 10px auto;
+  padding: 1cm 1.1cm 1.1cm 0.8cm;
+  line-height: 1.2;
+  background-color: white;
+}
+
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url("/assets/thsarabunnew/thsarabunnew-webfont.eot");
+  src: url("/assets/thsarabunnew/thsarabunnew-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/thsarabunnew/thsarabunnew-webfont.woff") format("woff"), url("/assets/thsarabunnew/thsarabunnew-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url("/assets/thsarabunnew/thsarabunnew_bolditalic-webfont.eot");
+  src: url("/assets/thsarabunnew/thsarabunnew_bolditalic-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/thsarabunnew/thsarabunnew_bolditalic-webfont.woff") format("woff"), url("/assets/thsarabunnew/thsarabunnew_bolditalic-webfont.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url("/assets/thsarabunnew/thsarabunnew_italic-webfont.eot");
+  src: url("/assets/thsarabunnew/thsarabunnew_italic-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/thsarabunnew/thsarabunnew_italic-webfont.woff") format("woff"), url("/assets/thsarabunnew/thsarabunnew_italic-webfont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'THSarabunNew';
+  src: url("/assets/thsarabunnew/thsarabunnew_bold-webfont.eot");
+  src: url("/assets/thsarabunnew/thsarabunnew_bold-webfont.eot?#iefix") format("embedded-opentype"), url("/assets/thsarabunnew/thsarabunnew_bold-webfont.woff") format("woff"), url("/assets/thsarabunnew/thsarabunnew_bold-webfont.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+/*helper*/
+._text-line {
+  text-decoration: underline;
+}
+
+._line {
+  border-bottom: 1px solid;
+}
+
+._verticel-top {
+  vertical-align: top;
+}
+
+._verticel-bottom {
+  vertical-align: bottom;
+}
+
+._text-center {
+  text-align: center;
+}
+
+._font-bold {
+  font-weight: bold;
+}
+
+td {
+  padding: 10px 0px 0px 0px;
+}
+
+.section1 {
+  font-size: 0.85em;
+}
+
+.section2 {
+  margin-top: 5px;
+  position: relative;
+  background-color: #fbfbfd;
+}
+
+.report-title {
+  margin: 0px;
+  margin-top: 10px;
+}
+
+.line-image {
+  background-color: #4a6696;
+  height: 6px;
+  margin-bottom: 7px;
+}
+
+.address-text {
+  padding-left: 120px;
+  padding-top: 5px;
+}
+
+.section3 {
+  margin-top: 10px;
+}
+
+.border-table {
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 12px 15px 5px 15px;
+}
+
+.first-detail td:nth-child(1) {
+  width: 1.5cm;
+  text-align: center;
+  font-weight: bold;
+}
+
+.first-detail td:nth-child(2) {
+  width: 12cm;
+  border-bottom: 1px solid blue;
+}
+
+.first-detail td:nth-child(3) {
+  width: 3cm;
+  text-align: center;
+  font-weight: bold;
+}
+
+.first-detail td:nth-child(4) {
+  width: 4cm;
+  border-bottom: 1px solid blue;
+  text-align: center;
+}
+
+.second-detail td:nth-child(1) {
+  width: 1.5cm;
+  text-align: center;
+  font-weight: bold;
+}
+
+.second-detail td:nth-child(2) {
+  width: 7cm;
+  border-bottom: 1px solid blue;
+}
+
+.second-detail td:nth-child(3) {
+  width: 3.5cm;
+  text-align: center;
+  font-weight: bold;
+}
+
+.second-detail td:nth-child(4) {
+  width: 8.5cm;
+  border-bottom: 1px solid blue;
+}
+
+.section4 {
+  margin-top: 10px;
+}
+
+.item-box {
+  border-collapse: collapse;
+}
+
+.item-box td {
+  border-left: 1px solid;
+  border-right: 1px solid;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.item-box tr:nth-child(1) td {
+  padding: 5px 2px 2px 2px;
+  border: 1px solid;
+  text-align: center;
+  background: #ccc;
+  font-weight: bold;
+}
+
+.item-box .footer-item td {
+  padding: 10px 5px 10px 5px;
+  border: 1px solid;
+  text-align: center;
+  font-weight: bold;
+  line-height: 85%;
+}
+
+.section5 {
+  margin-top: 10px;
+}
+
+.confirm-box {
+  font-weight: bold;
+  border-collapse: collapse;
+}
+
+.confirm-box td {
+  border: 1px solid;
+  padding: 5px;
+}
+
+.confirm-box-1 td:nth-child(1) {
+  padding-left: 15px;
+  width: 10.3cm;
+}
+
+.confirm-box-1 td:nth-child(2) {
+  text-align: center;
+  width: 10cm;
+}
+
+.idr-reports {
+  background-color: gray;
+  font-family: 'THSarabunNew';
+  font-size: 13px !important;
+}
+
+* {
+  font-size: 13px !important;
+}
+
+.toolbar {
+  height: 60px;
+  background-color: black;
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.inner-toolbar {
+  width: 100%;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  color: white;
+  font-size: 1.2em;
+  float: left;
+  padding-left: 30px;
+}
+
+.cmd-btn {
+  padding-right: 30px;
+}
+
+.btn-print {
+  padding: 7px 20px 7px 20px;
+  float: right;
+  margin-left: 10px;
+  background: white;
+  border-radius: 5px;
+}
+
+.page {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.inner-page {
+  padding: 20px;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  .toolbar {
+    display: none;
+  }
+
+  .page {
+    background-color: white;
+    padding: 0px !important;
+  }
+
+  .page-size {
+    margin: 0px auto;
+  }
+
+  .footer-page {
+    page-break-after: always;
+  }
+}
