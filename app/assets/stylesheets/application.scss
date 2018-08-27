@@ -10,9 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require bootstrap-tour/bootstrap-tour.css
- *= require balloon.css
  *= require fullpage.css
+ *= require owl.carousel
  *= require_self
  *= require_tree .
  */
@@ -222,4 +221,5 @@
 body {
   font-family: "ThaiSansNeue";
   font-size: 18px;
+  color: #686868;
 }

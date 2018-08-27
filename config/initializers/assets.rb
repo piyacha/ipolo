@@ -13,17 +13,12 @@ Rails.application.config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif *.woff
 
 # ------------------ CSS ---------------------
 
-Rails.application.config.assets.precompile += %w( balloon.css )
-Rails.application.config.assets.precompile += %w( bootstrap-tour/bootstrap-tour.css )
-
 Rails.application.config.assets.precompile += %w( idr_reports_style.scss )
 Rails.application.config.assets.precompile += %w( ipolo-order.scss )
 Rails.application.config.assets.precompile += %w( create.scss )
-
 
 # --------------- javascript -----------------
 
 Rails.application.config.assets.precompile += %w( async.js )
 Rails.application.config.assets.precompile += %w( create_stuff.js )
 Rails.application.config.assets.precompile += %w( create_guide.js )
-Rails.application.config.assets.precompile += %w( bootstrap-tour/bootstrap-tour.js )
