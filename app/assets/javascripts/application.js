@@ -15,5 +15,6 @@
 //= require bootstrap-sprockets
 //= require fullpage.js
 //= require owl.carousel
+//= require particles
 //= require_tree .
 //= stub "create_stuff"
