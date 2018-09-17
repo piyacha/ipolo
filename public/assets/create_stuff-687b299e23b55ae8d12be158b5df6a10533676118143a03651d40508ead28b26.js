@@ -188,7 +188,7 @@ function openNav(type_name,type_id) {
                 //for margin bottom
                 $("#subBarMenu").append("<div class='row' style='margin-bottom: 93px'></div>");
             }
-            document.getElementById("subSlideBar").style.width = "110px"; //Open subBar
+            document.getElementById("subBarMenu").style.width = "110px"; //Open subBar
 
         },
         error: function(err) {
@@ -199,7 +199,7 @@ function openNav(type_name,type_id) {
 }
 
 //  function closeNav() {
-//    document.getElementById("subSlideBar").style.width = "0";
+//    document.getElementById("subBarMenu").style.width = "0";
 //    $("#create-color-bar").css('display', 'none');
 //  }
 
@@ -2013,14 +2013,14 @@ $(document).ready(function(){
 
     $('.create-plus-icon').on('click',function() {
         $('#sidebar-wrapper').css('display', 'block');
-        $('#subSlideBar').css('display', 'block');
+        $('#subBarMenu').css('display', 'block');
         $('.create-plus-icon').css('display', 'none');
         $('.create-cancel-icon').css('display', 'block');
     });
 
     $('.create-cancel-icon').on('click',function() {
         $('#sidebar-wrapper').css('display', 'none');
-        $('#subSlideBar').css('display', 'none');
+        $('#subBarMenu').css('display', 'none');
         $('.create-plus-icon').css('display', 'block');
         $('.create-cancel-icon').css('display', 'none');
     });

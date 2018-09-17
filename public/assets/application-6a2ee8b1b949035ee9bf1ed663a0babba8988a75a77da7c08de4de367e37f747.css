@@ -10946,7 +10946,7 @@ input[type="text"], textarea {
   margin-bottom: 100px;
 }
 
-.create_li_menu {
+.type_select {
   margin: 0;
   padding: 0;
   height: 81px;
@@ -11462,7 +11462,7 @@ fieldset, label {
     display: none;
   }
 
-  #subSlideBar {
+  #subBarMenu {
     display: none;
   }
 

@@ -1,0 +1,496 @@
+<!-- Summary Modal -->
+<div id="summaryModal" class="modal fade modal-wide" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Summary Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="row">
+
+            <div class="col-xs-12 col-sm-6 col-md-6" align="center">
+              <div class="summaryModal_img"></div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6" style="padding-right: 8%;padding-bottom: 20px" id="create_customer_input_form">
+              <div class="row" >
+                <div class="col-md-12">
+                  <h2 style="font-size: 3.3em;margin-top: 10px">MAKE ORDER</h2>
+                  <h4 style="font-size: 1.9em">SIZE AND QUANTITLES</h4>
+                </div>
+              </div>
+              <div class="row" style="padding-right: 8%" >
+                <div id="stuff_size_input">
+                  <!-- APPEND STUFF SIZE -->
+                </div>
+
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                  <div style="margin-top: 20px">
+                    <!-- option check box -->
+                    <input type="checkbox" name="create_add_height" id="create_add_height" value="true"> เพิ่มความยาวเสื้อ 1 นิ้ว<br>
+                  </div>
+                  <h4 style="font-size: 1.6em">SUMMARY</h4>
+                </div>
+                <div class="col-md-6 col-xs-6 col-sm-6 ">จำนวนทั้งหมด </div>
+                <div class="col-md-6 col-xs-6 col-sm-6 " id="total_amount">0 ตัว</div>
+                <div class="col-md-6 col-xs-6 col-sm-6 ">ราคาเฉลี่ยต่อตัว * </div>
+                <div class="col-md-6 col-xs-6 col-sm-6 " id="price_per_amount">0.- BAHT</div>
+                <div class="col-md-6 col-xs-6 col-sm-6 ">รวม *</div>
+                <div class="col-md-6 col-xs-6 col-sm-6 " id="total_price">0.- BAHT</div>
+                <div class="col-md-12 col-xs-12 col-sm-12 " id="total_price">*This is just estimate price.</div>
+              </div>
+              <div class="row address-modal-margin" style="margin-bottom: 20px">
+                <div class="col-xs-12">
+                  <!--<button type="button" class="btn btn-success" id="make_order_amount" data-dismiss="modal" data-toggle="modal" data-target="#addressModal" style="width: 100%">-->
+                    <!--MAKE ORDER-->
+                  <!--</button>-->
+                  <div class="index-menu-hover create-modal-btn" data-dismiss="modal" data-toggle="modal" data-target="#addressModal" id="make_order_amount" align="center">
+                    MAKE ORDER
+                  </div>
+                </div>
+              </div>
+            </div> <!-- <div class="col-xs-12 col-sm-6 col-md-6">-->
+          </div>
+        </div>
+      </div>
+      <!--<div class="modal-footer">-->
+      <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+      <!--</div>-->
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Address Modal -->
+<div id="addressModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Address Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6" align="center">
+              <div class="summaryModal_img"></div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 " style="padding-right: 8%;padding-top: 15px;padding-bottom: 20px">
+              <div class="row">
+                <div class="col-md-12">
+                  ข้อมูลผู้ขอเสนอราคา
+                </div>
+              </div>
+              <%= form_tag root_path do %>
+
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12">
+                      <%= text_field_tag 'first_name', nil, placeholder: 'ชื่อ' , class:'form-control',style:'width:100%' %>
+                    </div>
+                  </div>
+                  <!--<div class="row address-modal-margin">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<%= text_field_tag 'last_name', nil, placeholder: 'นามสกุล', class:'form-control',style:'width:100%' %>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12">
+                      <%= text_field_tag 'email',nil, placeholder: 'อีเมล',class:'form-control',style:'width:100%', :required => true %>
+                    </div>
+                  </div>
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12">
+                      <%= text_field_tag 'tel',nil, placeholder: 'โทรศัพท์',class:'form-control',style:'width:100%', :required => true %>
+                    </div>
+                  </div>
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12">
+                      <%= text_field_tag 'fax',nil, placeholder: 'แฟกซ์',class:'form-control',style:'width:100%', :required => true %>
+                    </div>
+                  </div>
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12">
+                      <%= text_area_tag 'address', nil, placeholder: 'ที่อยู่', rows: 3, cols: 25 ,style:'width:100%;padding:10px' %>
+                    </div>
+                  </div>
+
+                  ข้อมูลกรณีขอเสนอราคาในนามบริษัท
+
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12">
+                      <%= text_field_tag 'company_name',nil, placeholder: 'ชื่อบริษัท',class:'form-control',style:'width:100%' %>
+                    </div>
+                  </div>
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12 company_addressModal_l">
+                      <%= text_field_tag 'company_branch',nil, placeholder: 'สาขา(ถ้ามี)',class:'form-control',style:'width:100%' %>
+                    </div>
+                  </div>
+
+                  <div class="row address-modal-margin">
+                    <div class="col-md-12 company_addressModal_r">
+                      <%= text_field_tag 'tax_identification_number',nil, placeholder: 'เลขประจำตัวผู้เสียภาษี',class:'form-control',style:'width:100%' %>
+                    </div>
+                  </div>
+
+                  <div class="row address-modal-margin">
+                    <div class="col-xs-12">
+                      <div class="index-menu-hover create-modal-btn" data-toggle="modal" id="make_order_address" align="center">
+                        MAKE ORDER
+                      </div>
+                    </div>
+                  </div>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- thxModal Modal -->
+<div id="thxModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- thxModal Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6" align="center">
+              <div class="summaryModal_img"></div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 modal-thank-padding" align="center">
+              <div class="row">
+                <div class="col-md-12">
+                  <%= image_tag("create/smile.png", width: '180px', height: '180px') %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 create-modal-font">
+                  <h2>THANK YOU</h2>
+                  <p>WE'LL CONTACT YOU TO CONFIRM YOUR ORDER AS SOON AS POSSIBLE</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- thxModal Modal -->
+<div id="incomplete_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- thxModal Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" align="center">
+
+        <h3>โปรดสร้างแบบเสื้อที่ต้องการก่อนกด คำสั่งซื้อคะ.</h3>
+        <h3>Please fill all required pattern before MAKE ORDER.</h3>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- thxModal Modal -->
+<div id="type_first" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- thxModal Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" align="center">
+
+        <h3>โปรด เลือกชนิดของเสื้อผ้า ก่อน.</h3>
+        <h3>Please choose your cloth type first.</h3>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Logo Upload Modal -->
+<div id="logo_upload_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Logo Upload Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 id="logo_upload_modal_title"></h2>
+      </div>
+      <div class="modal-body" id="create-logo-upload-form">
+
+        <div class="row">
+          <div class="col-md-6" align="center">
+            <img src="" style="height: 250px;width: 200px;" id="logo_position_review">
+            <!--<div style="height: 250px;width: 200px;background-color: #2c3e50"></div>-->
+          </div>
+          <div class="col-md-6" style="padding-right:30px;">
+
+            <div class="row" align="center">
+
+              <div class="col-xs-12" align="center">
+                <div class="fileUpload btn btn-success">
+                  <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                  <span>เลือกไฟล์ อัพโหลด</span>
+                  <input type="file" id="logo_upload" class="upload">
+                </div>
+              </div>
+              <div class="col-xs-12">
+                <p id="upload_file_name" style="margin: 10px;color: #2cade2"></p>
+              </div>
+              <div class="col-xs-12">
+                <div class="row">
+                  <div class="col-xs-6" style="padding: 0px">
+                    <div id="max_width_of_upload_file" style="margin: 10px;color: #2cade2"></div>
+                  </div>
+                  <div class="col-xs-6" style="padding: 0px">
+                    <div id="max_height_of_upload_file" style="margin: 10px;color: #2cade2"></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row pull-left" >
+              <div class="col-xs-12">
+                <div class="form-group" align="center">
+                  <label for="">จำนวนสี : </label>
+                  <label class="radio-inline"><input type="radio" name="color_number" value="1">1</label>
+                  <label class="radio-inline"><input type="radio" name="color_number" value="2">2</label>
+                  <label class="radio-inline"><input type="radio" name="color_number" value="3">3</label>
+                  <label class="radio-inline"><input type="radio" name="color_number" value="4">4</label>
+                  <label class="radio-inline"><input type="radio" name="color_number" value="5">5</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row pull-left">
+              <div class="col-xs-12">
+                <div class="form-group" align="center">
+                  <label for="">ประเภทงาน : </label>
+                  <label class="radio-inline"><input type="radio" name="screen_lace" value="lace">งานปัก</label>
+                  <label class="radio-inline"><input type="radio" name="screen_lace" value="screen">สกรีน</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="logo_upload_size">
+              <div class="col-xs-6">
+                <div class="form-group">
+                  <label for="logo_width">กว้าง (cm):</label>
+                  <input type="number" class="form-control" name="logo_width" id="logo_width" min="0" value=0 >
+                </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="form-group" >
+                  <label for="logo_height">สูง (cm):</label>
+                  <input type="number" class="form-control" name="logo_height" id="logo_height" min="0" value=0 >
+                </div>
+              </div>
+            </div>
+            <!--<div class="row">-->
+              <!--<div class="col-xs-6">-->
+                <!--<div class="form-group" style="padding-left:20%;">-->
+                  <!--<label for="logo_width">ความกว้างขั้นต่ำที่ใช้ (pixel):</label>-->
+                  <!--<div name="expect_logo_width" id="expect_logo_width" ></div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="col-xs-6">-->
+                <!--<div class="form-group" style="padding-right:20%">-->
+                  <!--<label for="logo_height">ความสูงขั้นต่ำที่ใช้ (pixel):</label>-->
+                  <!--<div name="expect_logo_height" id="expect_logo_height" ></div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <div class="row" align="center">
+              <h4 id="logo_requirements_header"></h4>
+              <p id="logo_requirements"></p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" id="logo_upload_btn"  > อัพโหลด </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"> ปิด </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- upload file alert Modal -->
+<div id="upload_alert" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- thxModal Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" align="center">
+
+        <h2><b>โปรดเลือก</b> <br>
+          อัพโหลดไฟล์ <br>
+          กำหนดจำนวนสี <br>
+          เลือกประเภทงาน <br>
+          กำหนดขนาดความกว้าง และ สูง ก่อน.</h2>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- create-address-alert Modal -->
+<div id="create-address-alert" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- create-address-alert Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" align="center">
+
+        <h2>โปรดกรอกข้อมูลให้ครบถ้วน <br></h2>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- upload file alert Modal -->
+<div id="problemModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- thxModal Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+      </div>
+      <div class="modal-body" align="center">
+
+        <h3>การทำรายการ ผิดพลาด โปรดทำรายการใหม่อีกครั้ง.</h3>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- upload file alert Modal -->
+<div id="img_size_problemModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- thxModal Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" align="center">
+
+        <h3>รูปภาพ มีขนาดเล็กกว่า ข้อกำหนด</h3>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- upload file alert Modal -->
+<div id="promotion_modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- thxModal Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body" align="center">
+
+        <img id="promotion_img" style="width: 100%">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- create_policy Modal -->
+<div id="create_policy" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- create_policy Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">โปรดรับรอง</h2>
+      </div>
+      <div class="modal-body" align="center">
+
+        <p style="font-size: 23px;">
+          <b>โปรดรับรอง</b> ว่าท่านเป็นผู้มีลิขสิทธิ์ในโลโก้นี้โดยชอบด้วยกฎหมาย โดยมิได้ดัดแปลง หรือลอกเลียนแบบมาจากผู้อื่น<br>
+          หากปรากฏภายหลังว่าท่านไม่มีสิทธิ์ใช้โลโก้ดังกล่าว หรือมีบุคคลอื่นใดดำเนินการใดๆ <br>
+          เป็นเหตุให้ <b>บริษัท คณารักษ์ การ์เม้นท์ จำกัด </b>ต้องรับผิดตามกฏหมายจากการจัดทำสินค้าตามแบบของท่าน <br>
+          ท่านจะต้องรับผิดชอบในความเสียหายและชำระค่าใช้จ่ายทุกชนิดที่เกิดขึ้นทุกประการ
+        </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#logo_upload_modal" data-dismiss="modal" > ยอมรับ </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"> ปิด </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- create_policy Modal -->
+<div id="create_policy" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- create_policy Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" align="center">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h2 class="modal-title">โปรดรับรอง</h2>
+      </div>
+      <div class="modal-body" align="center">
+
+        <p style="font-size: 23px;">
+          <b>โปรดรับรอง</b> ว่าท่านเป็นผู้มีลิขสิทธิ์ในโลโก้นี้โดยชอบด้วยกฎหมาย โดยมิได้ดัดแปลง หรือลอกเลียนแบบมาจากผู้อื่น<br>
+          หากปรากฏภายหลังว่าท่านไม่มีสิทธิ์ใช้โลโก้ดังกล่าว หรือมีบุคคลอื่นใดดำเนินการใดๆ <br>
+          เป็นเหตุให้ <b>บริษัท คณารักษ์ การ์เม้นท์ จำกัด </b>ต้องรับผิดตามกฏหมายจากการจัดทำสินค้าตามแบบของท่าน <br>
+          ท่านจะต้องรับผิดชอบในความเสียหายและชำระค่าใช้จ่ายทุกชนิดที่เกิดขึ้นทุกประการ
+        </p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#logo_upload_modal" data-dismiss="modal" > ยอมรับ </button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"> ปิด </button>
+      </div>
+    </div>
+  </div>
+</div>

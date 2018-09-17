@@ -1,3 +1,4 @@
+console.log("CREATE STUFF LOADED");
 var current_type_id = 0;
 var stuff_picker = []; //use to collect stuff that user pick and sent to make order.
 var stuff_price = []; //use to collect stuff price.
@@ -5,6 +6,7 @@ var stuff_profit;
 var logo_static_value;
 var price_report = {};
 var price_amount_report = {};
+
 /*===================================================================================*/
 /*===================================================================================*/
 /*==================================  MENU BAR   ====================================*/
@@ -124,9 +126,8 @@ function openNav(type_name,type_id) {
                     return  parseFloat(b.priority) - parseFloat(a.priority);
                 });
                 if(data['delete_stuff_button']){
-                    $("#subBarMenu").append("<div class='row staff-item' onclick='resetSubBar("+type_id+","+true+")'><div class='stuff-side-padding'><div class='create-tooltips' data-tmp-balloon='ลบ'  data-tmp-balloon-pos='top'><div class='stuff-pick-empty stuff-circle-hover'><i class='glyphicon glyphicon-ban-circle'></i></div></div></div></div>");
+                    $("#subBarMenu").append("<li class='staff-item' onclick='resetSubBar("+type_id+","+true+")'><div class='stuff-pick-empty stuff-circle-hover'><i class='glyphicon glyphicon-ban-circle'></i><span>ลบ</span></div></li>");
                 }
-
                 for(var i = 0;i<data['data'].length;i++){
                     var stuff_type_id = -99;
                     var pocket_checker = false;
@@ -149,15 +150,15 @@ function openNav(type_name,type_id) {
 
                     var check_active_class;
                     if (check_active.indexOf(data['data'][i]['id']) == -1){
-                        check_active_class = 'row staff-item'
+                        check_active_class = 'item staff-item'
                     }else{
-                        check_active_class = 'row staff-item active'
+                        check_active_class = 'item staff-item active'
                     }
 
                     if(data['data'][i]['belong_to_type']!=""){
                         if(data['data'][i]['belong_to_type'] == stuff_type_id){
                             //In case render only match belong_to_type
-                            $("#subBarMenu").append("<div id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><div class='stuff-side-padding' ><div class='create-tooltips' data-tmp-balloon='"+data['data'][i]['desc']+"' data-tmp-balloon-pos='up'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></div></div>");
+                            $("#subBarMenu").append("<li id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></li>");
                         }
                     }else{
                         //In case belong_to_type is "" we render not matter what
@@ -165,31 +166,24 @@ function openNav(type_name,type_id) {
                             if (pocket_name == "left"){
                                 console.log("LOGO LEFT");
                                 if(data['data'][i]['name']!="logo_front_l" && data['data'][i]['name']!="logo_top_pocket_r" && data['data'][i]['name']!="logo_center_pocket_r"){
-                                    $("#subBarMenu").append("<div id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><div class='stuff-side-padding' ><div class='create-tooltips' data-tmp-balloon='"+data['data'][i]['desc']+"' data-tmp-balloon-pos='up'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></div></div>");
+                                    $("#subBarMenu").append("<li id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></li>");
                                 }
                             }else if (pocket_name == "right"){
                                 console.log("LOGO RIGHT");
                                 if(data['data'][i]['name']!="logo_front_r" && data['data'][i]['name']!="logo_top_pocket" && data['data'][i]['name']!="logo_center_pocket"){
-                                    $("#subBarMenu").append("<div id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><div class='stuff-side-padding' ><div class='create-tooltips' data-tmp-balloon='"+data['data'][i]['desc']+"' data-tmp-balloon-pos='up'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></div></div>");
+                                    $("#subBarMenu").append("<li id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></li>");
                                 }
                             }
                         }else{
                             //In case User not pick any pocket
                             if(data['data'][i]['name']!="logo_top_pocket_r" &&data['data'][i]['name']!="logo_top_pocket" && data['data'][i]['name']!="logo_center_pocket" && data['data'][i]['name']!="logo_center_pocket_r" && data['data'][i]['name']!="logo_center_pocket_r" ){
-                                $("#subBarMenu").append("<div id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><div class='stuff-side-padding' ><div class='create-tooltips' data-tmp-balloon='"+data['data'][i]['desc']+"' data-tmp-balloon-pos='up'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></div></div>");
+                                $("#subBarMenu").append("<li id='stuff_"+data['data'][i]['id']+"' class='"+check_active_class+"' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'>"+data['data'][i]['desc']+"</div></li>");
                             }
                         }
 
                     }
-                    // $("#subBarMenu").append("<div class='row' style='margin-bottom: 20px' onclick='stuff_click("+data['data'][i]['id']+",true"+")'><div class='stuff-side-padding' ><img class='stuff-side-img stuff-side-circle stuff-circle-hover' src='"+data['data'][i]['img']+"' alt='"+data['data'][i]['name']+"'></div></div>");
                 }
-
-
-                //for margin bottom
-                $("#subBarMenu").append("<div class='row' style='margin-bottom: 93px'></div>");
             }
-            document.getElementById("subSlideBar").style.width = "110px"; //Open subBar
-
         },
         error: function(err) {
             console.log("API subBarClick ERROR !!");
@@ -197,11 +191,6 @@ function openNav(type_name,type_id) {
         }
     });
 }
-
-//  function closeNav() {
-//    document.getElementById("subSlideBar").style.width = "0";
-//    $("#create-color-bar").css('display', 'none');
-//  }
 
 function resetSubBar(type_id,active){
     for(var i=0;i<stuff_picker.length;i++){
@@ -2013,14 +2002,14 @@ $(document).ready(function(){
 
     $('.create-plus-icon').on('click',function() {
         $('#sidebar-wrapper').css('display', 'block');
-        $('#subSlideBar').css('display', 'block');
+        $('#subBarMenu').css('display', 'block');
         $('.create-plus-icon').css('display', 'none');
         $('.create-cancel-icon').css('display', 'block');
     });
 
     $('.create-cancel-icon').on('click',function() {
         $('#sidebar-wrapper').css('display', 'none');
-        $('#subSlideBar').css('display', 'none');
+        $('#subBarMenu').css('display', 'none');
         $('.create-plus-icon').css('display', 'block');
         $('.create-cancel-icon').css('display', 'none');
     });
