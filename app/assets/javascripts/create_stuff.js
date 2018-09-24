@@ -1,4 +1,5 @@
 console.log("CREATE STUFF LOADED");
+
 var current_type_id = 0;
 var stuff_picker = []; //use to collect stuff that user pick and sent to make order.
 var stuff_price = []; //use to collect stuff price.
@@ -343,9 +344,10 @@ function set_stuff_picker(data,stuff_id){
         if(stuff_picker[i]['type_id']==data['data']['stuff_type_id']){
             // console.log(data);
             // console.log("CHANGE !!",stuff_picker[i]['stuff_id']," to ",stuff_id);
-            stuff_picker[i]['stuff_id'] = stuff_id;
-            stuff_picker[i]['price'] = data['data']['stuff_price'];
-            stuff_picker[i]['stuff_name'] = data['data']['stuff']['name']
+            stuff_picker[i]['stuff_id']         = stuff_id;
+            stuff_picker[i]['price']            = data['data']['stuff_price'];
+            stuff_picker[i]['stuff_name']       = data['data']['stuff']['name'];
+            stuff_picker[i]['desc']             = data['data']['stuff']['desc'];
             stuff_picker[i]['additional_price'] = stuff_additional_price;
             // console.log("stuff click - > stuff_picker");
             // console.log(stuff_picker);
@@ -395,7 +397,7 @@ function stuff_click_type(stuff_id,active){
                     $("#texture-picker").empty();
                     for(var i=0;i<data['texture'].length;i++){
 
-                        $("#texture-picker").append("<a class='pull-left texture'><div data-balloon='"+data['texture'][i]['name']+"' data-balloon-pos='down' ><div class='create-circle-texture '  onclick='setTexture("+data['texture'][i]['id']+")' value="+data['texture'][i]['id']+"></div></div></a>");
+                        $("#texture-picker").append("<a class='texture'><div class='create-circle-texture '  onclick='setTexture("+data['texture'][i]['id']+")' value="+data['texture'][i]['id']+"></div></a>");
                         $(".create-circle-texture[value='" + data['texture'][i]['id'] +"']").css('background-image', 'url("'+data['texture'][i]['img']+'")');
                         //default texture
                         if(i==0){
@@ -439,7 +441,6 @@ function stuff_click_type(stuff_id,active){
     });
 }
 
-
 var color_render = async.queue(function(task, callback) {
     // console.log('hello ' + task.name);
     setStuffTypeColorFlow(task.color_layer_id,task.layer,task.type_id,task.active,callback);
@@ -451,7 +452,6 @@ color_render.drain = function() {
 };
 
 function stuff_click(stuff_id,active){
-
     $.ajax({
         url: "/api/v1/creates/find_stuff",
         type: "get",
@@ -533,7 +533,6 @@ function stuff_click(stuff_id,active){
             console.log("API find_stuff ERROR !!");
         }
     });
-
 }
 
 /*===================================================================================*/
@@ -817,9 +816,7 @@ function addTexture(i,texture_id,callback){
                 stuff_picker[i]['status_flexible'] = data['data']['status_flexible'];
                 stuff_picker[i]['status_thick'] = data['data']['status_thick'];
                 stuff_picker[i]['status_velvety'] = data['data']['status_velvety'];
-
                 // renderStuff();
-
             }
             callback(i);
         },
@@ -831,12 +828,12 @@ function addTexture(i,texture_id,callback){
 }
 
 function setTexture(texture_id){
-
     var checker = false;
     for(var i=0;i<stuff_picker.length;i++){
         if(stuff_picker[i]['stuff_type_name']=="TYPE"){
             addTexture(i,texture_id,function(index){
                 renderPreviewTexture(stuff_picker[index]);
+                renderSummaryDetail();
                 // renderPrice();
             });
             checker = true;
@@ -850,30 +847,29 @@ function setTexture(texture_id){
 }
 
 function renderPreviewTexture(type){
-    
-    $("#stuff_texture_preview").css('display', '');
-    $("#stuff_texture_preview_name").empty();
-    $("#stuff_texture_preview_name").append(type['texture_name']);
-    $("#stuff_texture_preview_desc").empty();
-    $("#stuff_texture_preview_desc").append(type['texture_desc']);
+    // $("#stuff_texture_preview").css('display', '');
+    // $("#stuff_texture_preview_name").empty();
+    // $("#stuff_texture_preview_name").append(type['desc']);
+    // $("#stuff_texture_preview_desc").empty();
+    // $("#stuff_texture_preview_desc").append(type['desc']);
     $("#stuff_texture_preview_img").css('background-image', 'url('+type['texture_img']+')').css('background-repeat', 'no-repeat').css('background-size', 'cover');
-    if(type['status_flexible']==5)$("#flexible_star5").prop("checked", true);
-    if(type['status_flexible']==4)$("#flexible_star4").prop("checked", true);
-    if(type['status_flexible']==3)$("#flexible_star3").prop("checked", true);
-    if(type['status_flexible']==2)$("#flexible_star2").prop("checked", true);
-    if(type['status_flexible']==1)$("#flexible_star1").prop("checked", true);
+    // if(type['status_flexible']==5)$("#flexible_star5").prop("checked", true);
+    // if(type['status_flexible']==4)$("#flexible_star4").prop("checked", true);
+    // if(type['status_flexible']==3)$("#flexible_star3").prop("checked", true);
+    // if(type['status_flexible']==2)$("#flexible_star2").prop("checked", true);
+    // if(type['status_flexible']==1)$("#flexible_star1").prop("checked", true);
 
-    if(type['status_thick']==5)$("#thick_star5").prop("checked", true);
-    if(type['status_thick']==4)$("#thick_star4").prop("checked", true);
-    if(type['status_thick']==3)$("#thick_star3").prop("checked", true);
-    if(type['status_thick']==2)$("#thick_star2").prop("checked", true);
-    if(type['status_thick']==1)$("#thick_star1").prop("checked", true);
+    // if(type['status_thick']==5)$("#thick_star5").prop("checked", true);
+    // if(type['status_thick']==4)$("#thick_star4").prop("checked", true);
+    // if(type['status_thick']==3)$("#thick_star3").prop("checked", true);
+    // if(type['status_thick']==2)$("#thick_star2").prop("checked", true);
+    // if(type['status_thick']==1)$("#thick_star1").prop("checked", true);
 
-    if(type['status_velvety']==5)$("#velvety_star5").prop("checked", true);
-    if(type['status_velvety']==4)$("#velvety_star4").prop("checked", true);
-    if(type['status_velvety']==3)$("#velvety_star3").prop("checked", true);
-    if(type['status_velvety']==2)$("#velvety_star2").prop("checked", true);
-    if(type['status_velvety']==1)$("#velvety_star1").prop("checked", true);
+    // if(type['status_velvety']==5)$("#velvety_star5").prop("checked", true);
+    // if(type['status_velvety']==4)$("#velvety_star4").prop("checked", true);
+    // if(type['status_velvety']==3)$("#velvety_star3").prop("checked", true);
+    // if(type['status_velvety']==2)$("#velvety_star2").prop("checked", true);
+    // if(type['status_velvety']==1)$("#velvety_star1").prop("checked", true);
 }
 
 /*===================================================================================*/
@@ -1137,6 +1133,19 @@ function amountPrice(){
     return wrapPrice
 }
 
+function renderSummaryDetail(){
+    console.log(stuff_picker);
+    $("#stuff_select_summary").empty();
+    for(var i in stuff_picker){
+        if(stuff_picker[i]['texture_name'] != undefined){
+            $("#stuff_texture_preview_name").empty();
+            $("#stuff_texture_preview_name").append(stuff_picker[i]['desc']);
+            $("#stuff_select_summary").append("<div class='title'>เนื้อผ้า</div><div class='desc'>"+stuff_picker[i]['texture_name']+"</div>");   
+        }
+        $("#stuff_select_summary").append("<div class='title'>"+stuff_picker[i]['stuff_type_name']+"</div><div class='desc'>"+stuff_picker[i]['desc']+"</div>");
+    }
+}
+
 /*===================================================================================*/
 /*===================================================================================*/
 /*==================================  LOADING   =====================================*/
@@ -1158,15 +1167,8 @@ function renderLoading(status,callback){
     }else{
         console.log("renderLoading ",status);
         $("#order_canvas").fadeTo( "fast" , 1);
-        // $("#order_canvas").css('display','');
         $("#loading_gif").fadeOut(10);
         callback();
-        // $("#order_canvas").fadeIn(200, function() {
-        //     // Animation complete.
-        //     callback();
-        // });
-
-
     }
 
 }
@@ -1259,7 +1261,6 @@ var q = async.queue(function(task, callback) {
 // assign a callback
 q.drain = function() {
     console.log('all STUFF have been processed');
-    // setImgToSummary();
     renderLoading(false,function(){
         // setImgToSummary();
         // renderWaterMask();
@@ -1267,6 +1268,7 @@ q.drain = function() {
     });
     // renderWaterMask();
     renderPrice();
+    renderSummaryDetail();
     // console.log(stuff_picker);
 };
 
@@ -1294,16 +1296,12 @@ function renderStuff(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     renderLoading(true,function(){
-
-
         // renderPrice();
-
         stuff_picker.sort(function(a, b) {
             return parseFloat(a.stuff_type_priority) - parseFloat(b.stuff_type_priority);
         });
 
         for(var i=0;i<stuff_picker.length;i++){
-
             q.push({data:[stuff_picker[i]['stuff_id'],stuff_picker[i]['stuff_type_name'],stuff_picker[i]['color_code_0'],stuff_picker[i]['color_code_1'],stuff_picker[i]['color_code_2']]}, function (id,name,colorCode0,colorCode1,colorCode2,img0,img1,img2) {
 
 
@@ -1398,11 +1396,9 @@ function renderStuff(){
                 console.log('finished processing :',name);
 
             });
-
         }
 
     });
-
 }
 
 function setImgToSummary(){
@@ -2000,18 +1996,5 @@ $(document).ready(function(){
         $(".stuff_texture_preview").slideToggle("slow");
     });
 
-    $('.create-plus-icon').on('click',function() {
-        $('#sidebar-wrapper').css('display', 'block');
-        $('#subBarMenu').css('display', 'block');
-        $('.create-plus-icon').css('display', 'none');
-        $('.create-cancel-icon').css('display', 'block');
-    });
-
-    $('.create-cancel-icon').on('click',function() {
-        $('#sidebar-wrapper').css('display', 'none');
-        $('#subBarMenu').css('display', 'none');
-        $('.create-plus-icon').css('display', 'block');
-        $('.create-cancel-icon').css('display', 'none');
-    });
 
 });//document ready

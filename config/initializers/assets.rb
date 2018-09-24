@@ -21,4 +21,3 @@ Rails.application.config.assets.precompile += %w( create.scss )
 
 Rails.application.config.assets.precompile += %w( async.js )
 Rails.application.config.assets.precompile += %w( create_stuff.js )
-Rails.application.config.assets.precompile += %w( create_guide.js )
