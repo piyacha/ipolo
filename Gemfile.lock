@@ -9,6 +9,12 @@ GIT
       mime-types
       mimemagic (~> 0.3.0)
 
+GIT
+  remote: https://github.com/vigetlabs/active_material.git
+  revision: 59efa02b4517258a0f22c8951f1a4f21401f44b9
+  specs:
+    active_material (1.4.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -210,9 +216,6 @@ GEM
     nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
     orm_adapter (0.5.0)
-    passenger (5.3.5)
-      rack
-      rake (>= 0.8.1)
     premailer (1.10.0)
       css_parser (>= 1.4.9)
       htmlentities (>= 4.0.0)
@@ -315,6 +318,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_admin_datetimepicker
+  active_material!
   activeadmin (~> 1.0.0.pre4)
   bootstrap-sass (~> 3.3.6)
   cancancan
@@ -333,7 +337,6 @@ DEPENDENCIES
   jquery-rails
   nokogiri
   paperclip!
-  passenger
   premailer-rails
   rails (= 4.2.6)
   recaptcha

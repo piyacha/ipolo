@@ -54,7 +54,9 @@ gem 'grape-route-helpers'
 
 gem 'idr_reports' ,'~> 1.1'
 
-gem 'passenger'
+gem "active_material", github: "vigetlabs/active_material"
+
+# gem 'passenger'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

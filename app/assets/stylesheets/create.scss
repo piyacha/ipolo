@@ -286,6 +286,7 @@ fieldset, label { margin: 0; padding: 0; }
 
 .sidenav {
   position: fixed;
+  height: 85px;
   width: 100%;
   z-index: 1;
   bottom: 100px;
@@ -547,6 +548,12 @@ fieldset, label { margin: 0; padding: 0; }
 
 
 @media screen and (max-width: 768px) {
+
+  .custom-dropdown-menu{
+    top: 0px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+  }
+
   .btn_order{
     position: absolute;
   }
@@ -561,10 +568,14 @@ fieldset, label { margin: 0; padding: 0; }
     right: 0;
   }
   .create-color-bar{
+    padding-top: 55px;
+    height: 110px;
+    width: 100%;
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
     bottom: 235px;
+    background-color: transparent;
   }
   .color-picker-render{
     margin-right: 0px;

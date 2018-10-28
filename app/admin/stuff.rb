@@ -93,21 +93,21 @@ ActiveAdmin.register Stuff do
         "ทุกประเภท"
       end
     end
-    column "ชื่อในระบบ" do |stuff|
-      stuff.name
-    end
+    # column "ชื่อในระบบ" do |stuff|
+    #   stuff.name
+    # end
     column "ชื่อที่แสดง" do |stuff|
       stuff.desc
     end
     # column :belong_to_type
-    column "ราคาน้ำหนักผ้า (consumption)" do |stuff|
-      stuff.price
-    end
-    column "ราคาเพิ่มเติม (ค่าคงที่)" do |stuff|
-      stuff.additional_price
-    end
+    # column "ราคาน้ำหนักผ้า (consumption)" do |stuff|
+    #   stuff.price
+    # end
+    # column "ราคาเพิ่มเติม (ค่าคงที่)" do |stuff|
+    #   stuff.additional_price
+    # end
 
-    column :priority
+    # column :priority
     # column :desc
     column :active
     actions
