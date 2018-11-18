@@ -8,7 +8,7 @@
 
             <% @existed.each do |existed| %>
                 <!-- for loop print existed-->
-                <div class="col-xs-12 col-sm-6 col-md-4 index-menu-hover existed-width">
+                <div class="col-xs-12 col-sm-6 col-md-4   existed-width">
                   <div class="thumbnail">
                     <%= image_tag(existed[:stuff_exist_img] , style:"width:100%;height:350px !important;") %>
                     <div class="caption">
@@ -69,7 +69,7 @@
                           <div class="row">
 
                             <div class="col-xs-12 col-sm-6 col-md-6" align="center">
-                              <div class="summaryModal_img">
+                              <div class="design-img">
                                 <%= image_tag(existed[:stuff_exist_img] , width:"100%") %>
                               </div>
                             </div>
@@ -118,7 +118,7 @@
                               </div>
                               <div class="row address-modal-margin" style="padding-bottom: 20px">
                                 <div class="col-xs-12">
-                                  <div class="index-menu-hover create-modal-btn" data-dismiss="modal" data-toggle="modal" data-target="#addressModal" id="make_order_amount" align="center" onclick="selectExisted(<%= existed[:id] %>,'<%= existed[:stuff_exist_img] %>','<%= existed[:size].to_json %>')">
+                                  <div class="  create-modal-btn" data-dismiss="modal" data-toggle="modal" data-target="#addressModal" id="make_order_amount" align="center" onclick="selectExisted(<%= existed[:id] %>,'<%= existed[:stuff_exist_img] %>','<%= existed[:size].to_json %>')">
                                     MAKE ORDER
                                   </div>
                                 </div>
@@ -223,7 +223,7 @@
 
                   <div class="row address-modal-margin">
                     <div class="col-xs-12">
-                    <div class="index-menu-hover create-modal-btn existed_make_order" id="existed_make_order" data-dismiss="modal" data-toggle="modal" align="center">
+                    <div class="  create-modal-btn existed_make_order" id="existed_make_order" data-dismiss="modal" data-toggle="modal" align="center">
                       MAKE ORDER
                     </div>
                     </div>
@@ -261,7 +261,7 @@
                 </div>
               </div>
               <div class="row">
-                <div class="col-md-12 create-modal-font">
+                <div class="col-md-12">
                   <h2>THANK YOU</h2>
                   <p>WE'LL CONTACT YOU TO CONFIRM YOUR ORDER AS SOON AS POSSIBLE</p>
                 </div>

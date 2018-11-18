@@ -1418,8 +1418,8 @@ function renderStuff(){
 
 function setImgToSummary(){
      convertCanvasToImage(canvas,function(img_order){
-         $(".summaryModal_img").empty();
-         $(".summaryModal_img").append("<img src='"+img_order.src+"' style='width: 100%'>");
+         $(".design-img").empty();
+         $(".design-img").append("<img src='"+img_order.src+"' style='width: 100%'>");
          console.log("===== setImgToSummary =====");
      });
 

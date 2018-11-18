@@ -1039,10 +1039,10 @@ function calculatePrice(stuff_price){
 
         // If customer want to add length of his/her shirt this is call [ ADD OPTION PRICE ]
         var add_option_price = 0;
-        if(document.getElementById("create_add_height").checked){
-            console.log("add_option_price = " + stuff_price[i]['add_option_price']);
-            add_option_price = (stuff_price[i]['add_option_price'] * final_price)/100;
-        }
+        // if(document.getElementById("create_add_height").checked){
+        //     console.log("add_option_price = " + stuff_price[i]['add_option_price']);
+        //     add_option_price = (stuff_price[i]['add_option_price'] * final_price)/100;
+        // }
 
         final_price = Math.round(final_price + add_option_price);
 
@@ -1403,8 +1403,8 @@ function renderStuff(){
 
 function setImgToSummary(){
      convertCanvasToImage(canvas,function(img_order){
-         $(".summaryModal_img").empty();
-         $(".summaryModal_img").append("<img src='"+img_order.src+"' style='width: 100%'>");
+         $(".design-img").empty();
+         $(".design-img").append("<img src='"+img_order.src+"' style='width: 100%'>");
          console.log("===== setImgToSummary =====");
      });
 
@@ -1665,15 +1665,15 @@ $(document).ready(function(){
                         if(data){
                             $('#stuff_size_input').empty();
                             if (data['data_stuffSize_male'].length>0){
-                                $('#stuff_size_input').append("<div class='col-xs-12 col-sm-12 col-md-12 stuff-size-inline'><h4>ชาย</h4></div>");
+                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>ชาย</h4></div>");
                                 for(var i=0;i<data['data_stuffSize_male'].length;i++){
-                                    $('#stuff_size_input').append("<div class='col-xs-6 col-sm-6 col-md-4 stuff-size-inline'> <div class='stuff-inline' style='width: 30px'>"+data['data_stuffSize_male'][i]['name']+" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_male'][i]['name']+"_"+data['data_stuffSize_male'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_male'][i]['stuff_id']+"' style='width: 50px'> </div> ");
+                                    $('#stuff_size_input').append("<div class='col-xs-4 col-sm-3 col-md-2 stuff-size-inline'> <div class='stuff-inline'>"+data['data_stuffSize_male'][i]['name']+" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_male'][i]['name']+"_"+data['data_stuffSize_male'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_male'][i]['stuff_id']+"'> </div> ");
                                 }
                             }
                             if (data['data_stuffSize_female'].length>0){
-                                $('#stuff_size_input').append("<div class='col-xs-12 col-sm-12 col-md-12 stuff-size-inline'><h4>หญิง</h4></div>");
+                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>หญิง</h4></div>");
                                 for(var i=0;i<data['data_stuffSize_female'].length;i++){
-                                    $('#stuff_size_input').append("<div class='col-xs-6 col-sm-6 col-md-4 stuff-size-inline'> <div class='stuff-inline' style='width: 30px'>"+data['data_stuffSize_female'][i]['name'] +" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_female'][i]['name']+"_"+data['data_stuffSize_female'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_female'][i]['stuff_id']+"' style='width: 50px'> </div> ");
+                                    $('#stuff_size_input').append("<div class='col-xs-4 col-sm-3 col-md-2 stuff-size-inline'> <div class='stuff-inline'>"+data['data_stuffSize_female'][i]['name'] +" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_female'][i]['name']+"_"+data['data_stuffSize_female'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_female'][i]['stuff_id']+"'> </div> ");
                                 }
                             }
 
@@ -1694,8 +1694,9 @@ $(document).ready(function(){
 
     });
 
-    $('#make_order_amount').click(function(){
-        console.log("make_order_amount");
+    $('#address_back_btn').click(function(){
+        $("#addressModal").modal('hide');
+        $("#summaryModal").modal('show');
     });
 
     $('#make_order_address').on( "click", function() {
@@ -1717,10 +1718,10 @@ $(document).ready(function(){
 
         var current_admin_user_email = $("#current_admin_user_email").val();
 
-        var option_price_details = "";
-        if(document.getElementById("create_add_height").checked){
-            option_price_details = "เพิ่มความยาวเสื้อ"
-        }
+        // var option_price_details = "";
+        // if(document.getElementById("create_add_height").checked){
+        //     option_price_details = "เพิ่มความยาวเสื้อ"
+        // }
 
         if(email == "" || tel==""){
             $("#create-address-alert").modal('show')
@@ -1740,7 +1741,7 @@ $(document).ready(function(){
                 "estimate_cost":JSON.stringify(total_price_amount),
                 "stuff_picker":JSON.stringify(tmp_stuff_picker),
                 "base_price":JSON.stringify(base_price),
-                "option_price_details":option_price_details,
+                // "option_price_details":option_price_details,
                 "price_amount_report":JSON.stringify(price_amount_report),
 
                 "current_admin_user_email":current_admin_user_email
@@ -1937,10 +1938,6 @@ $(document).ready(function(){
                 img.src = _URL.createObjectURL(file);
             }
         }
-    });
-
-    $("#stuff_type_promotion_btn").click(function(){
-       $("#promotion_modal").modal('show')
     });
 
     $("#logo_upload_size").change(function(){

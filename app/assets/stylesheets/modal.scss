@@ -1,0 +1,65 @@
+.modal{
+  // For second modal to be scrolled
+  overflow: auto !important;
+	.design-warpper{
+		text-align: center;
+	}
+	.design-img{
+    margin-bottom: 5px;
+    padding: 0px 20%;
+	}
+	.modal-title{
+		text-align: center;
+		font-size: 2em;
+		line-height: 1.1;
+	}
+	.gender-header{
+    font-size: 1.5em;
+	}
+	.stuff-inline{
+    width: 100%;
+    font-size: 0.8em;
+    text-align: center;
+	}
+	.create-modal-btn{
+		width: 100%;
+    background-color: #8cc63f;
+		color: white;
+		padding: 8px;
+		font-size: 1.3em !important;
+    line-height: 25px;
+    margin: 10px 0px;
+    border-radius: 3px;
+  }
+  .back-modal-btn{
+    width: 100%;
+    background-color: ghostwhite;
+    border: 1px solid #56627c;
+		color: #56627c;
+		padding: 8px;
+		font-size: 1.3em !important;
+    line-height: 25px;
+    margin: 10px 0px;
+    border-radius: 3px;
+  }
+  .modal-body {
+    position: relative;
+    padding: 15px 30px;
+  }
+  .summary-label{
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+}
+
+#thxModal{
+  .modal-body{
+    text-align: center;
+  }
+}
+
+#create-address-alert{
+  .modal-body{
+    padding: 10px 15px;
+  }
+}

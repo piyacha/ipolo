@@ -52,16 +52,6 @@
 .stuff_texture_preview_name{
   width: 90px;
 }
-.create-modal-btn{
-  background-color: #8cc63f;
-  color: white;
-  padding: 8px;
-  font-size: 1.3em !important;
-  line-height: 25px;
-}
-.create-modal-font{
-  font-size: 1.5em;
-}
 
 body {
   overflow-x: hidden;
@@ -376,13 +366,12 @@ fieldset, label { margin: 0; padding: 0; }
   height: 20px;
   width: 20px;
   position: relative;
-  // left: 160px;
   left: 80px;
   bottom: 20px;
   display: none;
 }
 .stuff-inline:hover, .stuff-inline.active {
-    background: #16a3d4;
+    // background: #16a3d4;
 }
 
 .stuff-size-inline{
@@ -520,11 +509,6 @@ fieldset, label { margin: 0; padding: 0; }
   position: fixed;
   bottom: 30px;
   right: 30px;
-}
-
-.summaryModal_img{
-  padding-top: 50px;
-  padding-bottom: 50px;
 }
 
 .create-checkbox-position{
