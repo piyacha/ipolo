@@ -16,5 +16,6 @@
 //= require fullpage.js
 //= require owl.carousel
 //= require particles
+//= require jquery.fancybox.js
 //= require_tree .
 //= stub "create_stuff"

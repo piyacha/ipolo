@@ -1632,8 +1632,12 @@ $(document).ready(function(){
         if(total_amount != 0 ){
             document.getElementById("price_per_amount").innerHTML = Math.round(total_price/total_amount)+".- BAHT";
         }else{
-            document.getElementById("price_per_amount").innerHTML = "0.- BAHT";
+            document.getElementById("price_per_amount").innerHTML = "0.- บาท";
         }
+    });
+
+    $("#ask_sign_in").click(function(){
+        $("#askSignInModal").modal("show");
     });
 
     $("#make_order").click(function(){
@@ -1643,7 +1647,7 @@ $(document).ready(function(){
         console.log(stuff_price);
         console.log(stuff_picker);
 
-        document.getElementById("total_price").innerHTML = "0.- BAHT";
+        document.getElementById("total_price").innerHTML = "0.- บาท";
         if(stuff_picker.length > 0){
             //find 'TYPE' for stuff size.
             var find_stuff_size = -100;
@@ -1665,13 +1669,13 @@ $(document).ready(function(){
                         if(data){
                             $('#stuff_size_input').empty();
                             if (data['data_stuffSize_male'].length>0){
-                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>ชาย</h4></div>");
+                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>ชาย <a data-fancybox='gallery' href='"+data['male_size']['image']+"'><span class='glyphicon glyphicon-info-sign'></span>"+data['male_size']['value']+" </a></h4></div>");
                                 for(var i=0;i<data['data_stuffSize_male'].length;i++){
                                     $('#stuff_size_input').append("<div class='col-xs-4 col-sm-3 col-md-2 stuff-size-inline'> <div class='stuff-inline'>"+data['data_stuffSize_male'][i]['name']+" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_male'][i]['name']+"_"+data['data_stuffSize_male'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_male'][i]['stuff_id']+"'> </div> ");
                                 }
                             }
                             if (data['data_stuffSize_female'].length>0){
-                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>หญิง</h4></div>");
+                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>หญิง <a data-fancybox='gallery' href='"+data['female_size']['image']+"'> <span class='glyphicon glyphicon-info-sign'></span>"+data['female_size']['value']+" </a></h4></div>");
                                 for(var i=0;i<data['data_stuffSize_female'].length;i++){
                                     $('#stuff_size_input').append("<div class='col-xs-4 col-sm-3 col-md-2 stuff-size-inline'> <div class='stuff-inline'>"+data['data_stuffSize_female'][i]['name'] +" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_female'][i]['name']+"_"+data['data_stuffSize_female'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_female'][i]['stuff_id']+"'> </div> ");
                                 }
@@ -1700,8 +1704,6 @@ $(document).ready(function(){
     });
 
     $('#make_order_address').on( "click", function() {
-        console.log("make_order_address");
-
         var first_name = $("#first_name").val();
         var email = $("#email").val();
         var tel = $("#tel").val();
@@ -1717,93 +1719,83 @@ $(document).ready(function(){
         var total_price_amount = amountPrice();
 
         var current_admin_user_email = $("#current_admin_user_email").val();
+        var current_user_id = $("#current_user_id").val();
 
         // var option_price_details = "";
         // if(document.getElementById("create_add_height").checked){
         //     option_price_details = "เพิ่มความยาวเสื้อ"
         // }
 
-        if(email == "" || tel==""){
-            $("#create-address-alert").modal('show')
-        }else{
-            $("#addressModal").modal('hide')
-            var order_data = {
-                "first_name":first_name,
-                "email":email,
-                "tel":tel,
-                "fax":fax,
-                "address":address,
+        $("#addressModal").modal('hide')
+        var order_data = {
+            "first_name":first_name,
+            "email":email,
+            "tel":tel,
+            "fax":fax,
+            "address":address,
 
-                "company_name":company_name,
-                "company_branch":company_branch,
-                "tax_identification_number":tax_identification_number,
+            "company_name":company_name,
+            "company_branch":company_branch,
+            "tax_identification_number":tax_identification_number,
 
-                "estimate_cost":JSON.stringify(total_price_amount),
-                "stuff_picker":JSON.stringify(tmp_stuff_picker),
-                "base_price":JSON.stringify(base_price),
-                // "option_price_details":option_price_details,
-                "price_amount_report":JSON.stringify(price_amount_report),
-
-                "current_admin_user_email":current_admin_user_email
-            }
-
-            console.log("========= order_data =========");
-            console.log(order_data);
-
-            $.ajax({
-                url: "/api/v1/creates/make_order",
-                type: "post",
-                dataType: "json",
-                data: order_data,
-                success: function(make_order_data, textStatus, xhr) {
-                    if(make_order_data){
-                        console.log("make_order_data");
-                        console.log(make_order_data);
-                        var tmp_canvas = document.getElementById("order_canvas");
-                        var dataURL = tmp_canvas.toDataURL();
-                        var blobBin = atob(dataURL.split(',')[1]);
-                        var array = [];
-                        for(var i = 0; i < blobBin.length; i++) {
-                            array.push(blobBin.charCodeAt(i));
-                        }
-                        var file = new Blob([new Uint8Array(array)], {type: 'image/png'});
-
-                        var formdata = new FormData();
-                        formdata.append("img", file);
-                        formdata.append("order_id", make_order_data['order_id']);
-
-                        $.ajax({
-                            url: "/api/v1/creates/save_order_img",
-                            method: "POST",
-                            data: formdata,
-                            processData: false,  // tell jQuery not to process the data
-                            contentType: false,  // tell jQuery not to set contentType
-                            success: function(data, textStatus, xhr) {
-                                $("#addressModal").modal("hide");
-                                if(data['status']==true){
-                                    $("#thxModal").modal("show");
-                                }else{
-                                    $("#problemModal").modal("show");
-                                }
-                            },
-                            error: function(err) {
-                                console.log(err);
-                                console.log("API save_order_img ERROR !!");
-                            }
-                        });
-
-                    }
-                },
-                error: function(err) {
-                    console.log(err);
-                    console.log("API make_order ERROR !!");
-                }
-            });
-
+            "estimate_cost":JSON.stringify(total_price_amount),
+            "stuff_picker":JSON.stringify(tmp_stuff_picker),
+            "base_price":JSON.stringify(base_price),
+            // "option_price_details":option_price_details,
+            "price_amount_report":JSON.stringify(price_amount_report),
+            "current_user_id": current_user_id,
+            "current_admin_user_email":current_admin_user_email
         }
 
+        $.ajax({
+            url: "/api/v1/creates/make_order",
+            type: "post",
+            dataType: "json",
+            data: order_data,
+            success: function(make_order_data, textStatus, xhr) {
+                if(make_order_data){
+                    console.log("make_order_data");
+                    console.log(make_order_data);
+                    var tmp_canvas = document.getElementById("order_canvas");
+                    var dataURL = tmp_canvas.toDataURL();
+                    var blobBin = atob(dataURL.split(',')[1]);
+                    var array = [];
+                    for(var i = 0; i < blobBin.length; i++) {
+                        array.push(blobBin.charCodeAt(i));
+                    }
+                    var file = new Blob([new Uint8Array(array)], {type: 'image/png'});
 
+                    var formdata = new FormData();
+                    formdata.append("img", file);
+                    formdata.append("order_id", make_order_data['order_id']);
 
+                    $.ajax({
+                        url: "/api/v1/creates/save_order_img",
+                        method: "POST",
+                        data: formdata,
+                        processData: false,  // tell jQuery not to process the data
+                        contentType: false,  // tell jQuery not to set contentType
+                        success: function(data, textStatus, xhr) {
+                            $("#addressModal").modal("hide");
+                            if(data['status']==true){
+                                $("#thxModal").modal("show");
+                            }else{
+                                $("#problemModal").modal("show");
+                            }
+                        },
+                        error: function(err) {
+                            console.log(err);
+                            console.log("API save_order_img ERROR !!");
+                        }
+                    });
+
+                }
+            },
+            error: function(err) {
+                console.log(err);
+                console.log("API make_order ERROR !!");
+            }
+        });
     });
 
     /*====================== LOGO UPLOAD =========================*/

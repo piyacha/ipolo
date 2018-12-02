@@ -1,6 +1,10 @@
 .modal{
   // For second modal to be scrolled
   overflow: auto !important;
+  .btn{
+    min-width: 150px;
+    font-size: 1em;
+  }
 	.design-warpper{
 		text-align: center;
 	}
@@ -15,6 +19,15 @@
 	}
 	.gender-header{
     font-size: 1.5em;
+    a {
+      color: #686868;
+      font-size: .8em;
+    }
+    span {
+      margin-left: 10px;
+      margin-right: 5px;
+      font-size: 0.6em;
+    }
 	}
 	.stuff-inline{
     width: 100%;
@@ -22,6 +35,8 @@
     text-align: center;
 	}
 	.create-modal-btn{
+    display: block;
+    text-align: center;
 		width: 100%;
     background-color: #8cc63f;
 		color: white;
@@ -61,5 +76,11 @@
 #create-address-alert{
   .modal-body{
     padding: 10px 15px;
+  }
+}
+
+#askSignInModal{
+  .modal-footer{
+    text-align: center;
   }
 }

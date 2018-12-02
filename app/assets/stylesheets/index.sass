@@ -10,11 +10,16 @@
 .ipolo-navbar
   z-index: 10
   position: absolute
+  top: 0
   left: 0
   right: 0
   margin: 0
   background-color: white
   border-radius: 0
+  .dropdown-menu
+    width: 100%
+    a
+      padding: 0 !important
   .navbar-brand 
     padding: 0px
     text-align: center
@@ -26,9 +31,10 @@
   .navbar-nav
     li
       a
+        text-align: center
         line-height: 70px
         font-size: 1.5em
-        padding: 15px 50px 15px 50px
+        padding: 15px 45px 15px 45px
 
 .ipolo-section-1
   background-size: cover
@@ -123,6 +129,10 @@ footer
       font-size: 1.55em
       margin-left: 10px
 
+@media screen and (max-width:993px)
+  .ipolo-section-1
+    text-align: center
+
 @media screen and (min-width:768px)
   .navbar-brand-centered 
     position: absolute
@@ -147,6 +157,7 @@ footer
     .navbar-nav
       li
         a
+          cursor: pointer
           line-height: 20px
 
   .ipolo-section-1

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427120929) do
+ActiveRecord::Schema.define(version: 20181202195634) do
 
   create_table "abilities", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -109,9 +109,11 @@ ActiveRecord::Schema.define(version: 20170427120929) do
     t.integer  "admin_user_id"
     t.float    "total_price",               default: 0.0
     t.string   "fax",                       default: ""
+    t.integer  "user_id"
   end
 
   add_index "orders", ["admin_user_id"], name: "index_orders_on_admin_user_id"
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
   create_table "pledges", force: :cascade do |t|
     t.float    "value",       default: 0.0
@@ -170,11 +172,13 @@ ActiveRecord::Schema.define(version: 20170427120929) do
     t.float    "current_credit",            default: 1.0
     t.float    "current_pledge",            default: 1.0
     t.string   "fax",                       default: ""
+    t.integer  "user_id"
   end
 
   add_index "quotations", ["admin_user_id"], name: "index_quotations_on_admin_user_id"
   add_index "quotations", ["credit_id"], name: "index_quotations_on_credit_id"
   add_index "quotations", ["pledge_id"], name: "index_quotations_on_pledge_id"
+  add_index "quotations", ["user_id"], name: "index_quotations_on_user_id"
 
   create_table "setting_roles", force: :cascade do |t|
     t.string   "permission",    default: ""
@@ -188,6 +192,18 @@ ActiveRecord::Schema.define(version: 20170427120929) do
 
   add_index "setting_roles", ["admin_user_id"], name: "index_setting_roles_on_admin_user_id"
   add_index "setting_roles", ["group_role_id"], name: "index_setting_roles_on_group_role_id"
+
+  create_table "static_values", force: :cascade do |t|
+    t.string   "key"
+    t.string   "value"
+    t.boolean  "active",             default: true, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+  end
 
   create_table "stuff_colors", force: :cascade do |t|
     t.string   "name"
@@ -360,5 +376,26 @@ ActiveRecord::Schema.define(version: 20170427120929) do
   end
 
   add_index "stuffs", ["stuff_type_id"], name: "index_stuffs_on_stuff_type_id"
+
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "name"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

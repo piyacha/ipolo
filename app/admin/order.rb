@@ -49,14 +49,11 @@ ActiveAdmin.register Order do
   end
 
   index do
-    div do stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" end
-    div do javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" end
     selectable_column
-    # column :id
     column :admin_user
+    column :user
     column :first_name
     column :tel
-    column :fax
     column :email
     column "status" do |order|
       if order.status == "quotation"
@@ -93,66 +90,8 @@ ActiveAdmin.register Order do
         end
       end
     end
-    column "View" do |order|
-      a href:"/admin/orders/#{order.id}" do
-        button type:'button',id:'',class:'btn btn-default',value:order.id  do
-          span class:'glyphicon glyphicon-search',style:'margin-right:5px' do
+    actions
 
-          end
-          span do
-            'View'
-          end
-        end
-      end
-    end
-    column "Edit" do |order|
-      a href:"/admin/orders/#{order.id}/edit" do
-        button type:'button',id:'',class:'btn btn-default',value:order.id  do
-          span class:'glyphicon glyphicon-cog',style:'margin-right:5px' do
-
-          end
-          span do
-            'Edit'
-          end
-        end
-      end
-    end
-    column "Delete" do |order|
-      # a href:"/admin/orders/#{order.id}" do
-      #   button type:'button',id:'',class:'btn btn-danger',value:order.id  do
-      #     'Delete'
-      #   end
-      # end
-      link_to "Delete", admin_order_path(order), :method => :delete, :data => {:confirm => "ยืนยันการลบ ?"},:class => 'btn btn-danger',:style => 'color:white;'
-    end
-
-    # actions dropdown: true do |order|
-    #   item "Delete", admin_order_path(order), :method => :delete, :data => {:confirm => "Are you sure?"}
-    # end
-
-    div class:'modal fade',id:'complete_status',tabindex:'-1',role:'dialog' do
-      div class:'modal-dialog',role:'document' do
-        div class:'modal-content' do
-          div class:'modal-header' do
-            h4 class:'modal-title',id:'app-modal-doc-name-confirm' do
-              "สถานะ"
-            end
-          end
-
-          div class:'modal-body' do
-            h3 do
-              "ทำรายการเรียบร้อย"
-            end
-          end
-
-          div class:'modal-footer' do
-            button type:'button',class:'btn btn-default complete_status_model_close' do
-              'ปิด'
-            end
-          end
-        end
-      end
-    end
   end
 
 

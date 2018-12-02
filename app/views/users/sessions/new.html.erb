@@ -1,0 +1,50 @@
+<div class="limiter">
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <%= form_for(resource, as: resource_name, class:'login100-form validate-form', url: session_path(resource_name)) do |f| %>
+        <span class="login100-form-title p-b-26">
+          Welcome
+        </span>
+
+        <label> Email </label>
+        <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
+          <%= f.email_field :email, autofocus: true, class: 'input100 has-val' %>
+          <div class="background-gradient"></div>
+        </div>
+
+        <label> Password </label>
+        <div class="wrap-input100 validate-input" data-validate="Enter password">
+          <span class="btn-show-pass">
+            <i class="zmdi zmdi-eye"></i>
+          </span>
+          <%= f.password_field :password, autocomplete: "off", class: 'input100 has-val' %>
+          <div class="background-gradient"></div>
+        </div>
+
+        <!--  <div class="text-center p-t-115">
+          <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end -%>
+        </div> -->
+
+        <div class="container-login100-form-btn">
+          <div class="wrap-login100-form-btn">
+            <%= f.submit "Login", class:"login100-form-btn ipolo-btn" %>
+          </div>
+        </div>
+
+        <div class="text-center p-t-115">
+          <%= render "users/shared/links" %>
+        </div>
+      <% end %>
+      
+
+    </div>
+  </div>
+</div>
+	
+
+

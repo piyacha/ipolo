@@ -1647,7 +1647,7 @@ $(document).ready(function(){
         if(total_amount != 0 ){
             document.getElementById("price_per_amount").innerHTML = Math.round(total_price/total_amount)+".- BAHT";
         }else{
-            document.getElementById("price_per_amount").innerHTML = "0.- BAHT";
+            document.getElementById("price_per_amount").innerHTML = "0.- บาท";
         }
     });
 
@@ -1658,7 +1658,7 @@ $(document).ready(function(){
         console.log(stuff_price);
         console.log(stuff_picker);
 
-        document.getElementById("total_price").innerHTML = "0.- BAHT";
+        document.getElementById("total_price").innerHTML = "0.- บาท";
         if(stuff_picker.length > 0){
             //find 'TYPE' for stuff size.
             var find_stuff_size = -100;

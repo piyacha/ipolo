@@ -1,35 +1,4 @@
 ActiveAdmin.register Quotation do
-
-# See permitted parameters documentation:
-# https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-#
-# permit_params :list, :of, :attributes, :on, :model
-#
-# or
-#
-# permit_params do
-#   permitted = [:permitted, :attributes]
-#   permitted << :other if params[:action] == 'create' && current_user.admin?
-#   permitted
-# end
-
-# requires :first_name, type: String, desc: ""
-# requires :address, type: String, desc: ""
-# requires :tel, type: String, desc: ""
-# requires :email, type: String, desc: ""
-# requires :note, type: String, desc: ""
-#
-# requires :stuff_img, type: String, desc: ""
-#
-# requires :estimate_cost, type: String, desc: ""
-# requires :stuff_picker, type: String, desc: ""
-# requires :stuff_price, type: String, desc: ""
-# requires :base_price, type: String, desc: ""
-#
-# optional :company_name, type: String, desc: ""
-# optional :company_branch, type: String, desc: ""
-# optional :tax_identification_number, type: String, desc: ""
-
   menu parent: 'Order',  priority: 2
 
   filter :first_name
@@ -103,96 +72,46 @@ ActiveAdmin.register Quotation do
 
 
   index do
-    div do stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" end
-    div do javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" end
+    # div do stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" end
+    # div do javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" end
 
-    div class:'modal fade',id:'quotaion_loading_email',tabindex:'-1',role:'dialog' do
-      div class:'modal-dialog modal-sm',role:'document' do
-        div class:'modal-content' do
-          div class:'modal-body',align:'center' do
-            image_tag("print/email_loading.gif", width: '200px',height:'200px')
-          end
-        end
-      end
-    end
+    # div class:'modal fade',id:'quotaion_loading_email',tabindex:'-1',role:'dialog' do
+    #   div class:'modal-dialog modal-sm',role:'document' do
+    #     div class:'modal-content' do
+    #       div class:'modal-body',align:'center' do
+    #         image_tag("print/email_loading.gif", width: '200px',height:'200px')
+    #       end
+    #     end
+    #   end
+    # end
 
     selectable_column
-    column :id
     column :admin_user
+    column :use
     column :first_name
     column :tel
-    column :fax
     column :email
     column "Confirm" do |quotation|
       if quotation.complete
-        button type:'button',id:'',class:'btn btn-success',value:quotation.id  do
-          span class:'glyphicon glyphicon-ok',style:'margin-right:5px' do
-
-          end
-          span do
-            'Sent'
-          end
+        span class:'label label-success', value:quotation.id  do
+          "Quotation"
         end
       else
-        button type:'button',id:'',class:'btn btn-warning quotation-confirm',value:quotation.id  do
-          span class:'glyphicon glyphicon-remove',style:'margin-right:5px' do
-
-          end
-          span do
-            'Not Sent'
-          end
+        span class:'label label-warning quotation-confirm', value:quotation.id  do
+          "Not Send"
         end
       end
     end
 
-    column "View" do |quotation|
-      a href:"/admin/quotations/#{quotation.id}" do
-        button type:'button',id:'',class:'btn btn-default',value:quotation.id  do
-          span class:'glyphicon glyphicon-search',style:'margin-right:5px' do
-
-          end
-          span do
-            'View'
-          end
-        end
-      end
-    end
-    column "Edit" do |quotation|
-      a href:"/admin/quotations/#{quotation.id}/edit" do
-        button type:'button',id:'',class:'btn btn-default',value:quotation.id  do
-          span class:'glyphicon glyphicon-cog',style:'margin-right:5px' do
-
-          end
-          span do
-            'Edit'
-          end
-        end
-      end
-    end
-    column "Delete" do |quotation|
-      # a href:"/admin/quotations/#{quotation.id}" do
-      #   button type:'button',id:'',class:'btn btn-danger',value:quotation.id  do
-      #     'Delete'
-      #   end
-      # end
-      link_to "Delete", admin_quotation_path(quotation), :method => :delete, :data => {:confirm => "ยืนยันการลบ ?"},:class => 'btn btn-danger',:style => 'color:white;'
-    end
-    actions defaults: false do |quotation|
-      # link_to 'Send Email', email_admin_quotation_path(quotation)
-
+    column "Email" do |quotation|
       a href:email_admin_quotation_path(quotation) do
-        # quotation_send_email
-        button type:'button',id:'',class:'btn btn-primary',value:quotation.id  do
-          span class:'glyphicon glyphicon-envelope',style:'margin-right:5px' do
-
-          end
-          span do
-            'View Email'
-          end
+        span class:'label label-primary quotation-confirm', value:quotation.id  do
+          'View Email'
         end
       end
-
     end
+
+    actions
 
   end
   sidebar "ข้อมูลทั่วไป", only: :show,class:"quotation_sidebar" do

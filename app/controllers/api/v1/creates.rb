@@ -166,9 +166,27 @@ module API
         end
         get "find_stuff_size", root: :creates do
           stuff = Stuff.find(permitted_params[:stuff_id])
-          stuffSize_male = StuffSize.where({:stuff => stuff,:sex => "male"}).order('priority ASC')
+          stuffSize_male   = StuffSize.where({:stuff => stuff,:sex => "male"}).order('priority ASC')
           stuffSize_female = StuffSize.where({:stuff => stuff,:sex => "female"}).order('priority ASC')
-          {data_stuffSize_male:stuffSize_male,data_stuffSize_female:stuffSize_female}
+
+          male_size        = StaticValue.where({:key => "male_size"}).first
+          female_size      = StaticValue.where({:key => "female_size"}).first
+          if male_size && female_size
+            male_image        = male_size.image.url() if male_size.image
+            female_image      = female_size.image.url() if female_size.image
+  
+            male_size = {
+              value: male_size.value,
+              image: male_image
+            }
+  
+            female_size = {
+              value: female_size.value,
+              image: female_image
+            }
+          end
+          
+          { data_stuffSize_male: stuffSize_male, data_stuffSize_female: stuffSize_female, male_size: male_size, female_size: female_size }
         end
       end
 
@@ -411,6 +429,7 @@ module API
         #*********************************************
         desc "make_order"
         params do
+          optional :order_id, type: String, desc: ""
           optional :first_name, type: String, desc: ""
           optional :address, type: String, desc: ""
           optional :tel, type: String, desc: ""
@@ -428,18 +447,27 @@ module API
           optional :tax_identification_number, type: String, desc: ""
 
           optional :option_price_details, type: String, desc: ""
+          optional :current_user_id, type: String, desc: ""
           optional :current_admin_user_email, type: String, desc: ""
         end
         post "make_order", root: :creates do
-
-          newOrder = Order.new
+          user = User.find_by(id: permitted_params[:current_user_id]) 
+          order = Order.find_by(id: permitted_params[:order_id]) if permitted_params[:order_id]
+          
+          if order
+            newOrder = order
+          else
+            newOrder = Order.new
+          end  
 
           if permitted_params[:current_admin_user_email]
             adminUser = AdminUser.where({email:permitted_params[:current_admin_user_email]}).first;
           else
             adminUser = AdminUser.where({username:"anonymous"}).first;
           end
+
           newOrder.admin_user     = adminUser
+          newOrder.user           = user
           newOrder.first_name     = permitted_params[:first_name]
           newOrder.address        = permitted_params[:address]
           newOrder.tel            = permitted_params[:tel]
@@ -472,7 +500,7 @@ module API
           newOrder.option_price_details = permitted_params[:option_price_details]
           newOrder.save
 
-          {order_id:newOrder.id}
+          { order_id: newOrder.id }
         end
       end
 

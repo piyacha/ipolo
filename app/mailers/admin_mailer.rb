@@ -342,7 +342,7 @@ class AdminMailer < ApplicationMailer
       </style>
 
       <div class='section2'>
-        <div class='_text-center'><h2 class='report-title'>บริษัท คณารักษ์ การ์เม้นท์ จำกัด KANARUG GARMENT CO.,LTD </h2></div>
+        <div class='_text-center'><h2 class='report-title'>บริษัท ไอโปโล จำกัด KANARUG GARMENT CO.,LTD </h2></div>
         <div class='line-image'></div>
         <div class='address-section'>
           <span class='address-text' >เลขที่ 5 ซ.เอกชัย 89/1 ถ.เอกชัย แขวงบางบอน เขตบางบอกน กรุงเทพ 10150 เลขประจำตัวผู้เสียภาษี  0-1055-47061-02-5
@@ -509,7 +509,7 @@ class AdminMailer < ApplicationMailer
           <tr class='confirm-box-1' >
               <td rowspan='2' class='payment-desc' style='width:20cm;'>
                   <p class='payment-desc'>กรณีชำระสินค้าโดยการโอนเงิน</p>
-                  <p class='payment-desc'>ชื่อบัญชี : บริษัท คณารักษ์ การ์เม้นท์ จำกัด</p>
+                  <p class='payment-desc'>ชื่อบัญชี : บริษัท ไอโปโล จำกัด</p>
                   <p class='payment-desc'>ธนาคาร กสิกรไทย บัญชี : กระแสรายวัน</p>
                   <p class='payment-desc'>หมายเลขบัญชี: 055-1-10061-8 สาขา : บางบอน</p>
                   <p class='payment-desc'>ธนาคารกรุงไทย บัญชี : กระแสรายวัน</p>
@@ -517,7 +517,7 @@ class AdminMailer < ApplicationMailer
                   <p class='payment-desc'>กรุณาแฟ็กซ์หลักฐานการโอนเงินมาที่ 0-2894-5448</p>
                   <p class='payment-desc'>พร้อมระบุชื่อสินค้า,ชื่อผู้โอน และเบอร์ติดต่อกลับ</p>
                   <p class='payment-desc'>กรณีชำระสินค้าโดยการตีเช็ค</p>
-                  <p class='payment-desc'>สั่งจ่ายในนาม บริษัท คณารักษ์ การ์เม้นท์ จำกัด</p>
+                  <p class='payment-desc'>สั่งจ่ายในนาม บริษัท ไอโปโล จำกัด</p>
               </td>
               <td style='width:20cm;'>
                 <div style='height:1.8cm;'>กรุณาเช็นสั่งซื้อ พร้อมประทับตรา</div><br>
@@ -527,7 +527,7 @@ class AdminMailer < ApplicationMailer
           <tr>
            <td class='_text-center quotation_sign'>
               <img src='#{sign_img_path}' style='width:60%;'><br>
-              บริษัท คณารักษ์ การ์เม้นท์ จำกัด
+              บริษัท ไอโปโล จำกัด
            </td>
           </tr>
         </table>

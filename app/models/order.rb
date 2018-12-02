@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
 
   belongs_to :admin_user
+  belongs_to :user
 
   has_attached_file :stuff_img,
                     :url => "/:attachment/:id_partition/:style/:basename.:extension",

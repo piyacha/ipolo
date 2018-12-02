@@ -3,6 +3,7 @@ class Quotation < ActiveRecord::Base
   include Rails.application.routes.url_helpers
 
   belongs_to :admin_user
+  belongs_to :user
   belongs_to :pledge
   belongs_to :credit
 

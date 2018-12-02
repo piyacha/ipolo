@@ -6,7 +6,8 @@
     <div class="texture-label" id="color-picker-render-label">สี</div>
 
     <div class="color-picker-render" id="color-picker-render-1" style="display: none;">
-        <button type="button" class="btn btn-default dropdown-toggle btn-color-1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-default dropdown-toggle btn-color-1" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             &nbsp;
         </button>
         <div class="dropdown-menu custom-dropdown-menu" id="color-picker">
@@ -15,7 +16,8 @@
     </div>
 
     <div class="color-picker-render" id="color-picker-render-2" style="display: none;">
-        <button type="button" class="btn btn-default dropdown-toggle btn-color-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-default dropdown-toggle btn-color-2" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             &nbsp;
         </button>
         <div class="dropdown-menu custom-dropdown-menu" id="color-picker-2">
@@ -24,7 +26,8 @@
     </div>
 
     <div class="color-picker-render" id="color-picker-render-3" style="display: none;">
-        <button type="button" class="btn btn-default dropdown-toggle btn-color-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button type="button" class="btn btn-default dropdown-toggle btn-color-3" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
             &nbsp;
         </button>
         <div class="dropdown-menu custom-dropdown-menu" id="color-picker-3">
@@ -33,6 +36,9 @@
     </div>
 </div>
 
+<% if current_user %>
+    <input type="hidden" id="current_user_id" value="<%= current_user.id.to_s %>">
+<% end %>
 
 <div id="overlay"></div>
 
@@ -47,7 +53,8 @@
                         <div class="cursor-arrow" value="<%= type.id %>"></div>
                     </div>
                     <div class='stuff-inline stuff-pick-right stuff-intersection-right' value="<%= type.id %>">
-                        <div class="stuff-type-left-img stuff-pick-invert-color stuff-type-right-img stuff-type-icon-right" value="<%= type.id %>"></div>
+                        <div class="stuff-type-left-img stuff-pick-invert-color stuff-type-right-img stuff-type-icon-right"
+                            value="<%= type.id %>"></div>
                     </div>
                 </li>
                 <% end %>
@@ -56,14 +63,20 @@
     </div>
     <form action="/print_art_work" id="form_print" method="post" target="_blank">
         <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-        <input id="img_base_64" name="img_base_64" type="text" style="display: none;"/>
+        <input id="img_base_64" name="img_base_64" type="text" style="display: none;" />
 
         <button class="btn btn_order print-btn" name="commit" type="submit">
-            ปริ้นตัวอย่าง   
+            ปริ้นตัวอย่าง
         </button>
-        <button class="btn btn_order make_order" id="make_order" name="commit" type="button">
-            สั่งซื้อ 
-        </button>
+        <% if current_user %>
+            <button class="btn btn_order make_order" id="make_order" name="commit" type="button">
+                สั่งซื้อ
+            </button>
+        <% else %>
+            <button class="btn btn_order make_order" id="ask_sign_in" type="button">
+                สั่งซื้อ
+            </button>
+        <% end %>
     </form>
 
     <div id="page-content-wrapper">
@@ -82,8 +95,10 @@
                             </div>
                         </div>
                     </div>
-                    <canvas width="1600" height="800" name="order_canvas" id="order_canvas" class="canvas_size_custom" data-water-mask="<%= asset_path 'print/water_mask.png' %>"></canvas><br>
-                    <canvas width="1600" height="800" name="tmp_canvas" id="tmp_canvas" class="canvas_size_custom" style="display: none;"></canvas>
+                    <canvas width="1600" height="800" name="order_canvas" id="order_canvas" class="canvas_size_custom"
+                        data-water-mask="<%= asset_path 'print/water_mask.png' %>"></canvas><br>
+                    <canvas width="1600" height="800" name="tmp_canvas" id="tmp_canvas" class="canvas_size_custom"
+                        style="display: none;"></canvas>
                 </div>
             </div>
 
@@ -110,9 +125,12 @@
             <div class="hr"></div>
         </div>
         <div class="summary_wrapper">
-            <div class="title">ความยืดหยุ่น</div><div class="desc">5</div>
-            <div class="title">ความยืดหยุ่น</div><div class="desc">5</div>
-            <div class="title">ความยืดหยุ่น</div><div class="desc">5</div>
+            <div class="title">ความยืดหยุ่น</div>
+            <div class="desc">5</div>
+            <div class="title">ความยืดหยุ่น</div>
+            <div class="desc">5</div>
+            <div class="title">ความยืดหยุ่น</div>
+            <div class="desc">5</div>
         </div>
     </div>
 </div>

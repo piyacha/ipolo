@@ -18,12 +18,38 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="navbar-brand-centered">
       <ul class="nav navbar-nav">
-        <li><a href="<%= designs_path %>">ออกแบบ</a></li>
+        <li><a href="<%= designs_path %>">ออกแบบ<%= session[:order_id] %></a></li>
         <li><a href="#">สินค้า</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">ติดต่อเรา</a></li>
-        <li><a href="#">เกี่ยวกับเรา</a></li>       
+      <ul class="nav navbar-nav navbar-right"> 
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">เกี่ยวกับเรา
+          <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">ติดต่อเรา</a></li>
+            <li><a href="#">เกี่ยวกับเรา</a></li>
+          </ul>
+        </li>
+
+        <% if user_signed_in? %>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#"><%= current_user.email.to_s.truncate(10) %>
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li>
+                <a href="#">ออเดอร์ของฉัน</a>  
+              </li>
+              <li>
+                <%= link_to('ออกจากระบบ', destroy_user_session_path, method: :delete) %>        
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to('เข้าสู่ระบบ', new_user_session_path)  %>  
+          </li>
+        <% end %>
+
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
