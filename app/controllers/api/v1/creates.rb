@@ -2,6 +2,7 @@ module API
   module V1
     class Creates < Grape::API
       include API::V1::Defaults
+      require 'date'
 
       resource :creates do
         #*********************************************
@@ -153,6 +154,36 @@ module API
             color_price = color.color_price
           end
           {data:color_code,name:color_name,color_price:color_price}
+        end
+      end
+
+      resource :creates do
+        #*********************************************
+        #************  Find stuff color
+        #*********************************************
+        desc "Find color"
+        params do
+          requires :order_id, type: String, desc: ""
+          requires :user_id, type: String, desc: ""
+          requires :phone, type: String, desc: ""
+          requires :slip, type: File, desc: ""
+          requires :payment_name, type: String, desc: ""
+          requires :bank_account_id, type: String, desc: ""
+          requires :paid_amount, type: String, desc: ""
+          requires :paid_at, type: String, desc: ""
+        end
+        post "payment_transfer", root: :creates do
+          payment = Payment.new
+          payment.image = permitted_params[:slip][:tempfile]
+          payment.order = Order.find_by(id: permitted_params[:order_id])
+          payment.user = User.find_by(id: permitted_params[:user_id])
+          payment.name = permitted_params[:payment_name] || ""
+          payment.phone = permitted_params[:phone] || ""
+          payment.bank_account = BankAccount.find_by(id: permitted_params[:bank_account_id])
+          payment.paid_amount = permitted_params[:paid_amount]
+          payment.paid_at = DateTime.parse(permitted_params[:paid_at])
+          p "========== payment.bank_account #{payment.bank_account}"
+          payment.save!
         end
       end
 
@@ -518,7 +549,7 @@ module API
           if order
             order.stuff_img = permitted_params[:img][:tempfile]
             order.save
-            {status:true}
+            {order_id: order.id, status:true}
           else
             {status:false}
           end

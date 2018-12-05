@@ -1534,6 +1534,11 @@ $(document).ready(function(){
     document.getElementById("logo_upload").onchange = function () {
         var file_name = (this.value).split("\\");
         document.getElementById("upload_file_name").innerHTML = file_name[file_name.length-1];
+	};
+	
+	document.getElementById("slip").onchange = function () {
+        var file_name = (this.value).split("\\");
+        document.getElementById("slip_file_name").innerHTML = file_name[file_name.length-1];
     };
 
     $("#create_customer_input_form").change(function(){1
@@ -1778,7 +1783,8 @@ $(document).ready(function(){
                         success: function(data, textStatus, xhr) {
                             $("#addressModal").modal("hide");
                             if(data['status']==true){
-                                $("#thxModal").modal("show");
+								$("#order_id").val(data['order_id'])
+                                $("#paymentModal").modal("show");
                             }else{
                                 $("#problemModal").modal("show");
                             }
@@ -1812,6 +1818,36 @@ $(document).ready(function(){
         $("#logo_height").css('box-shadow','0px 0px 5px rgba(255, 255, 255, 1)')
         $("#logo_width").css('box-shadow','0px 0px 5px rgba(255, 255, 255, 1)')
     })
+
+    $("#payment_transfer").click(function(){
+        var fd = new FormData();
+        fd.append('order_id', $("#order_id").val());
+        fd.append('slip', $("#slip")[0].files[0]);
+        fd.append('payment_name', $("#payment_name").val());
+        fd.append('bank_account_id', $("#bank_account_id").val());
+        fd.append('paid_amount', $("#paid_amount").val());
+		fd.append('paid_at', $("#paid_at").val());
+		fd.append('phone', $("#phone").val());
+		fd.append('user_id', $("#current_user_id").val());
+
+        $.ajax({
+            url: "/api/v1/creates/payment_transfer",
+            method: "POST",
+            data: fd,
+            processData: false,  // tell jQuery not to process the data
+            contentType: false,  // tell jQuery not to set contentType
+            success: function(data, textStatus, xhr) {
+				$("#slip").val("");
+				$("#paymentModal").modal("hide");
+                if(data){
+                    $("#thxModal").modal("show");
+                }
+            },
+            error: function(err) {
+                $("#problemModal").modal("show");
+            }
+        });
+    });
 
     $("#logo_upload").change(function(){
 

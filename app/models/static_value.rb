@@ -1,6 +1,5 @@
 class StaticValue < ActiveRecord::Base
 
-
   has_attached_file :image,
                     :url => "/:attachment/:id_partition/:style/:basename.:extension",
                     :path => ":rails_root/public/:attachment/:id_partition/:style/:basename.:extension",

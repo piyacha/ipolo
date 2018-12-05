@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181202195634) do
+ActiveRecord::Schema.define(version: 20181205184920) do
 
   create_table "abilities", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 20181202195634) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
   add_index "admin_users", ["group_role_id"], name: "index_admin_users_on_group_role_id"
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+
+  create_table "bank_accounts", force: :cascade do |t|
+    t.string   "no",                 default: "",   null: false
+    t.string   "name",               default: "",   null: false
+    t.boolean  "active",             default: true, null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.string   "slug",               default: ""
+    t.string   "branch",             default: ""
+    t.string   "bank_name",          default: ""
+  end
 
   create_table "credits", force: :cascade do |t|
     t.float    "value",       default: 0.0
@@ -114,6 +129,26 @@ ActiveRecord::Schema.define(version: 20181202195634) do
 
   add_index "orders", ["admin_user_id"], name: "index_orders_on_admin_user_id"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
+
+  create_table "payments", force: :cascade do |t|
+    t.string   "name",               default: "",  null: false
+    t.float    "paid_amount",        default: 0.0
+    t.datetime "paid_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
+    t.integer  "bank_account_id"
+    t.integer  "user_id"
+    t.integer  "order_id"
+    t.string   "phone",              default: ""
+  end
+
+  add_index "payments", ["bank_account_id"], name: "index_payments_on_bank_account_id"
+  add_index "payments", ["order_id"], name: "index_payments_on_order_id"
+  add_index "payments", ["user_id"], name: "index_payments_on_user_id"
 
   create_table "pledges", force: :cascade do |t|
     t.float    "value",       default: 0.0

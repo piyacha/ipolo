@@ -1,4 +1,5 @@
 <!-- Summary Modal -->
+
 <div id="summaryModal" class="modal fade modal-wide" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -9,6 +10,13 @@
 
       <div class="modal-body">
         <div class="row">
+          <div class="col-xs-12">
+            <ul class="list-unstyled multi-steps">
+              <li class="is-active">ระบุจำนวน</li>
+              <li>ข้อมูลผู้สั่งซ์้อ</li>
+              <li>แจ้งโอนเงิน</li>
+            </ul>
+          </div>
           <div class="col-xs-12 design-warpper">
             <div class="design-img"></div>
           </div>
@@ -42,15 +50,9 @@
               <div class="col-xs-12 col-md-6">
               </div>
               <div class="col-xs-12 col-md-6">
-                <% if current_user %>
-                  <button class="create-modal-btn" data-dismiss="modal" data-toggle="modal" data-target="#addressModal">
-                    สั่งซื้อ
-                  </button>
-                <% else %>
-                  <a class="create-modal-btn" href="<%= new_user_session_path %>">
-                    สั่งซื้อ
-                  </a>
-                <% end %>
+                <button class="create-modal-btn" data-dismiss="modal" data-toggle="modal" data-target="#addressModal">
+                  สั่งซื้อ
+                </button>
               </div>
             </div>
           </div>
@@ -71,6 +73,13 @@
 
       <div class="modal-body">
         <div class="row">
+          <div class="col-xs-12">
+            <ul class="list-unstyled multi-steps">
+              <li >ระบุจำนวน</li>
+              <li class="is-active">ข้อมูลผู้สั่งซ์้อ</li>
+              <li>แจ้งโอนเงิน</li>
+            </ul>
+          </div>
           <div class="col-xs-12">
             <div class="design-img"></div>
           </div>
@@ -131,6 +140,96 @@
               </div>
               <div class="col-xs-12 col-md-6">
                 <button class="create-modal-btn" data-toggle="modal" id="make_order_address">
+                  แจ้งโอน
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% @bank_account = BankAccount.where(active: true) %>
+<!-- Payment Modal --> 
+<div id="paymentModal" class="modal fade modal-wide" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">แจ้งโอนเงิน</h4>
+      </div>
+
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-xs-12">
+            <ul class="list-unstyled multi-steps">
+              <li >ระบุจำนวน</li>
+              <li >ข้อมูลผู้สั่งซ์้อ</li>
+              <li class="is-active">แจ้งโอนเงิน</li>
+            </ul>
+          </div>
+          <div class="col-xs-12">
+            <% @bank_account.each do |bank_acc| %>
+              <div class="media">
+                <div class="media-left">
+                  <img class="media-object" src="<%= bank_acc.image.url(:thumb) %>">
+                </div>
+                <div class="media-body">
+                  <h4 class="media-heading"><%= "#{bank_acc.no}" %></h4>
+                  <%= "#{bank_acc.bank_name} #{bank_acc.branch}" %><br/>
+                  <%= "#{bank_acc.name}" %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="col-xs-12">
+            <%= form_tag root_path, :class => 'row' do %>
+
+              <div class="form-group col-xs-12">
+                <label for="">บัญชีธนาคาร</label>
+                <select class="form-control" id="bank_account_id">
+                  <% @bank_account.each do |bank_acc| %>
+                    <option value="<%= "#{bank_acc.id}" %>"><%= "#{bank_acc.no} #{bank_acc.name}" %></option>
+                  <% end %>
+                </select>
+              </div>
+
+              <div class="form-group col-xs-6">
+                <label for="">ชื่อผู้โอน</label>
+                <%= text_field_tag 'payment_name', nil, placeholder: '' ,  class:'form-control' %>
+              </div>
+
+              <div class="form-group col-xs-12 col-md-6">
+                <label for="">จำนวนที่โอน</label>
+                 <%= text_field_tag 'paid_amount', nil, placeholder: '', class:'form-control' %>
+              </div>
+
+              <div class="form-group col-xs-12 col-md-6">
+                <label for="">วัน / เวลา ที่โอน</label>
+                <input id="paid_at" type="datetime-local" name="paid_at" value="<%= Time.zone.now %>">
+              </div>
+
+              <div class="form-group col-xs-12 col-md-6">
+                <label for="">เบอร์ติดต่อ</label>
+                 <%= text_field_tag 'phone', nil, placeholder: '', class:'form-control' %>
+              </div>
+
+              <div class="form-group col-xs-12 text-center">   
+                <div class="fileUpload btn btn-success">
+                  <span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
+                  <span>อัพโหลด รูปหลักฐานการชำระเงิน</span>
+                  <input type="file" id="slip" class="upload">
+                </div>
+                <p id="slip_file_name">กรุณาอัพโหลดรูปหลักฐานการชำระเงิน</p>
+              </div>
+            <%end%>
+
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <button class="create-modal-btn" data-toggle="modal" id="payment_transfer">
                   แจ้งโอน
                 </button>
               </div>
@@ -405,7 +504,6 @@
     </div>
   </div>
 </div>
-
 
 <div id="askSignInModal" class="modal fade" role="dialog">
   <div class="modal-dialog modal-lg">
