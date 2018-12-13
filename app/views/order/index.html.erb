@@ -1,0 +1,136 @@
+
+<div class="container ipolo-orders-wrapper">
+    <h1> รายการออเดอร์ </h1>
+    <% counter = 0 %>
+    <% @orders.each_with_index do |order, index| %>
+      <% counter += 1 %>
+      <% order.stuff_picker ? stuff = JSON.parse(order.stuff_picker) : stuff = [] %>
+      <div class="row order-row">
+        <div class="col-md-3">
+          <img class="order-img" src="<%= order.stuff_img.url(:medium) %>">
+          <table class="table">
+              <tbody>
+                <% stuff.each do |item| %>
+                  <tr>
+                    <td><%= item['stuff_type_name'] %></td>
+                    <td><%= item['desc'] %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+          </table>
+        </div>
+        <div class="col-md-9">
+          <h2>
+            หมายเลขออเดอร์ #<%= order.id %>
+          </h2>
+          
+          <div class="row">
+            <div class="col-md-12">
+              <% male = false %>
+              <% female = false %>
+              <% male_list = [] %>
+              <% female_list = [] %>
+              <% stuff_price = order.json_estimate_cost() %>
+              <% stuff_price.each do |price| %>
+                <% if price['amount'].to_i > 0 %>
+                  <% item = {
+                    :size => price['size'].split('_')[0],
+                    :amount => price['amount'].to_i,
+                    :price_per_unit => price['price_per_unit'].to_i
+                  } %>
+                  <% if price['size'].split('_')[1] == 'male' %>
+                    <% male = true %>
+                    <% male_list.push(item) %>
+                  <% elsif price['size'].split('_')[1] == 'female' %>
+                    <% female = true %>
+                    <% female_list.push(item) %>
+                  <% end %>
+                <% end %>
+              <% end %>
+
+              <% if male %>
+                <div class="panel-group" id="accordion-<%= index+counter %>">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion-<%= index+counter %>" href="#collapseOne-<%= index+counter %>">
+                        จำนวนไซส์ ผู้ชาย
+                      </div>
+                    </div>
+                    <div id="collapseOne-<%= index+counter %>" class="panel-collapse collapse">
+                      <div class="panel-body">                
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>ไซส์</th>
+                              <th>จำนวน</th>
+                              <th>ราคาต่อขนาด</th>
+                              <th>ราคารวมต่อไซส์</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% male_list.each do |item| %>
+                              <tr>
+                                <td><%= item[:size] %></td>
+                                <td><%= item[:amount] %></td>
+                                <td><%= item[:price_per_unit] %></td>
+                                <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+              <% counter += 1 %>
+              <% if female %>
+                <div class="panel-group" id="accordion-<%= index+counter %>">
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+                      <div class="panel-title accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne-<%= index+counter %>">
+                          จำนวนไซส์ ผู้หญิง
+                      </div>
+                    </div>
+                    <div id="collapseOne-<%= index+counter %>" class="panel-collapse collapse">
+                      <div class="panel-body">                
+                        <table class="table">
+                          <thead>
+                            <tr>
+                              <th>ไซส์</th>
+                              <th>จำนวน</th>
+                              <th>ราคาต่อไซส์</th>
+                              <th>ราคารวมต่อไซส์</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% male_list.each do |item| %>
+                              <tr>
+                                <td><%= item[:size] %></td>
+                                <td><%= item[:amount] %></td>
+                                <td><%= item[:price_per_unit] %></td>
+                                <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-9">
+              <div class="order-price">ราคา <%= number_to_currency(order.total_price, unit: "") %> บาท</div>
+            </div>
+            <div class="col-md-3">
+              <button class="btn ipolo-btn order-btn">แจ้งโอน</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+</div>

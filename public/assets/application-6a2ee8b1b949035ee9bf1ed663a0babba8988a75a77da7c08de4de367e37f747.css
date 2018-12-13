@@ -9180,10 +9180,6 @@ a.thumbnail.active {
   overflow: hidden;
 }
 
-.media-body {
-  width: 10000px;
-}
-
 .media-object {
   display: block;
 }

@@ -11,6 +11,7 @@
       font-size: 24px;
     }
   }
+
   .form-control{
     font-size: 18px;
   }
@@ -29,9 +30,16 @@
 		text-align: center;
 		font-size: 2em;
 		line-height: 1.1;
-	}
+  }
+  #slip_file_name{
+    margin-bottom: 0px
+  }
 	.gender-header{
-    font-size: 1.5em;
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    border-bottom: 2px solid;
+    padding-bottom: 5px;
     a {
       color: #686868;
       font-size: .8em;
@@ -98,6 +106,16 @@
   }
 }
 
+#paymentModal{
+  h2{
+    font-size: 28px;
+    margin-top: 0;
+    margin-bottom: 30px;
+    border-bottom: 2px solid;
+    padding-bottom: 5px;
+  }
+}
+
 $brand-primary: #8cc63f;
 $white: #fff;
 $grey-light: #ededed;
@@ -137,7 +155,7 @@ $grey-light: #ededed;
       line-height: 32px;
       text-align: center;
       font-weight: bold;
-      border:{
+      border: {
         width: 2px;
         style: solid;
         color: $brand-primary;

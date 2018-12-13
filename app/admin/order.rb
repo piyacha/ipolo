@@ -101,9 +101,6 @@ ActiveAdmin.register Order do
       row "สถานะ" do |c|
         c.status
       end
-      row "รับผิดชอบโดย" do |c|
-        c.admin_user
-      end
     end
 
   end
@@ -574,12 +571,9 @@ ActiveAdmin.register Order do
                   "ราคาแยกตามส่วน"
                 end
               end
-              json_price = order.json_price_amount_report();
-              if json_price != []
-                all_stuff_price = json_price['all_stuff_price']
-              else
-                all_stuff_price = []
-              end
+              json_price = order.json_price_amount_report()
+              all_stuff_price = []
+              all_stuff_price = json_price['all_stuff_price'] if !json_price['all_stuff_price'].nil?
               all_stuff_price.each do |stuff|
                 tr do
 

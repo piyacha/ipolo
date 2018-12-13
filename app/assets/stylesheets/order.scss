@@ -135,3 +135,53 @@ background-color:#4a6696;height:6px;margin-bottom:7px;
   text-align: center;
   width:10cm;
 }
+
+.panel-heading .accordion-toggle:after {
+  /* symbol for "opening" panels */
+  font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+  content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+  float: right;        /* adjust as needed */
+  color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+  /* symbol for "collapsed" panels */
+  content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+.ipolo-orders-wrapper{
+  padding-top: 120px;
+  h1{
+    font-size: 2.3em;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .order-row{
+    margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
+    .order-img{
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    .order-btn{
+      width: 100%;
+      font-size: 1em
+    }
+    .order-price{
+      float: right;
+      font-size: 1.5em
+    }
+    .panel-title{
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (max-width:768px){
+  .ipolo-orders-wrapper{
+    padding-top: 80px;
+    .order-img{
+      margin-bottom: 20px;
+    }
+  }
+}

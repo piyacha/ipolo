@@ -27,5 +27,7 @@ Rails.application.routes.draw do
   get "/order_make_quotation" ,to: 'admin#order_make_quotation', as: 'order_make_quotation'
   get "/order_make_contact" ,to: 'admin#order_make_contact', as: 'order_make_contact'
 
+  get "/orders", to: 'order#index', as: 'order_index'
+
   get "/test_pdf" ,to: 'print#test_pdf' ,as: 'test_pdf'
 end
