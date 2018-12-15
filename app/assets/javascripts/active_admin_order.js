@@ -5,14 +5,7 @@ function donwload_img(path) {
 }
 
 $(document).ready(function(){
-
-    // ============================================================
-    // ============================================================
-    // ======================    ORDER     ========================
-    // ============================================================
-    // ============================================================
-    $(".order_quotation").on('click',function(){
-        console.log($(this).val());
+    $(".payment_paid").on('click',function(){
         $.ajax({
             url: "/api/v1/creates/make_quotation",
             type: "post",
@@ -33,17 +26,28 @@ $(document).ready(function(){
         });
     });
 
-    $('#complete_status').on('hidden.bs.modal', function () {
-        console.log("after make_quotation");
-        window.location.reload();
-    });
-
-    $('.complete_status_model_close').on('click',function(){
-        $("#complete_status").modal("hide")
+    $(".order_quotation").on('click',function(){
+        $.ajax({
+            url: "/api/v1/creates/make_quotation",
+            type: "post",
+            dataType: "json",
+            data: {"order_id":$(this).val()},
+            success: function(data, textStatus, xhr) {
+                if(data['status'] && data['quotation_id']){
+                    // $("#complete_status").modal("show")
+                    window.location = "/admin/quotations/"+data['quotation_id']+"/edit";
+                } else {
+                    alert("ไม่พบ order ในระบบ");
+                }
+            },
+            error: function(err) {
+                console.log(err)
+                alert("ทำรายการไม่สำเร็จ โปรดลองอีกครั้ง");
+            }
+        });
     });
 
     $(".order_contact").on('click',function(){
-        console.log($(this).val());
         $.ajax({
             url: "/api/v1/creates/make_contact",
             type: "post",
@@ -51,7 +55,11 @@ $(document).ready(function(){
             data: {"order_id":$(this).val()},
             success: function(data, textStatus, xhr) {
                 if(data['status']){
-                    $("#complete_status").modal("show")
+                    if (confirm("ติดต่อเรียบร้อย")) {
+                        window.location.reload();
+                      } else {
+                        window.location.reload();
+                      }
                 }else{
                     alert("ไม่พบ order ในระบบ");
                 }
@@ -64,8 +72,6 @@ $(document).ready(function(){
     });
 
     $(".quotation_send_email").on('click',function(){
-        console.log($(this).val());
-
         if ($('#quotaion_loading_email').length !=0){
             console.log($('#quotaion_loading_email').length);
             $('#quotaion_loading_email').modal('show');

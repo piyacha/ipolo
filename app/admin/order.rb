@@ -50,7 +50,8 @@ ActiveAdmin.register Order do
 
   index do
     selectable_column
-    column :admin_user
+    # column :admin_user
+    column :id
     column :user
     column :first_name
     column :tel
@@ -64,27 +65,25 @@ ActiveAdmin.register Order do
         span class:'label label-info' do
           "Contact"
         end
-      elsif order.status == "no contact"
+      elsif order.status == "pending"
         span class:'label label-warning' do
-          "NO contact"
+          "Pending"
+        end
+      elsif order.status == "no contact"
+        span class:'label label-default' do
+          "No contact"
         end
       end
     end
-    column "Make Contact" do |order|
-      button type:'button',id:'',class:'btn btn-info order_contact',value:order.id do
-        span class:'glyphicon glyphicon-earphone',style:'margin-right:5px' do
-
-        end
+    column "Make Contact",class: 'text-center' do |order|
+      button type:'button',id:'',class:'btn ipolo-btn order_contact',value:order.id do
         span do
           'Contact'
         end
       end
     end
-    column "Make Quotation" do |order|
+    column "Make Quotation",class: 'text-center' do |order|
       button type:'button',id:'order_quotation',class:'btn btn-success order_quotation',value:order.id  do
-        span class:'glyphicon glyphicon-transfer',style:'margin-right:5px' do
-
-        end
         span do
           'Quotation'
         end
@@ -354,9 +353,6 @@ ActiveAdmin.register Order do
                   th do
                     "สีส่วนที่ 3"
                   end
-                  # th do
-                  #   "ราคา %"
-                  # end
                 end
                 stuff_picker.each do |picker|
                   stuff = Stuff.find(picker["stuff_id"])
@@ -444,50 +440,7 @@ ActiveAdmin.register Order do
           # c.base_price
         end
       end
-
     end
-
-    # panel "ราคา" do
-    #   attributes_table_for order do
-    #
-    #     row "ราคาต้นทุน" do
-    #
-    #       table do
-    #         tr do
-    #           th do
-    #             "ชื่อ"
-    #           end
-    #           # th do
-    #           #   "ราคาสุทธิต่อตัว"
-    #           # end
-    #           th do
-    #             "จำนวน"
-    #           end
-    #           th do
-    #             "รวม"
-    #           end
-    #         end
-    #         order.json_price_amount_report().each do |stuff|
-    #           tr do
-    #             td do
-    #               stuff[0]
-    #             end
-    #             # td do
-    #             #   stuff[1]['current_price'].to_f.round(2)
-    #             # end
-    #             td do
-    #               stuff[1]['amount']
-    #             end
-    #             td do
-    #               stuff[1]['total_amount_price'].to_f.round(2)
-    #             end
-    #           end
-    #         end
-    #       end
-    #       nil
-    #     end
-    #   end
-    # end
 
     panel "จำนวน" do
       attributes_table_for order do
@@ -523,12 +476,6 @@ ActiveAdmin.register Order do
 
     panel "ราคารวม" do
       attributes_table_for order do
-        # row "ราคารวม" do
-        #   stuff = order.json_price_amount_report()
-        #   if stuff != []
-        #     stuff['total_price']
-        #   end
-        # end
         row "ราคารวม" do
           order.total_price
         end
@@ -559,160 +506,154 @@ ActiveAdmin.register Order do
       end
       panel "SUPER ADMIN" do
         attributes_table_for order do
-
-          row "ราคาต้นทุน" do
-
-            table do
-              tr do
-                th do
-                  "ชื่อ"
-                end
-                th do
-                  "ราคาแยกตามส่วน"
-                end
+          table do
+            tr do
+              th do
+                "ชื่อ"
               end
-              json_price = order.json_price_amount_report()
-              all_stuff_price = []
-              all_stuff_price = json_price['all_stuff_price'] if !json_price['all_stuff_price'].nil?
-              all_stuff_price.each do |stuff|
-                tr do
+              th do
+                "ราคาแยกตามส่วน"
+              end
+            end
+            json_price = order.json_price_amount_report()
+            all_stuff_price = []
+            all_stuff_price = json_price['all_stuff_price'] if !json_price['all_stuff_price'].nil?
+            all_stuff_price.each do |stuff|
+              tr do
 
-                  td do
-                    stuff[0]
-                  end
-                  td do
-                    table do
-                      tr do
-                        th do
-                          "Name"
-                        end
-                        th do
-                          "Value"
-                        end
+                td do
+                  stuff[0]
+                end
+                td do
+                  table do
+                    tr do
+                      th do
+                        "Name"
                       end
-                      stuff[1].each do |key, array|
-                        # if !array['fabric_price'].nil?
-                        tr do
-                          td do
-                            if key=="add_option_price"
-                              "ค่าเพิ่มเติม"
-                            elsif key=="wage"
-                              "ค่าแรง (Wage)"
-                            elsif key=="base_price"
-                              "ราคารวมแต่ละชิ้นส่วน (Base_price)"
-                            elsif key=="pattern_price	"
-                              "ค่าแบบ (Pattern price)"
-                            elsif key=="amount"
-                              "จำนวนที่สั่ง (Amount)"
-                            elsif key=="profit"
-                              "กำไร (Profit)"
-                            elsif key=="all_logo_price"
-                              "ราคา โลโก้ทุกส่วน (ต่อตัว)"
-                            elsif key=="pattern_price / amount"
-                              "pattern_price / amount"
-                            elsif key=="current_price"
-                              "ราคาสุทธิต่อตัว"
-                            elsif key=="total_amount_price"
-                              "ราคาสุทธิ x จำนวน"
-                            else
-                              key
-                            end
+                      th do
+                        "Value"
+                      end
+                    end
+                    stuff[1].each do |key, array|
+                      # if !array['fabric_price'].nil?
+                      tr do
+                        td do
+                          if key=="add_option_price"
+                            "ค่าเพิ่มเติม"
+                          elsif key=="wage"
+                            "ค่าแรง (Wage)"
+                          elsif key=="base_price"
+                            "ราคารวมแต่ละชิ้นส่วน (Base_price)"
+                          elsif key=="pattern_price	"
+                            "ค่าแบบ (Pattern price)"
+                          elsif key=="amount"
+                            "จำนวนที่สั่ง (Amount)"
+                          elsif key=="profit"
+                            "กำไร (Profit)"
+                          elsif key=="all_logo_price"
+                            "ราคา โลโก้ทุกส่วน (ต่อตัว)"
+                          elsif key=="pattern_price / amount"
+                            "pattern_price / amount"
+                          elsif key=="current_price"
+                            "ราคาสุทธิต่อตัว"
+                          elsif key=="total_amount_price"
+                            "ราคาสุทธิ x จำนวน"
+                          else
+                            key
                           end
-                          td do
-                            if array.class == Hash
+                        end
+                        td do
+                          if array.class == Hash
 
-                              table do
-                                tr do
-                                  th do
-                                    "fabric_price"
-                                  end
-                                  th do
-                                    "color_factor"
-                                  end
-                                  th do
-                                    "texture_consumption"
-                                  end
-                                  th do
-                                    "consumption"
-                                  end
-                                  th do
-                                    "size_factor"
-                                  end
-                                  th do
-                                    "static_price_per_stuff"
-                                  end
-                                  th do
-                                    "CC_0_price"
-                                  end
-                                  th do
-                                    "CC_1_price"
-                                  end
-                                  th do
-                                    "CC_2_price"
-                                  end
-                                  th do
-                                    "CR_0"
-                                  end
-                                  th do
-                                    "CR_1"
-                                  end
-                                  th do
-                                    "CR_2"
-                                  end
+                            table do
+                              tr do
+                                th do
+                                  "fabric_price"
                                 end
-                                tr do
-                                  td do
-                                    array['fabric_price']
-                                  end
-                                  td do
-                                    array['color_factor']
-                                  end
-                                  td do
-                                    array['stuff_texture_consumption']
-                                  end
-                                  td do
-                                    array['consumption']
-                                  end
-                                  td do
-                                    array['size_factor']
-                                  end
-                                  td do
-                                    array['static_price_per_stuff']
-                                  end
-                                  td do
-                                    array['color_code_0_price']
-                                  end
-                                  td do
-                                    array['color_code_1_price']
-                                  end
-                                  td do
-                                    array['color_code_2_price']
-                                  end
-                                  td do
-                                    array['color_ratio_0']
-                                  end
-                                  td do
-                                    array['color_ratio_1']
-                                  end
-                                  td do
-                                    array['color_ratio_2']
-                                  end
+                                th do
+                                  "color_factor"
+                                end
+                                th do
+                                  "texture_consumption"
+                                end
+                                th do
+                                  "consumption"
+                                end
+                                th do
+                                  "size_factor"
+                                end
+                                th do
+                                  "static_price_per_stuff"
+                                end
+                                th do
+                                  "CC_0_price"
+                                end
+                                th do
+                                  "CC_1_price"
+                                end
+                                th do
+                                  "CC_2_price"
+                                end
+                                th do
+                                  "CR_0"
+                                end
+                                th do
+                                  "CR_1"
+                                end
+                                th do
+                                  "CR_2"
                                 end
                               end
-                            else
-                              array.to_f.round(2)
+                              tr do
+                                td do
+                                  array['fabric_price']
+                                end
+                                td do
+                                  array['color_factor']
+                                end
+                                td do
+                                  array['stuff_texture_consumption']
+                                end
+                                td do
+                                  array['consumption']
+                                end
+                                td do
+                                  array['size_factor']
+                                end
+                                td do
+                                  array['static_price_per_stuff']
+                                end
+                                td do
+                                  array['color_code_0_price']
+                                end
+                                td do
+                                  array['color_code_1_price']
+                                end
+                                td do
+                                  array['color_code_2_price']
+                                end
+                                td do
+                                  array['color_ratio_0']
+                                end
+                                td do
+                                  array['color_ratio_1']
+                                end
+                                td do
+                                  array['color_ratio_2']
+                                end
+                              end
                             end
+                          else
+                            array.to_f.round(2)
                           end
                         end
                       end
                     end
                   end
-
                 end
-              end #LOOP
-            end
 
-            nil
+              end
+            end #LOOP
           end
         end
       end

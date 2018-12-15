@@ -12,14 +12,15 @@ td {
 .section2{
   margin-top: 5px;
   position: relative;
-  background-color: #fbfbfd;
 }
 .report-title{
   margin:0px;
   margin-top:10px;
 }
 .line-image{
-background-color:#4a6696;height:6px;margin-bottom:7px;
+  background-color: #4a6696;
+  height: 3px;
+  margin: 10px;
 }
 .address-text{
   padding-left:120px;
@@ -154,6 +155,8 @@ background-color:#4a6696;height:6px;margin-bottom:7px;
     font-size: 2.3em;
     text-align: center;
     margin-bottom: 30px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 15px;
   }
   .order-row{
     margin-bottom: 30px;
@@ -165,23 +168,47 @@ background-color:#4a6696;height:6px;margin-bottom:7px;
     }
     .order-btn{
       width: 100%;
-      font-size: 1em
+      font-size: 1.2em;
+      line-height: 1;
     }
     .order-price{
       float: right;
-      font-size: 1.5em
+      font-size: 1.5em;
     }
     .panel-title{
       font-size: 24px;
     }
+    .order-created{
+      float: right;
+      font-size: .8em;
+    }
+    .order-status{
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: 700;
+      margin-bottom: 15px;
+      &.pending{
+        color: #f0ad4e;
+      }
+      &.quotation{
+        color: #5cb85c;
+      }
+    }
+
   }
 }
 
 @media screen and (max-width:768px){
   .ipolo-orders-wrapper{
     padding-top: 80px;
-    .order-img{
-      margin-bottom: 20px;
+    .order-row{
+      .order-img{
+        margin-bottom: 20px;
+      }
+      .order-created{
+        font-size: .5em;
+        line-height: 2.5;
+      }
     }
   }
 }

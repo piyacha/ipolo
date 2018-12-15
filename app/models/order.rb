@@ -11,8 +11,13 @@ class Order < ActiveRecord::Base
   validates_attachment_content_type :stuff_img, content_type: /\Aimage\/.*\z/
 
   def order_name
-    self.first_name + " " + self.last_name
+    "#{self.first_name}"
   end
+
+  def name
+    "#{self.id}"
+  end
+
   def json_price_amount_report
     if !self.price_amount_report.nil?
       return JSON.parse(self.price_amount_report)

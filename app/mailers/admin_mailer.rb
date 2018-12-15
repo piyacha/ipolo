@@ -201,14 +201,15 @@ class AdminMailer < ApplicationMailer
       .section2{
         margin-top: 5px;
         position: relative;
-        background-color: #fbfbfd;
       }
       .report-title{
         margin:0px;
         font-size:1.2em;
       }
       .line-image{
-      background-color:#4a6696;height:6px;margin-bottom:7px;
+        background-color: #4a6696;
+        height: 3px;
+        margin: 10px;
       }
       .address-text{
         padding-top: 5px;
@@ -342,7 +343,7 @@ class AdminMailer < ApplicationMailer
       </style>
 
       <div class='section2'>
-        <div class='_text-center'><h2 class='report-title'>บริษัท ไอโปโล จำกัด KANARUG GARMENT CO.,LTD </h2></div>
+        <div class='_text-center'><h2 class='report-title'>บริษัท ไอโปโล จำกัด IPOLO CO.,LTD </h2></div>
         <div class='line-image'></div>
         <div class='address-section'>
           <span class='address-text' >เลขที่ 5 ซ.เอกชัย 89/1 ถ.เอกชัย แขวงบางบอน เขตบางบอกน กรุงเทพ 10150 เลขประจำตัวผู้เสียภาษี  0-1055-47061-02-5
@@ -562,7 +563,7 @@ class AdminMailer < ApplicationMailer
     ]
     @patial_name = "print/quotation"
     @enable_header = true
-    mail(to: send_to_email, subject: 'Kanarug Garment (ipolo) ใบเสนอราคา')
+    mail(to: send_to_email, subject: 'IPOLO (ipolo) ใบเสนอราคา')
   end
 
 end

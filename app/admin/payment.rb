@@ -10,7 +10,7 @@ ActiveAdmin.register Payment do
 
   index do
     selectable_column
-    id_column
+    # id_column
     column :order
     column :image do |payment|
       if payment.image
@@ -22,6 +22,19 @@ ActiveAdmin.register Payment do
     column :paid_at
     column :paid_amount
     column :created_at
+    column "ยืนยัน" do |payment|
+      if payment.order && payment.status == "unpaid"
+        button type:'button',id:'',class:'btn btn-success payment_paid',value:payment.order.id  do
+          span do
+            'ยืนยันการชำระ'
+          end
+        end
+      elsif payment.status == "paid"
+        span do
+          'ชำระแล้ว'
+        end
+      end
+    end
     actions
   end
 

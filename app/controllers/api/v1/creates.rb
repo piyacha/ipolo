@@ -175,14 +175,21 @@ module API
         post "payment_transfer", root: :creates do
           payment = Payment.new
           payment.image = permitted_params[:slip][:tempfile]
-          payment.order = Order.find_by(id: permitted_params[:order_id])
+          order =  Order.find_by(id: permitted_params[:order_id])
+          puts "============================= #{order.id}"
+          puts "============================= #{order.id}"
+          puts "============================= #{order.id}"
+          payment.order = order
           payment.user = User.find_by(id: permitted_params[:user_id])
           payment.name = permitted_params[:payment_name] || ""
           payment.phone = permitted_params[:phone] || ""
           payment.bank_account = BankAccount.find_by(id: permitted_params[:bank_account_id])
           payment.paid_amount = permitted_params[:paid_amount]
           payment.paid_at = DateTime.parse(permitted_params[:paid_at])
-          p "========== payment.bank_account #{payment.bank_account}"
+          if order
+            order.status = "pending"
+            order.save
+          end
           payment.save!
         end
       end
@@ -633,6 +640,11 @@ module API
 
             order.status = "quotation"
             order.save
+
+            Payment.where(order: order).each do |payment|
+              payment.update(status: "paid")
+            end
+
             {status:true,quotation_id:quotation.id}
           else
             {status:false}

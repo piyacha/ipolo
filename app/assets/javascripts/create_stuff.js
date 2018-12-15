@@ -1783,7 +1783,8 @@ $(document).ready(function(){
                         success: function(data, textStatus, xhr) {
                             $("#addressModal").modal("hide");
                             if(data['status']==true){
-								$("#order_id").val(data['order_id'])
+                                $("#order_id").val(data['order_id'])
+                                document.getElementById("paid_at").defaultValue =  moment().format().split("+")[0];
                                 $("#paymentModal").modal("show");
                             }else{
                                 $("#problemModal").modal("show");
@@ -1821,7 +1822,14 @@ $(document).ready(function(){
 
     $("#payment_transfer").click(function(){
         var fd = new FormData();
-        fd.append('order_id', $("#order_id").val());
+        console.log(payment_order_id);
+        console.log($("#order_id").val());
+        if (payment_order_id == undefined || payment_order_id == null ){
+            console.log("HERE")
+            fd.append('order_id', $("#order_id").val());
+        }else{
+            fd.append('order_id', order_id);
+        }
         fd.append('slip', $("#slip")[0].files[0]);
         fd.append('payment_name', $("#payment_name").val());
         fd.append('bank_account_id', $("#bank_account_id").val());
@@ -1829,7 +1837,6 @@ $(document).ready(function(){
 		fd.append('paid_at', $("#paid_at").val());
 		fd.append('phone', $("#phone").val());
 		fd.append('user_id', $("#current_user_id").val());
-
         $.ajax({
             url: "/api/v1/creates/payment_transfer",
             method: "POST",

@@ -163,13 +163,15 @@
 
       <div class="modal-body">
         <div class="row">
-          <div class="col-xs-12">
-            <ul class="list-unstyled multi-steps">
-              <li >ระบุจำนวน</li>
-              <li >ข้อมูลผู้สั่งซ์้อ</li>
-              <li class="is-active">แจ้งโอนเงิน</li>
-            </ul>
-          </div>
+          <% unless @orders  %>
+            <div class="col-xs-12">
+              <ul class="list-unstyled multi-steps">
+                <li >ระบุจำนวน</li>
+                <li >ข้อมูลผู้สั่งซ์้อ</li>
+                <li class="is-active">แจ้งโอนเงิน</li>
+              </ul>
+            </div>
+          <% end %>
           <div class="col-xs-12">
             <h2>รายชื่อธนาคาร</h2>
             <% @bank_account.each do |bank_acc| %>
@@ -210,7 +212,7 @@
 
               <div class="form-group col-xs-12 col-md-6">
                 <label for="">วัน / เวลา ที่โอน</label>
-                <input id="paid_at" type="datetime-local" name="paid_at" value="<%= Time.zone.now %>">
+                <input id="paid_at" type="datetime-local" name="paid_at" value="<%= Time.zone.now.strftime("%d-%m-%YT%H:%M") %>">
               </div>
 
               <div class="form-group col-xs-12 col-md-6">

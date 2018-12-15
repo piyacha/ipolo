@@ -21,7 +21,7 @@
         </div>
         <div class="col-md-9">
           <h2>
-            หมายเลขออเดอร์ #<%= order.id %>
+            หมายเลขออเดอร์ #<%= order.id %> <span class="order-created"><%= order.created_at.strftime("วันที่ %m/%d/%Y เวลา %I:%M%p") %></span>
           </h2>
           
           <div class="row">
@@ -72,8 +72,8 @@
                               <tr>
                                 <td><%= item[:size] %></td>
                                 <td><%= item[:amount] %></td>
-                                <td><%= item[:price_per_unit] %></td>
-                                <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %></td>
+                                <td><%= number_to_currency( item[:price_per_unit] , unit: "") %> บาท</td>
+                                <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %> บาท</td>
                               </tr>
                             <% end %>
                           </tbody>
@@ -108,8 +108,8 @@
                               <tr>
                                 <td><%= item[:size] %></td>
                                 <td><%= item[:amount] %></td>
-                                <td><%= item[:price_per_unit] %></td>
-                                <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %></td>
+                                <td><%= number_to_currency( item[:price_per_unit] , unit: "") %> บาท</td>
+                                <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %> บาท</td>
                               </tr>
                             <% end %>
                           </tbody>
@@ -127,10 +127,19 @@
               <div class="order-price">ราคา <%= number_to_currency(order.total_price, unit: "") %> บาท</div>
             </div>
             <div class="col-md-3">
-              <button class="btn ipolo-btn order-btn">แจ้งโอน</button>
+              <% if order.status == "no contact"%>
+                <button class="btn ipolo-btn order-btn" data-order-id="<%= order.id %>" data-price="<%= order.total_price %>">แจ้งโอน</button>
+              <% elsif order.status == "contact" || order.status == "pending" %>
+                <div class="order-status pending"> กำลังตรวจสอบ </div>
+                <button class="btn ipolo-btn order-btn" data-order-id="<%= order.id %>" data-price="<%= order.total_price %>">แจ้งโอน</button>
+              <% elsif order.status == "quotation" %>
+                <div class="order-status quotation"> ชำระเงินแล้ว </div>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
     <% end %>
 </div>
+
+<%= render "designs/modal" %>

@@ -1,6 +1,6 @@
 ActiveAdmin.register AdminUser do
   permit_params :email, :password, :password_confirmation, :username, :anonymous,:group_role_id
-
+  
   menu parent: 'Admin'
 
   filter :email

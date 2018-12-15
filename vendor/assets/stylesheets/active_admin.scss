@@ -23,9 +23,6 @@ a:link, a:visited{
   text-align: center;
 }
 
-th{
-  width: 80px !important;
-}
 .td_logo{
   text-align: center;
 }
@@ -48,4 +45,73 @@ form.formtastic fieldset ol li.admin-inline {
 
 .form-sidebar .actions {
   padding: 0 10px;
+}
+
+.btn-success{
+  background-color: #8cc63f;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+.order_contact{
+  background-color: #6ab9ec;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+.index_table td, .panel_contents table th {
+  padding: 5px 5px;
+  font-size: 0.7rem;
+}
+.index_table td, .panel_contents table td {
+  padding: 5px 5px;
+}
+
+.label{
+  display: inline;
+  padding: .2em .6em .3em;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: .25em;
+  width: 100%;
+}
+
+.label-success{
+  background-color: #5cb85c;
+}
+
+.label-info{
+  background-color: #5bc0de;
+}
+
+.label-primary{
+  background-color: #337ab7;
+}
+
+.label-warning{
+  background-color: #f0ad4e;
+}
+
+.label-default{
+  color: #333;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.panel_contents{
+  padding: 0px;
+}
+
+.with_sidebar #sidebar{
+  max-width: 250px;
 }

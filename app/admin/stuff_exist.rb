@@ -1,6 +1,6 @@
 ActiveAdmin.register StuffExist do
-
-  menu parent: 'Existed',  priority: 1
+  menu false
+  # menu parent: 'Existed',  priority: 1
 
   permit_params  :name, :desc, :size, :active ,:stuff_exist_img, :remove_stuff_exist_img,stuff_exist_size_attributes: [:id, :name, :sex, :priority,:price, :_destroy]
 

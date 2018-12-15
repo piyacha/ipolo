@@ -12,14 +12,15 @@ td {
 .section2{
   margin-top: 5px;
   position: relative;
-  background-color: #fbfbfd;
 }
 .report-title{
   margin:0px;
   margin-top:10px;
 }
 .line-image{
-background-color:#4a6696;height:6px;margin-bottom:7px;
+  background-color: #4a6696;
+  height: 3px;
+  margin: 10px;
 }
 .address-text{
   padding-left:120px;
@@ -121,6 +122,7 @@ background-color:#4a6696;height:6px;margin-bottom:7px;
 .confirm-box{
   font-weight: bold;
   border-collapse: collapse;
+  width: 100%;
 }
 .confirm-box td{
   border:1px solid;
