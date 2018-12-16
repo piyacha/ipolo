@@ -1536,11 +1536,6 @@ $(document).ready(function(){
         document.getElementById("upload_file_name").innerHTML = file_name[file_name.length-1];
 	};
 	
-	document.getElementById("slip").onchange = function () {
-        var file_name = (this.value).split("\\");
-        document.getElementById("slip_file_name").innerHTML = file_name[file_name.length-1];
-    };
-
     $("#create_customer_input_form").change(function(){1
 
         document.getElementById("total_amount").innerHTML = "";
@@ -1674,13 +1669,17 @@ $(document).ready(function(){
                         if(data){
                             $('#stuff_size_input').empty();
                             if (data['data_stuffSize_male'].length>0){
-                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>ชาย <a data-fancybox='gallery' href='"+data['male_size']['image']+"'><span class='glyphicon glyphicon-info-sign'></span>"+data['male_size']['value']+" </a></h4></div>");
+                                if (data['male_size']){
+                                    $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>ชาย <a data-fancybox='gallery' href='"+data['male_size']['image']+"'><span class='glyphicon glyphicon-info-sign'></span>"+data['male_size']['value']+" </a></h4></div>");
+                                }           
                                 for(var i=0;i<data['data_stuffSize_male'].length;i++){
                                     $('#stuff_size_input').append("<div class='col-xs-4 col-sm-3 col-md-2 stuff-size-inline'> <div class='stuff-inline'>"+data['data_stuffSize_male'][i]['name']+" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_male'][i]['name']+"_"+data['data_stuffSize_male'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_male'][i]['stuff_id']+"'> </div> ");
                                 }
                             }
                             if (data['data_stuffSize_female'].length>0){
-                                $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>หญิง <a data-fancybox='gallery' href='"+data['female_size']['image']+"'> <span class='glyphicon glyphicon-info-sign'></span>"+data['female_size']['value']+" </a></h4></div>");
+                                if (data['female_size']){
+                                    $('#stuff_size_input').append("<div class='col-xs-12'><h4 class='gender-header'>หญิง <a data-fancybox='gallery' href='"+data['female_size']['image']+"'> <span class='glyphicon glyphicon-info-sign'></span>"+data['female_size']['value']+" </a></h4></div>");
+                                }
                                 for(var i=0;i<data['data_stuffSize_female'].length;i++){
                                     $('#stuff_size_input').append("<div class='col-xs-4 col-sm-3 col-md-2 stuff-size-inline'> <div class='stuff-inline'>"+data['data_stuffSize_female'][i]['name'] +" : "+"</div> <input class='stuff-inline' type='number' min='0' name='"+data['data_stuffSize_female'][i]['name']+"_"+data['data_stuffSize_female'][i]['sex']+"' id='input-stuff-size-"+data['data_stuffSize_female'][i]['stuff_id']+"'> </div> ");
                                 }
@@ -1819,42 +1818,6 @@ $(document).ready(function(){
         $("#logo_height").css('box-shadow','0px 0px 5px rgba(255, 255, 255, 1)')
         $("#logo_width").css('box-shadow','0px 0px 5px rgba(255, 255, 255, 1)')
     })
-
-    $("#payment_transfer").click(function(){
-        var fd = new FormData();
-        console.log(payment_order_id);
-        console.log($("#order_id").val());
-        if (payment_order_id == undefined || payment_order_id == null ){
-            console.log("HERE")
-            fd.append('order_id', $("#order_id").val());
-        }else{
-            fd.append('order_id', order_id);
-        }
-        fd.append('slip', $("#slip")[0].files[0]);
-        fd.append('payment_name', $("#payment_name").val());
-        fd.append('bank_account_id', $("#bank_account_id").val());
-        fd.append('paid_amount', $("#paid_amount").val());
-		fd.append('paid_at', $("#paid_at").val());
-		fd.append('phone', $("#phone").val());
-		fd.append('user_id', $("#current_user_id").val());
-        $.ajax({
-            url: "/api/v1/creates/payment_transfer",
-            method: "POST",
-            data: fd,
-            processData: false,  // tell jQuery not to process the data
-            contentType: false,  // tell jQuery not to set contentType
-            success: function(data, textStatus, xhr) {
-				$("#slip").val("");
-				$("#paymentModal").modal("hide");
-                if(data){
-                    $("#thxModal").modal("show");
-                }
-            },
-            error: function(err) {
-                $("#problemModal").modal("show");
-            }
-        });
-    });
 
     $("#logo_upload").change(function(){
 
