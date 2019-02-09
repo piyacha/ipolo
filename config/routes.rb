@@ -30,4 +30,6 @@ Rails.application.routes.draw do
   get "/orders", to: 'order#index', as: 'order_index'
 
   get "/test_pdf" ,to: 'print#test_pdf' ,as: 'test_pdf'
+
+  get '/price_calculate_doc', to: "index#price_calculate_doc"
 end

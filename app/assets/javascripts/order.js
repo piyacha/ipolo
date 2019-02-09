@@ -11,10 +11,13 @@ $(document).ready(function(){
     $("#paymentModal").modal("show");
   });
 
-  document.getElementById("slip").onchange = function () {
-    var file_name = (this.value).split("\\");
-    document.getElementById("slip_file_name").innerHTML = file_name[file_name.length-1];
-  };
+  if (document.getElementById("slip")){
+    document.getElementById("slip").onchange = function () {
+      var file_name = (this.value).split("\\");
+      document.getElementById("slip_file_name").innerHTML = file_name[file_name.length-1];
+    };
+  }
+
 
   $("#payment_transfer").click(function(){
     var fd = new FormData();

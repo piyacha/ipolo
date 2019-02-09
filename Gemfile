@@ -33,7 +33,7 @@ gem 'cancancan'
 
 gem 'figaro'
 # Active admin
-gem 'activeadmin', '~> 1.0.0.pre4'
+gem 'activeadmin', '>= 1.1', '<= 1.3'
 # Active admin User managemeent
 gem 'devise'
 # Active admin datetime
@@ -56,7 +56,7 @@ gem 'idr_reports' ,'~> 1.1'
 
 gem "active_material", github: "vigetlabs/active_material"
 
-gem 'passenger'
+# gem 'passenger'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views

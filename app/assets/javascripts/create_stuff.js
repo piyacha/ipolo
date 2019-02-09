@@ -425,12 +425,6 @@ function stuff_click_type(stuff_id,active){
                     $("#stuff_calculate_price").css('display','');
                 }
 
-                if (data['promotion']){
-                    document.getElementById("promotion_img").src = data['promotion'];
-                    $("#stuff_type_promotion").css('display','');
-
-                }
-
                 // renderPrice();
 
             }

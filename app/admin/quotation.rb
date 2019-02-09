@@ -57,7 +57,7 @@ ActiveAdmin.register Quotation do
 
   end
 
-  member_action :email, method: :get do
+  action_item :email, method: :get do
     @quotation = Quotation.quotation_report(params[:id])
     render 'preview_email'
   end
