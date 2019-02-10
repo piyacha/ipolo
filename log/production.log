@@ -1,0 +1,2 @@
+D, [2019-02-10T23:12:09.472387 #15364] DEBUG -- :   [1m[36mStuffType Load (6.8ms)[0m  [1mSELECT "stuff_types".* FROM "stuff_types"[0m
+D, [2019-02-10T23:12:46.970812 #15364] DEBUG -- :   [1m[35mActiveRecord::SchemaMigration Load (2.0ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
