@@ -1,6 +1,6 @@
 class IndexController < ApplicationController
   def index
-
+    @stuff_exist = StuffExist.where(active: true)
   end
 
   def test

@@ -2,6 +2,9 @@
   // For second modal to be scrolled
   overflow: auto !important;
 
+  .radio-inline{
+    width: initial;
+  }
   .media{
     margin-bottom: 30px;
     img{
@@ -11,7 +14,9 @@
       font-size: 24px;
     }
   }
-
+  .upload_alert_text{
+    font-size: 1.5em
+  }
   .form-control{
     font-size: 18px;
   }

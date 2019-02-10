@@ -7,6 +7,7 @@ var stuff_profit;
 var logo_static_value;
 var price_report = {};
 var price_amount_report = {};
+var current_total_price = 0
 
 /*===================================================================================*/
 /*===================================================================================*/
@@ -1618,13 +1619,19 @@ $(document).ready(function(){
         price_amount_report['price_before_profit'] = total_price;
 
         total_price = total_price * profit_value;
+        total_price = total_price.toFixed(2);
+        current_total_price = total_price;
         price_amount_report['total_price'] = total_price;
-
+        
+        if ($("#paid_amount").length){
+            $("#paid_amount").val(current_total_price);
+        }
+        
         document.getElementById("total_amount").innerHTML = Math.round(total_amount)+" ตัว";
-        document.getElementById("total_price").innerHTML = Math.round(total_price)+".- BAHT";
+        document.getElementById("total_price").innerHTML = total_price+".- BAHT";
 
         if(total_amount != 0 ){
-            document.getElementById("price_per_amount").innerHTML = Math.round(total_price/total_amount)+".- BAHT";
+            document.getElementById("price_per_amount").innerHTML = (total_price/total_amount).toFixed(2) +".- BAHT";
         }else{
             document.getElementById("price_per_amount").innerHTML = "0.- บาท";
         }
@@ -1973,16 +1980,16 @@ $(document).ready(function(){
         }
     });
 
-    $('.create-checkbox-position').on('change', function() {
-        console.log($('input[name=create_pocket]:checked').val());
-    });
-
     $('.price_preview_header').on('click',function() {
         $(".stuff_calculate_price").slideToggle("slow");
     });
 
+    if ($(window).width() > 768){
+        $(".stuff_texture_preview").slideToggle("slow");
+    }
     $('.texture_preview_header').on('click',function() {
         $(".stuff_texture_preview").slideToggle("slow");
+        $(".glyphicon").toggleClass("glyphicon-chevron-down").toggleClass("glyphicon-chevron-up");
     });
 
 

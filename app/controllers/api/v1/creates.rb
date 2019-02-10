@@ -176,9 +176,6 @@ module API
           payment = Payment.new
           payment.image = permitted_params[:slip][:tempfile]
           order =  Order.find_by(id: permitted_params[:order_id])
-          puts "============================= #{order.id}"
-          puts "============================= #{order.id}"
-          puts "============================= #{order.id}"
           payment.order = order
           payment.user = User.find_by(id: permitted_params[:user_id])
           payment.name = permitted_params[:payment_name] || ""
