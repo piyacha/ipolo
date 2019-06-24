@@ -3,17 +3,17 @@
     <div class="wrap-login100">
       <%= form_for(resource, as: resource_name, class:'login100-form validate-form', url: session_path(resource_name)) do |f| %>
         <span class="login100-form-title p-b-26">
-          Welcome
+          ยินดีต้อนรับ
         </span>
 
-        <label> Email </label>
+        <label> อีเมล </label>
         <div class="wrap-input100 validate-input" data-validate = "Valid email is: a@b.c">
           <%= f.email_field :email, autofocus: true, class: 'input100 has-val' %>
           <div class="background-gradient"></div>
         </div>
 
-        <label> Password </label>
-        <div class="wrap-input100 validate-input" data-validate="Enter password">
+        <label> รหัสผ่าน </label>
+        <div class="wrap-input100 validate-input" data-validate="โปรดใส่รหัสผ่าน">
           <span class="btn-show-pass">
             <i class="zmdi zmdi-eye"></i>
           </span>
@@ -32,7 +32,7 @@
 
         <div class="container-login100-form-btn">
           <div class="wrap-login100-form-btn">
-            <%= f.submit "Login", class:"login100-form-btn ipolo-btn" %>
+            <%= f.submit "เข้าสู่ระบบ", class:"login100-form-btn ipolo-btn" %>
           </div>
         </div>
 

@@ -86,17 +86,16 @@ class PrintController < ApplicationController
   end
 
   def print_quotation
-
     @quotation = Quotation.quotation_report(params[:id])
-
     # get default setting
     @default = IdrReports::ReportFunctions.default_setting()
     # set render base reports
     @base = @default[:base_reports]
     @varible = [
-        {page:'page1',
-         item:['1', '2', '3', '4', '5', '6', '7', '8']
-        }
+      {
+        page:'page1',
+        item:['1', '2', '3', '4', '5', '6', '7', '8']
+      }
     ]
     @patial_name = "print/quotation"
     @enable_header = false
@@ -104,11 +103,8 @@ class PrintController < ApplicationController
   end
 
   def test_pdf
-
     @quotation = Quotation.quotation_report(Quotation.all().last())
     @base_url = "http://localhost:3000/"
     render "print/_quotation"
-
   end
-
 end

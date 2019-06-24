@@ -6,6 +6,7 @@ class Quotation < ActiveRecord::Base
   belongs_to :user
   belongs_to :pledge
   belongs_to :credit
+  belongs_to :order
 
   has_many :quotation_prices
   accepts_nested_attributes_for :quotation_prices, :allow_destroy => true

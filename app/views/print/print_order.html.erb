@@ -314,95 +314,21 @@
       </tr>
     </table>
 
-    <table style="width: 100%;margin-top: 10px">
-      <tr>
-        <td width="30%" style="border:none">
-          <table style="width:100%">
-            <tr>
-              <td colspan="3" height="120px;" align="center">
-                <% @logo.each do |logo| %>
-                    <% if logo[:name] == 'logo_front_r' %>
-                        <%= image_tag(logo[:img_path],style:"width:150px;max-height:100px") %>
-                    <% end %>
-                <% end %>
-              </td>
-            </tr>
-            <tr>
-              <td width="40%" style="text-align: center;border-right: none;">
-                <% @logo.each do |logo| %>
-                    <% if logo[:name] == 'logo_front_r' %>
-                        กว้าง <%= logo[:width] %> ซ.ม
-                    <% end %>
-                <% end %>
-              </td>
-              <td width="40%" style="text-align: center;border-left:none;border-right: none;">
-                <% @logo.each do |logo| %>
-                    <% if logo[:name] == 'logo_front_r' %>
-                        สูง <%= logo[:height] %> ซ.ม
-                    <% end %>
-                <% end %>
-              </td>
-              <td style="text-align: center;border-left: none;">
-                <% @logo.each do |logo| %>
-                    <% if logo[:name] == 'logo_front_r' %>
-                        <%= logo[:color_number] %> สี
-                    <% end %>
-                <% end %>
-              </td>
-            </tr>
-          </table>
-        </td>
-        <td width="2%" style="border:none"></td>
-        <td width="30%" style="border:none">
-          <table style="width:100%">
-            <tr>
-              <td colspan="3" height="120px;">
-              </td>
-            </tr>
-            <tr>
-              <Td width="40%" style="text-align: center;border-right: none;">กว้าง x ซ.ม</td>
-              <Td width="40%" style="text-align: center;border-left:none;border-right: none;">สูง x ซ.ม </td>
-              <Td style="text-align: center;border-left: none;">x สี</td>
-            </tr>
-          </table>
-        </td>
-        <td width="2%" style="border:none"></td>
-        <td style="border:none">
-          <table style="width:100%">
-            <tr>
-              <td colspan="3" height="120px;" style="padding:20px">
-                <%= @texture[0][:name] %>
-                <%= image_tag(@texture[0][:img] ,style:"width:100px;height:100px") %>
-              </td>
-            </tr>
-          </table>
-        </td>
-      </tr>f
-    </table>
-
     <table style="width: 100%;margin-top: 10px;">
       <tr>
-        <td style="width: 48%;border: none;">
+        <td style="width: 100%;border: none;">
           <table width="100%" height="350px;">
             <tr>
               <td style="padding:20px" align="center">
-                <%= image_tag( @order.stuff_img.url(),style:"width:300px") %>
+                <%= image_tag( @order.stuff_img.url(),style:"width:500px") %>
               </td>
-            </tr>
-          </table>
-        </td>
-        <td style="width: 2%;border: none;"></td>
-        <td style="width: 48%;border: none;">
-          <table width="100%" height="350px;">
-            <tr>
-              <td></td>
             </tr>
           </table>
         </td>
       </tr>
     </table>
 
-    <div style="padding-top:50px;">
+    <div style="padding-top:200px;">
       <h3 class="text-center"><strong>ใบสั่งปก : บริษัท ไอโปโล จำกัด</strong></h3>
     </div>
 
@@ -650,7 +576,7 @@
         </td>
         <td style="border: none;">
           <div style="float:left;border:0px solid red;padding-top:0px;width:100%;height:2.5cm;">
-            <h1 style="margin-top:40px;padding:3px;width: 100%;text-align: center;"> !! รบกวนขอด่วนครับ !!</h1>
+            <h1 style="margin-top:40px;padding:3px;width: 100%;text-align: center;"></h1>
           </div>
         </td>
         <td style="width: 30%">

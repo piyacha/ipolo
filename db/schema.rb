@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190209095024) do
+ActiveRecord::Schema.define(version: 20190622073949) do
 
   create_table "abilities", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -209,10 +209,12 @@ ActiveRecord::Schema.define(version: 20190209095024) do
     t.float    "current_pledge",            default: 1.0
     t.string   "fax",                       default: ""
     t.integer  "user_id"
+    t.integer  "order_id"
   end
 
   add_index "quotations", ["admin_user_id"], name: "index_quotations_on_admin_user_id"
   add_index "quotations", ["credit_id"], name: "index_quotations_on_credit_id"
+  add_index "quotations", ["order_id"], name: "index_quotations_on_order_id"
   add_index "quotations", ["pledge_id"], name: "index_quotations_on_pledge_id"
   add_index "quotations", ["user_id"], name: "index_quotations_on_user_id"
 

@@ -73,7 +73,6 @@ $(document).ready(function(){
 
     $(".quotation_send_email").on('click',function(){
         if ($('#quotaion_loading_email').length !=0){
-            console.log($('#quotaion_loading_email').length);
             $('#quotaion_loading_email').modal('show');
         }else{
             alert("กำลังทำรายการ โปรดรอซักครู่");

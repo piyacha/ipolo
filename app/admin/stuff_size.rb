@@ -25,7 +25,7 @@ ActiveAdmin.register StuffSize do
     column :sex
     column :breast
     column :long
-    column "ค่าเบี่ยงเบน (Deviation)" do |size|
+    column "ราคาไซส์ (Deviation)" do |size|
       if size.base_price
         size.base_price
       end
@@ -56,7 +56,7 @@ ActiveAdmin.register StuffSize do
       f.input :sex, as: :select, collection:["male","female"]
       f.input :breast
       f.input :long
-      f.input :base_price, :label => "ค่าเบี่ยงเบน (Deviation)"
+      f.input :base_price, :label => "ราคาไซส์ (Deviation)"
       f.input :add_option_price, :label => "ราคาความยาว (%)"
       f.input :pattern_price, :label => "Pattern price (ค่าคงที่เอาไปบวก)"
       f.input :priority

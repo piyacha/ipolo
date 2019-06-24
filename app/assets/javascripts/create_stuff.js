@@ -350,6 +350,9 @@ function set_stuff_picker(data,stuff_id){
             stuff_picker[i]['stuff_name']       = data['data']['stuff']['name'];
             stuff_picker[i]['desc']             = data['data']['stuff']['desc'];
             stuff_picker[i]['additional_price'] = stuff_additional_price;
+            stuff_picker[i]['color_ratio_0'] = data['data']['color_ratio_0']
+            stuff_picker[i]['color_ratio_1'] = data['data']['color_ratio_1']
+            stuff_picker[i]['color_ratio_2'] = data['data']['color_ratio_2']
             // console.log("stuff click - > stuff_picker");
             // console.log(stuff_picker);
             checker = false;
@@ -371,8 +374,6 @@ function set_stuff_picker(data,stuff_id){
             "color_ratio_2":data['data']['color_ratio_2']
         });
     }
-
-
 }
 
 function stuff_click_type(stuff_id,active){

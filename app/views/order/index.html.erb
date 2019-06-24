@@ -68,8 +68,6 @@
                               <tr>
                                 <th>ไซส์</th>
                                 <th>จำนวน</th>
-                                <th>ราคาต่อขนาด</th>
-                                <th>ราคารวมต่อไซส์</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -77,8 +75,6 @@
                                 <tr>
                                   <td><%= item[:size] %></td>
                                   <td><%= item[:amount] %></td>
-                                  <td><%= number_to_currency( item[:price_per_unit] , unit: "") %> บาท</td>
-                                  <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %> บาท</td>
                                 </tr>
                               <% end %>
                             </tbody>
@@ -104,17 +100,13 @@
                               <tr>
                                 <th>ไซส์</th>
                                 <th>จำนวน</th>
-                                <th>ราคาต่อไซส์</th>
-                                <th>ราคารวมต่อไซส์</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <% male_list.each do |item| %>
+                              <% female_list.each do |item| %>
                                 <tr>
                                   <td><%= item[:size] %></td>
                                   <td><%= item[:amount] %></td>
-                                  <td><%= number_to_currency( item[:price_per_unit] , unit: "") %> บาท</td>
-                                  <td><%= number_to_currency( item[:amount] * item[:price_per_unit] , unit: "") %> บาท</td>
                                 </tr>
                               <% end %>
                             </tbody>

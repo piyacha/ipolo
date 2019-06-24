@@ -48,13 +48,23 @@ form.formtastic fieldset ol li.admin-inline {
 }
 
 .btn-success{
-  background-color: #8cc63f;
+  background-color: #5cb85c;
   color: white;
   padding: 10px 15px;
   border-radius: 5px;
   font-size: 1em;
   cursor: pointer;
 }
+
+.btn-primary{
+  background-color: #337ab7;
+  color: white !important;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
 .order_contact{
   background-color: #6ab9ec;
   color: white;
@@ -112,12 +122,22 @@ form.formtastic fieldset ol li.admin-inline {
   padding: 0px;
 }
 
-.with_sidebar #sidebar{
-  max-width: 250px;
-}
-
 .dashboard-table{
   text-align: left;
   font-size: 2em;
   line-height: 2;
+}
+
+#main_content_wrapper{
+  max-width: 75%;
+}
+
+.attributes_table.quotation{
+  overflow-x: scroll;
+  padding: 15px;
+}
+
+.table-small-th th{
+  max-width: 130px;
+  font-size: 10px;
 }

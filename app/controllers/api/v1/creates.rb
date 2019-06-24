@@ -573,6 +573,7 @@ module API
           order = Order.find(permitted_params[:order_id])
           if order
             quotation = Quotation.new
+            quotation.order          = order
             quotation.first_name     = order.first_name
             quotation.address        = order.address
             quotation.tel            = order.tel

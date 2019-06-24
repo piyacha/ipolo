@@ -12,9 +12,6 @@ ActiveAdmin.register Order do
   action_item :print, only: [:show] do
     link_to "Print", print_order_path(:id => params[:id],:from => "order"), :target => "_blank"
   end
-  action_item "Contact", only: [:show] do
-    link_to "Contact", order_make_contact_path(:id => params[:id],:from => "order")
-  end
   action_item "Quotation", only: [:show] do
     link_to "Quotation", order_make_quotation_path(:id => params[:id],:from => "order")
   end
@@ -26,21 +23,7 @@ ActiveAdmin.register Order do
       Order.where({admin_user:current_admin_user}).order('updated_at DESC')
     end
   end
-  scope :no_contact do |order|
-    if current_admin_user.anonymous == true
-      Order.where({:status => "no contact"}).order('updated_at DESC')
-    else
-      Order.where({admin_user:current_admin_user}).where({:status => "no contact"}).order('updated_at DESC')
-    end
-  end
-  scope :contact do |order|
-    if current_admin_user.anonymous == true
-      Order.where({:status => "contact"}).order('updated_at DESC')
-    else
-      Order.where({admin_user:current_admin_user}).where({:status => "contact"}).order('updated_at DESC')
-    end
-  end
-  scope :quotation do |order|
+  scope "ที่มีใบเสนอราคา" do |order|
     if current_admin_user.anonymous == true
       Order.where({:status => "quotation"}).order('updated_at DESC')
     else
@@ -56,41 +39,39 @@ ActiveAdmin.register Order do
     column :first_name
     column :tel
     column :email
-    column "status" do |order|
+    column "สถานะใบเสนอราคา" do |order|
       if order.status == "quotation"
-        span class:'label label-success' do
-          "Quotation"
+        span class:'label label-primary' do
+          "สร้างแล้ว"
         end
       elsif order.status == "contact"
         span class:'label label-info' do
-          "Contact"
+          "ติดต่อแล้ว"
         end
       elsif order.status == "pending"
         span class:'label label-warning' do
-          "Pending"
+          "รอตรวจสอบการแจ้งโอน"
         end
       elsif order.status == "no contact"
-        span class:'label label-default' do
-          "No contact"
+        span class:'label label-warning' do
+          "ยังไม่สร้าง"
         end
       end
     end
-    column "Make Contact",class: 'text-center' do |order|
-      button type:'button',id:'',class:'btn ipolo-btn order_contact',value:order.id do
-        span do
-          'Contact'
+    column "ใบเสนอราคา" do |order|
+      if order.status == "quotation" && order.quotations.last
+        a href: admin_quotation_path(id: order.quotations.last.id),class:'btn btn-primary' do 
+          "ดูใบเสนอราคา"
         end
-      end
-    end
-    column "Make Quotation",class: 'text-center' do |order|
-      button type:'button',id:'order_quotation',class:'btn btn-success order_quotation',value:order.id  do
-        span do
-          'Quotation'
+      else
+        button type:'button',id:'order_quotation',class:'btn btn-success order_quotation',value:order.id  do
+          span do
+            'ยืนยัน'
+          end
         end
       end
     end
     actions
-
   end
 
 

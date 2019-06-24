@@ -1,6 +1,6 @@
 ActiveAdmin.register Quotation do
-  menu parent: 'Order',  priority: 2
-
+  # menu parent: 'Order',  priority: 2
+  menu false
   filter :first_name
   filter :created_at
   filter :updated_at
@@ -11,8 +11,8 @@ ActiveAdmin.register Quotation do
                 quotation_prices_attributes: [:id, :name, :amount, :price, :_destroy]
 
   action_item :print, only: [:show] do
-    # @stuff_quotation = stuff_quotation
-    link_to "Print", print_order_path(:id => params[:id],:from => "quotation"), :target => "_blank"
+    link_to "ปริ้นใบคำสั่งผลิต", print_order_path(:id => params[:id],:from => "quotation"), :target => "_blank"
+    # link_to "print_quotation_path", print_quotation_path(:id => params[:id]), :target => "_blank"
   end
 
   action_item :view, only: [:edit] do
@@ -56,12 +56,7 @@ ActiveAdmin.register Quotation do
     end
 
   end
-
-  action_item :email, method: :get do
-    @quotation = Quotation.quotation_report(params[:id])
-    render 'preview_email'
-  end
-
+  
   scope "All",  :default => true do |quotation|
     if current_admin_user.anonymous == true
       Quotation.all().order('updated_at DESC')
@@ -70,60 +65,16 @@ ActiveAdmin.register Quotation do
     end
   end
 
-
-  index do
-    # div do stylesheet_link_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" end
-    # div do javascript_include_tag "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" end
-
-    # div class:'modal fade',id:'quotaion_loading_email',tabindex:'-1',role:'dialog' do
-    #   div class:'modal-dialog modal-sm',role:'document' do
-    #     div class:'modal-content' do
-    #       div class:'modal-body',align:'center' do
-    #         image_tag("print/email_loading.gif", width: '200px',height:'200px')
-    #       end
-    #     end
-    #   end
-    # end
-
-    selectable_column
-    column :admin_user
-    column :use
-    column :first_name
-    column :tel
-    column :email
-    column "Confirm" do |quotation|
-      if quotation.complete
-        span class:'label label-success', value:quotation.id  do
-          "Quotation"
-        end
-      else
-        span class:'label label-warning quotation-confirm', value:quotation.id  do
-          "Not Send"
-        end
-      end
-    end
-
-    column "Email" do |quotation|
-      a href:email_admin_quotation_path(quotation) do
-        span class:'label label-primary quotation-confirm', value:quotation.id  do
-          'View Email'
-        end
-      end
-    end
-
-    actions
-
-  end
   sidebar "ข้อมูลทั่วไป", only: :show,class:"quotation_sidebar" do
     attributes_table do
 
-      row "ส่งอีเมล์" do |c|
+      row "อีเมล์" do |c|
         button type:'button',id:'',class:'btn btn-primary quotation_send_email',value:quotation.id  do
           span class:'glyphicon glyphicon-envelope',style:'margin-right:5px' do
 
           end
           span do
-            'Email'
+            'ส่ง'
           end
         end
       end
@@ -180,14 +131,9 @@ ActiveAdmin.register Quotation do
       row "หมายเลข ผู้เสียภาษี" do |c|
         c.tax_identification_number
       end
-      # row "ราคา พื่นฐาน" do
-      #   c.base_price
-      # end
-      # ==============================
     end
 
   end
-
   sidebar "โลโก้", only: :show,class:"order_sidebar" do
     order = Quotation.find(params[:id])
     if order.stuff_picker
@@ -298,8 +244,37 @@ ActiveAdmin.register Quotation do
 
   end
 
+  index do
 
+    selectable_column
+    column :admin_user
+    column :use
+    column :first_name
+    column :tel
+    column :email
+    column "Confirm" do |quotation|
+      if quotation.complete
+        span class:'label label-success', value:quotation.id  do
+          "Quotation"
+        end
+      else
+        span class:'label label-warning quotation-confirm', value:quotation.id  do
+          "Not Send"
+        end
+      end
+    end
 
+    column "Email" do |quotation|
+      a href:root_path(quotation) do
+        span class:'label label-primary quotation-confirm', value:quotation.id  do
+          'View Email'
+        end
+      end
+    end
+
+    actions
+
+  end
 
   show do |c|
 
@@ -314,7 +289,6 @@ ActiveAdmin.register Quotation do
     end
 
     attributes_table do
-
       if c.stuff_picker
         columns do
           column width: "100%" do
@@ -375,12 +349,6 @@ ActiveAdmin.register Quotation do
                 th do
                   "ชื่อ ชิ้นส่วน"
                 end
-                # th do
-                #   "รูปพรีวิว 1"
-                # end
-                # th doกฟดเ
-                #   "รูปพรีวิว 2"
-                # end
                 th do
                   "ชื่อสีที่ 1"
                 end
@@ -405,16 +373,6 @@ ActiveAdmin.register Quotation do
                     td do
                       stuff.name
                     end
-                    # td do
-                    #   if stuff.stuff_product_img
-                    #     image_tag(stuff.stuff_product_img.url(:thumb))
-                    #   end
-                    # end
-                    # td do
-                    #   if stuff.stuff_product_img_two
-                    #     image_tag(stuff.stuff_product_img_two.url(:thumb))
-                    #   end
-                    # end
                     td do
                       if picker["color_code_0_name"]
                         picker["color_code_0_name"]
@@ -462,86 +420,11 @@ ActiveAdmin.register Quotation do
       row "เพิ่มเติมพิเศษ" do
         c.option_price_details
       end
-
-      # row "ราคา ต่อชิ้น และ จำนวนที่สั้ง" do
-      #   estimate = JSON.parse(c.estimate_cost)
-      #   table do
-      #     tr do
-      #       th do
-      #         "ขนาด"
-      #       end
-      #       th do
-      #         "จำนวน"
-      #       end
-      #       th do
-      #         "ราคาประมาณ (ต่อหน่วย)"
-      #       end
-      #     end
-      #     estimate.each do |stuff|
-      #       if stuff["amount"] != ""
-      #         tr do
-      #           td do
-      #             stuff["size"]
-      #           end
-      #           td do
-      #             stuff["amount"]
-      #           end
-      #           td do
-      #             stuff["price_per_unit"]
-      #           end
-      #         end
-      #       end
-      #     end
-      #   end
-      # end
-
     end
-
-    # panel "ราคารวม จาก estimate cost" do
-    #
-    #
-    #   attributes_table_for quotation do
-    #     total = 0
-    #     quotation.json_estimate_cost().each do |total|
-    #       total = total['amount']
-    #     end
-    #     row "ราคารวม" do
-    #
-    #     end
-    #   end
-    #
-    # end
 
     panel "จำนวน" do
       attributes_table_for quotation do
         row "จำนวน" do
-
-          # stuff = quotation.json_estimate_cost()
-          # if stuff != []
-          #   table do
-          #     tr do
-          #       th do
-          #         "ขนาด"
-          #       end
-          #       th do
-          #         "จำนวน"
-          #       end
-          #     end
-          #     stuff.each do |price|
-          #       if price['amount'] != ""
-          #         tr do
-          #           td class:"" do
-          #             price['size']
-          #           end
-          #           td class:"" do
-          #             price['amount']
-          #           end
-          #         end
-          #       end
-          #     end
-          #   end
-          # end
-
           quotation = Quotation.find(params[:id])
           if !quotation.nil?
             table do
@@ -552,9 +435,6 @@ ActiveAdmin.register Quotation do
                 th do
                   "จำนวน"
                 end
-                # th do
-                #   "ราคา"
-                # end
               end
               QuotationPrice.where({quotation:quotation}).each do |quotation_price|
 
@@ -565,9 +445,6 @@ ActiveAdmin.register Quotation do
                   td class:"" do
                     quotation_price.amount
                   end
-                  # td class:"" do
-                  #   quotation_price.price
-                  # end
                 end
 
               end
@@ -578,28 +455,11 @@ ActiveAdmin.register Quotation do
       end
     end
 
-
-    # panel "ราคารวม" do
-    #   attributes_table_for quotation do
-    #     # row "ราคารวม" do
-    #     #   stuff = order.json_price_amount_report()
-    #     #   if stuff != []
-    #     #     stuff['total_price']
-    #     #   end
-    #     # end
-    #     row "ราคารวม" do
-    #       quotation.total_price
-    #     end
-    #   end
-    # end
-
-
     if current_admin_user.group_role.name == "superadmin"
 
       panel "SUPER ADMIN" do
         stuff = quotation.json_price_amount_report()
         attributes_table_for quotation do
-
           row "ราคาทุน" do
             if stuff != []
               stuff['price_before_profit']
@@ -610,180 +470,168 @@ ActiveAdmin.register Quotation do
               stuff['profit']
             end
           end
-          # row "ราคาทุน x กำไร" do
-          #   if stuff != []
-          #     stuff['total_price']
-          #   end
-          # end
         end
       end
 
       panel "SUPER ADMIN" do
         attributes_table_for quotation do
 
-          row "ราคาต้นทุน" do
-
-            table do
+          table do
+            tr do
+              th do
+                "ชื่อ"
+              end
+              th do
+                "ราคาแยกตามส่วน"
+              end
+            end
+            json_price = quotation.json_price_amount_report();
+            if json_price != []
+              all_stuff_price = json_price['all_stuff_price']
+            else
+              all_stuff_price = []
+            end
+            all_stuff_price.each do |stuff|
               tr do
-                th do
-                  "ชื่อ"
+                td style: 'min-width: 80px' do
+                  stuff[0]
                 end
-                th do
-                  "ราคาแยกตามส่วน"
-                end
-              end
-              json_price = quotation.json_price_amount_report();
-              if json_price != []
-                all_stuff_price = json_price['all_stuff_price']
-              else
-                all_stuff_price = []
-              end
-              all_stuff_price.each do |stuff|
-                tr do
-
-                  td do
-                    stuff[0]
-                  end
-                  td do
-                    table do
-                      tr do
-                        th do
-                          "Name"
-                        end
-                        th do
-                          "Value"
-                        end
+                td do
+                  table do
+                    tr do
+                      th style: 'min-width: 130px' do
+                        "Name"
                       end
-                      stuff[1].each do |key, array|
-                        # if !array['fabric_price'].nil?
-                        tr do
-                          td do
-                            if key=="add_option_price"
-                              "ค่าเพิ่มเติม"
-                            elsif key=="wage"
-                              "ค่าแรง (Wage)"
-                            elsif key=="base_price"
-                              "ราคารวมแต่ละชิ้นส่วน (Base_price)"
-                            elsif key=="pattern_price	"
-                              "ค่าแบบ (Pattern price)"
-                            elsif key=="amount"
-                              "จำนวนที่สั่ง (Amount)"
-                            elsif key=="profit"
-                              "กำไร (Profit)"
-                            elsif key=="all_logo_price"
-                              "ราคา โลโก้ทุกส่วน (ต่อตัว)"
-                            elsif key=="pattern_price / amount"
-                              "pattern_price / amount"
-                            elsif key=="current_price"
-                              "ราคาสุทธิต่อตัว"
-                            elsif key=="total_amount_price"
-                              "ราคาสุทธิ x จำนวน"
-                            else
-                              key
-                            end
+                      th do
+                        "Value"
+                      end
+                    end
+                    stuff[1].each do |key, array|
+                      tr do
+                        td do
+                          if key=="add_option_price"
+                            "ค่าเพิ่มเติม"
+                          elsif key=="wage"
+                            "ค่าแรง (Wage)"
+                          elsif key=="base_price"
+                            "ราคารวมแต่ละชิ้นส่วน (Base_price)"
+                          elsif key=="pattern_price	"
+                            "ค่าแบบ (Pattern price)"
+                          elsif key=="amount"
+                            "จำนวนที่สั่ง (Amount)"
+                          elsif key=="profit"
+                            "กำไร (Profit)"
+                          elsif key=="all_logo_price"
+                            "ราคา โลโก้ทุกส่วน (ต่อตัว)"
+                          elsif key=="pattern_price / amount"
+                            "pattern_price / amount"
+                          elsif key=="current_price"
+                            "ราคาสุทธิต่อตัว"
+                          elsif key=="total_amount_price"
+                            "ราคาสุทธิ x จำนวน"
+                          else
+                            key
                           end
-                          td do
-                            if array.class == Hash
+                        end
+                        td do
+                          if array.class == Hash
 
-                              table do
-                                tr do
-                                  th do
-                                    "fabric_price"
-                                  end
-                                  th do
-                                    "color_factor"
-                                  end
-                                  th do
-                                    "texture_consumption"
-                                  end
-                                  th do
-                                    "consumption"
-                                  end
-                                  th do
-                                    "size_factor"
-                                  end
-                                  th do
-                                    "static_price_per_stuff"
-                                  end
-                                  th do
-                                    "CC_0_price"
-                                  end
-                                  th do
-                                    "CC_1_price"
-                                  end
-                                  th do
-                                    "CC_2_price"
-                                  end
-                                  th do
-                                    "CR_0"
-                                  end
-                                  th do
-                                    "CR_1"
-                                  end
-                                  th do
-                                    "CR_2"
-                                  end
+                            table class:'table-small-th' do
+                              tr do
+                                th do
+                                  "fabric_price"
                                 end
-                                tr do
-                                  td do
-                                    array['fabric_price']
-                                  end
-                                  td do
-                                    array['color_factor']
-                                  end
-                                  td do
-                                    array['stuff_texture_consumption']
-                                  end
-                                  td do
-                                    array['consumption']
-                                  end
-                                  td do
-                                    array['size_factor']
-                                  end
-                                  td do
-                                    array['static_price_per_stuff']
-                                  end
-                                  td do
-                                    array['color_code_0_price']
-                                  end
-                                  td do
-                                    array['color_code_1_price']
-                                  end
-                                  td do
-                                    array['color_code_2_price']
-                                  end
-                                  td do
-                                    array['color_ratio_0']
-                                  end
-                                  td do
-                                    array['color_ratio_1']
-                                  end
-                                  th do
-                                    array['color_ratio_2']
-                                  end
+                                th do
+                                  "color_factor"
+                                end
+                                th do
+                                  "texture_cons"
+                                end
+                                th do
+                                  "consumption"
+                                end
+                                th do
+                                  "size_factor"
+                                end
+                                th do
+                                  "static_price"
+                                end
+                                th do
+                                  "CC_0_price"
+                                end
+                                th do
+                                  "CC_1_price"
+                                end
+                                th do
+                                  "CC_2_price"
+                                end
+                                th do
+                                  "CR_0"
+                                end
+                                th do
+                                  "CR_1"
+                                end
+                                th do
+                                  "CR_2"
                                 end
                               end
-                            else
-                              array.to_f.round(2)
+                              tr do
+                                td do
+                                  array['fabric_price']
+                                end
+                                td do
+                                  array['color_factor']
+                                end
+                                td do
+                                  array['stuff_texture_consumption']
+                                end
+                                td do
+                                  array['consumption']
+                                end
+                                td do
+                                  array['size_factor']
+                                end
+                                td do
+                                  array['static_price_per_stuff']
+                                end
+                                td do
+                                  array['color_code_0_price']
+                                end
+                                td do
+                                  array['color_code_1_price']
+                                end
+                                td do
+                                  array['color_code_2_price']
+                                end
+                                td do
+                                  array['color_ratio_0']
+                                end
+                                td do
+                                  array['color_ratio_1']
+                                end
+                                th do
+                                  array['color_ratio_2']
+                                end
+                              end
                             end
+                          else
+                            array.to_f.round(2)
                           end
                         end
                       end
                     end
                   end
-
                 end
-              end #LOOP
-            end
 
-            nil
+              end
+            end #LOOP
           end
+
         end
       end
     end #if admin
     active_admin_comments
   end
-
 
   form do |f|
     f.semantic_errors # shows errors on :base
@@ -797,37 +645,15 @@ ActiveAdmin.register Quotation do
       f.input :credit
       f.input :pledge,label:'Deposit'
       f.input :total_price,label:'ราคารวม (ทุน+กำไร)'
-      # f.input :final_price,label:'ราคาสุดท้าย'
       f.input :first_name,label:'ชื่อ'
       f.input :tel,label:'โทร'
       f.input :fax,label:'แฟกซ์'
       f.input :email,label:'อีเมล'
       f.input :address,label:'ที่อยู่'
-      # f.input :status
-      # f.input :estimate_cost
-      # f.input :stuff_picker
-      # f.input :base_price
       f.input :company_name,label:'บริษัท'
       f.input :company_branch,label:'สาขา'
       f.input :tax_identification_number,label:'เลขผู้เสียภาษี'
-      # f.input :price_amount_report
       f.input :active
     end
-
-    # f.has_many :quotation_prices do |quotation_price|
-    #   quotation_price.input :name,label:'ชื่อ',   :wrapper_html => { :class => 'admin-inline' }
-    #   quotation_price.input :amount,label:'จำนวน',   :wrapper_html => { :class => 'admin-inline' }
-    #   quotation_price.input :price,label:'ราคา',   :wrapper_html => { :class => 'admin-inline',:disabled => true }
-    #   # quotation_price.input :_destroy,label:'ลบ', as: :boolean,   :wrapper_html => { :class => 'admin-inline' }
-    #   # quotation_price.input :price
-    # end
-
-
-
-
-
   end
-
-
-
 end

@@ -1,5 +1,6 @@
 class Order < ActiveRecord::Base
 
+  has_many :quotations
   belongs_to :admin_user
   belongs_to :user
 
